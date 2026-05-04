@@ -4940,7 +4940,7 @@
         function stopVideo(video, wrap) {
           video.dataset.playOnLoad = "";
           video.pause();
-          video.load();
+          video.currentTime = 0; /* Giữ nguyên buffer, không load() lại */
           wrap.classList.remove("is-playing");
           wrap.classList.remove("sms-tapped");
         }
@@ -5024,6 +5024,7 @@
                 /* Inject src on first enter */
                 if (src && !src.src) {
                   src.src = src.dataset.src;
+                  video.preload = "auto"; /* Buffer sẵn khi vào viewport */
                   video.load();
                   video.addEventListener("loadedmetadata", function onReady() {
                     video.removeEventListener("loadedmetadata", onReady);
@@ -5285,25 +5286,35 @@
         if (!lb || !lbVideo || !lbClose) return;
 
         function openLightbox(src) {
-          /* Dừng card preview trước để tránh xung đột audio */
+          /* Dừng card preview — KHÔNG gọi load() để giữ buffer */
           document.querySelectorAll(".sms-video").forEach(function (v) {
-            if (!v.paused) {
-              v.pause();
-              v.load();
-            }
+            if (!v.paused) v.pause();
           });
+
           lb.classList.add("is-open");
           document.body.style.overflow = "hidden";
-          lbVideo.src = src;
-          lbVideo.load();
-          /* play() gọi trong click handler — browser cho phép audio */
-          lbVideo.play().catch(function () {
-            /* Nếu chưa đủ data, chờ canplay rồi thử lại */
-            lbVideo.addEventListener("canplay", function retry() {
-              lbVideo.removeEventListener("canplay", retry);
-              lbVideo.play().catch(function () {});
+
+          /* Chỉ load lại nếu src thay đổi */
+          if (lbVideo.getAttribute("src") !== src) {
+            lbVideo.src = src;
+            lbVideo.load();
+          }
+
+          /* play() ngay trong click context — browser cho phép audio */
+          var playPromise = lbVideo.play();
+          if (playPromise !== undefined) {
+            playPromise.catch(function () {
+              /* Chưa đủ data — chờ canplay, chỉ đăng ký 1 lần */
+              lbVideo.addEventListener(
+                "canplay",
+                function retry() {
+                  lbVideo.removeEventListener("canplay", retry);
+                  lbVideo.play().catch(function () {});
+                },
+                { once: true },
+              );
             });
-          });
+          }
         }
 
         function closeLightbox() {
