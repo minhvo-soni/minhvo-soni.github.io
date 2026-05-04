@@ -2,7 +2,10 @@
 <html lang="vi">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
     <title>SONI — Nhiếp Ảnh & Media</title>
 
     <!-- Resource Hints: Ưu tiên kết nối để giảm độ trễ phân giải DNS -->
@@ -59,12 +62,15 @@
 
       html {
         /* scroll-behavior: smooth; -- Tạm tắt để tránh xung đột với Lenis */
+        -webkit-text-size-adjust: 100%; /* iOS tắt auto-zoom font khi xoay ngang */
       }
 
       body {
         background: #050505;
         color: #ffffff;
         font-family: "Synonym", system-ui, sans-serif;
+        -webkit-tap-highlight-color: transparent; /* Xóa flash xanh khi tap trên Android */
+        overscroll-behavior-y: none; /* Tắt pull-to-refresh không mong muốn */
       }
 
       ::selection {
@@ -912,6 +918,8 @@
         gap: 0.75rem;
         scroll-snap-type: x mandatory;
         -webkit-overflow-scrolling: touch;
+        overscroll-behavior-x: contain;
+        touch-action: pan-x;
         padding: 0 1.5rem 1.5rem;
         scrollbar-width: none;
         align-items: center;
@@ -2416,7 +2424,37 @@
         transform: translateX(5px);
       }
 
-      /* ── Footer social icon hover — handled inline ── */
+      /* ── Footer social icon hover — CSS transition thay vì inline JS ── */
+      .footer-social-link {
+        color: rgba(255, 255, 255, 0.3);
+        transition: color 0.25s;
+      }
+      .footer-social-link:hover,
+      .footer-social-link:focus-visible {
+        color: #d4af37;
+      }
+
+      /* ── Mobile: tắt flash xanh khi tap các phần tử tương tác ── */
+      a,
+      button,
+      [role="button"],
+      .sms-phone-wrap,
+      .gal-card,
+      .contact-card {
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      /* ── Lightbox scroll containers — chặn scroll lan ra ngoài (iOS) ── */
+      [data-lenis-prevent] {
+        overscroll-behavior: contain;
+      }
+
+      /* ── Mobile viewport safety ── */
+      @supports (padding: env(safe-area-inset-bottom)) {
+        footer {
+          padding-bottom: max(2rem, env(safe-area-inset-bottom));
+        }
+      }
     </style>
   </head>
 
@@ -2435,7 +2473,11 @@
     <nav
       id="nav"
       class="fixed top-0 inset-x-0 z-50"
-      style="padding: 1rem 1.25rem 0"
+      style="
+        padding: max(1rem, env(safe-area-inset-top))
+          max(1.25rem, env(safe-area-inset-right)) 0
+          max(1.25rem, env(safe-area-inset-left));
+      "
     >
       <!-- ── Island pill ── -->
       <div class="float-island">
@@ -4250,9 +4292,7 @@
               href="https://instagram.com/soni.photoo"
               target="_blank"
               rel="noopener"
-              style="color: rgba(255, 255, 255, 0.3); transition: color 0.25s"
-              onmouseenter="this.style.color = '#D4AF37'"
-              onmouseleave="this.style.color = 'rgba(255,255,255,.3)'"
+              class="footer-social-link"
               aria-label="Instagram"
             >
               <svg
@@ -4269,9 +4309,7 @@
             <!-- Email -->
             <a
               href="mailto:voquangminh771@gmail.com"
-              style="color: rgba(255, 255, 255, 0.3); transition: color 0.25s"
-              onmouseenter="this.style.color = '#D4AF37'"
-              onmouseleave="this.style.color = 'rgba(255,255,255,.3)'"
+              class="footer-social-link"
               aria-label="Email"
             >
               <svg
@@ -4291,9 +4329,7 @@
             <!-- Phone -->
             <a
               href="tel:0384316771"
-              style="color: rgba(255, 255, 255, 0.3); transition: color 0.25s"
-              onmouseenter="this.style.color = '#D4AF37'"
-              onmouseleave="this.style.color = 'rgba(255,255,255,.3)'"
+              class="footer-social-link"
               aria-label="Phone"
             >
               <svg
@@ -4896,34 +4932,36 @@
           /* Cards with data-yt-id handled by YouTube modal — skip */
           if (wrap.dataset.ytId) return;
 
-          /* ── Hover: spotlight + play on desktop ── */
-          wrap.addEventListener("mouseenter", function () {
-            var strip = document.getElementById("filmStrip");
-            if (strip) {
-              strip.classList.add("has-focus");
-              strip
-                .querySelectorAll(
-                  ".sms-phone-wrap:not(.film-hidden),.brand-ph-card:not(.film-hidden)",
-                )
-                .forEach(function (c) {
-                  c.classList.remove("is-active");
-                });
-              wrap.classList.add("is-active");
-            }
-            attemptPlay(video, wrap);
-          });
-          wrap.addEventListener("mouseleave", function () {
-            stopVideo(video, wrap);
-            var strip = document.getElementById("filmStrip");
-            if (strip) {
-              strip.classList.remove("has-focus");
-              strip
-                .querySelectorAll(".sms-phone-wrap, .brand-ph-card")
-                .forEach(function (c) {
-                  c.classList.remove("is-active");
-                });
-            }
-          });
+          /* ── Hover: spotlight + play — desktop only ── */
+          if (!window.__isTouch) {
+            wrap.addEventListener("mouseenter", function () {
+              var strip = document.getElementById("filmStrip");
+              if (strip) {
+                strip.classList.add("has-focus");
+                strip
+                  .querySelectorAll(
+                    ".sms-phone-wrap:not(.film-hidden),.brand-ph-card:not(.film-hidden)",
+                  )
+                  .forEach(function (c) {
+                    c.classList.remove("is-active");
+                  });
+                wrap.classList.add("is-active");
+              }
+              attemptPlay(video, wrap);
+            });
+            wrap.addEventListener("mouseleave", function () {
+              stopVideo(video, wrap);
+              var strip = document.getElementById("filmStrip");
+              if (strip) {
+                strip.classList.remove("has-focus");
+                strip
+                  .querySelectorAll(".sms-phone-wrap, .brand-ph-card")
+                  .forEach(function (c) {
+                    c.classList.remove("is-active");
+                  });
+              }
+            });
+          }
         });
 
         /* ── Duration badge helper ── */
@@ -4979,7 +5017,7 @@
                 }
               } else {
                 /* Pause video when scrolled out of view on mobile */
-                if (isTouch && !video.paused) {
+                if (window.__isTouch && !video.paused) {
                   video.pause();
                   wrap.classList.remove("is-playing");
                 }
@@ -5981,6 +6019,12 @@
     <script src="https://unpkg.com/lenis@1.1.20/dist/lenis.min.js"></script>
     <script>
       (function () {
+        /* Không dùng Lenis trên thiết bị cảm ứng — iOS/Android có native scroll tốt hơn */
+        var isTouch = "ontouchstart" in window || navigator.maxTouchPoints > 0;
+        window.__isTouch = isTouch;
+
+        if (isTouch) return;
+
         var lenis = new Lenis({
           autoRaf: true,
           duration: 1.2,
