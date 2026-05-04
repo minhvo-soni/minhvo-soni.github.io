@@ -6105,6 +6105,8 @@
     <!-- ══════════════════════════════════════════
      SMOOTH SCROLLING (LENIS)
 ══════════════════════════════════════════ -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     <script src="https://unpkg.com/lenis@1.1.20/dist/lenis.min.js"></script>
     <script>
       (function () {
@@ -6143,6 +6145,92 @@
               lenis.scrollTo(targetEl, { offset: 0, duration: 1.2 });
             }
           });
+        });
+      })();
+    </script>
+
+    <!-- GSAP ScrollTrigger — Section entrance animations -->
+    <script>
+      (function () {
+        if (typeof gsap === "undefined" || typeof ScrollTrigger === "undefined")
+          return;
+        gsap.registerPlugin(ScrollTrigger);
+
+        var reduced = window.matchMedia(
+          "(prefers-reduced-motion: reduce)",
+        ).matches;
+        if (reduced) return;
+
+        function fadeUp(targets, trigger, opts) {
+          gsap.from(
+            targets,
+            Object.assign(
+              {
+                scrollTrigger: {
+                  trigger: trigger,
+                  start: "top 82%",
+                  once: true,
+                },
+                y: 32,
+                opacity: 0,
+                duration: 0.6,
+                ease: "power3.out",
+                clearProps: "all",
+              },
+              opts || {},
+            ),
+          );
+        }
+
+        /* ── Social ── */
+        fadeUp("#social h2", "#social h2");
+        fadeUp("#social .brand-nav-bar", "#social .brand-nav-bar", {
+          delay: 0.1,
+        });
+        fadeUp(".film-strip-wrap", ".film-strip-wrap", {
+          y: 20,
+          duration: 0.7,
+          delay: 0.15,
+        });
+
+        /* ── About ── */
+        fadeUp("#about h2", "#about h2");
+        gsap.from(".about-portrait", {
+          scrollTrigger: {
+            trigger: ".about-portrait",
+            start: "top 82%",
+            once: true,
+          },
+          x: -36,
+          opacity: 0,
+          duration: 0.8,
+          ease: "power3.out",
+          clearProps: "all",
+        });
+
+        /* ── Skills ── */
+        fadeUp("#skills h2", "#skills h2");
+        gsap.from(".skill-card", {
+          scrollTrigger: { trigger: "#skills", start: "top 78%", once: true },
+          y: 36,
+          opacity: 0,
+          duration: 0.5,
+          stagger: 0.07,
+          ease: "power3.out",
+          clearProps: "all",
+        });
+
+        /* ── Contact ── */
+        fadeUp("#contact h2", "#contact h2");
+        gsap.from(".contact-card", {
+          scrollTrigger: { trigger: "#contact", start: "top 80%", once: true },
+          y: 28,
+          opacity: 0,
+          duration: 0.5,
+          stagger: 0.09,
+          ease: "power3.out",
+          delay: 0.15,
+          clearProps: "all",
         });
       })();
     </script>
