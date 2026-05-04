@@ -5292,7 +5292,7 @@
       aria-label="Xem video đầy đủ"
     >
       <div id="vid-lb-inner">
-        <video id="vid-lb-video" playsinline controls></video>
+        <video id="vid-lb-video" playsinline controls preload="auto"></video>
       </div>
       <button id="vid-lb-close" aria-label="Đóng">
         <svg
@@ -5317,16 +5317,30 @@
         if (!lb || !lbVideo || !lbClose) return;
 
         function openLightbox(src) {
+          /* Dừng card preview trước để tránh xung đột audio */
+          document.querySelectorAll(".sms-video").forEach(function (v) {
+            if (!v.paused) {
+              v.pause();
+              v.load();
+            }
+          });
           lb.classList.add("is-open");
-          lbVideo.src = src; // Nạp nguồn sau khi UI đã mở
           document.body.style.overflow = "hidden";
-          lbVideo.play().catch(function () {});
+          lbVideo.src = src;
+          lbVideo.load();
+          /* play() gọi trong click handler — browser cho phép audio */
+          lbVideo.play().catch(function () {
+            /* Nếu chưa đủ data, chờ canplay rồi thử lại */
+            lbVideo.addEventListener("canplay", function retry() {
+              lbVideo.removeEventListener("canplay", retry);
+              lbVideo.play().catch(function () {});
+            });
+          });
         }
 
         function closeLightbox() {
           lb.classList.remove("is-open");
           document.body.style.overflow = "";
-          /* wait for fade-out before killing src */
           setTimeout(function () {
             lbVideo.pause();
             lbVideo.src = "";
