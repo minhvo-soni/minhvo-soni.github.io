@@ -2417,60 +2417,6 @@
       }
 
       /* ── Footer social icon hover — handled inline ── */
-
-      /* ── Hero Service Cards ── */
-      .hero-service-card {
-        background: rgba(255, 255, 255, 0.05);
-        backdrop-filter: blur(15px);
-        -webkit-backdrop-filter: blur(15px);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        border-radius: 10px;
-        padding: 1.5rem 1.75rem;
-        display: flex;
-        flex-direction: column;
-        gap: 0.6rem;
-        transition:
-          border-color 0.3s ease,
-          background 0.3s ease;
-        will-change: transform;
-      }
-      .hero-service-card:hover {
-        background: rgba(255, 255, 255, 0.08);
-        border-color: rgba(212, 175, 55, 0.3);
-      }
-      .hero-svc-num {
-        font-family: "Synonym", sans-serif;
-        font-size: 9px;
-        font-weight: 500;
-        letter-spacing: 0.3em;
-        text-transform: uppercase;
-        color: rgba(212, 175, 55, 0.65);
-      }
-      .hero-svc-title {
-        font-family: "Cormorant Garamond", Georgia, serif;
-        font-size: clamp(18px, 2vw, 26px);
-        font-weight: 700;
-        color: #ffffff;
-        letter-spacing: 0.02em;
-        line-height: 1.1;
-      }
-      .hero-svc-desc {
-        font-family: "Be Vietnam Pro", system-ui, sans-serif;
-        font-size: 0.78rem;
-        font-weight: 300;
-        color: rgba(255, 255, 255, 0.4);
-        line-height: 1.75;
-        letter-spacing: 0;
-      }
-      @media (max-width: 767px) {
-        #hero-services {
-          grid-template-columns: 1fr !important;
-          gap: 0.65rem !important;
-        }
-        .hero-service-card {
-          padding: 1rem 1.25rem;
-        }
-      }
     </style>
   </head>
 
@@ -2598,8 +2544,8 @@
           gap: 2.5rem;
         "
       >
-        <!-- Identity — Layout B: Centered Display -->
-        <div id="hero-identity" style="text-align: center">
+        <!-- Identity -->
+        <div style="text-align: center">
           <!-- Eyebrow -->
           <p
             id="hero-eyebrow"
@@ -2611,24 +2557,23 @@
               text-transform: uppercase;
               color: rgba(212, 175, 55, 0.6);
               margin-bottom: 1.5rem;
-              will-change: filter;
             "
           >
             Photographer · Digital Media
           </p>
 
-          <!-- Name — Playfair Display italic, large -->
+          <!-- Name -->
           <h1
             id="hero-name"
             style="
               font-family: &quot;Cormorant Garamond&quot;, Georgia, serif;
               font-style: italic;
-              font-size: clamp(44px, 7.8vw, 112px);
+              font-size: clamp(64px, 10.5vw, 160px);
               font-weight: 700;
-              letter-spacing: -0.01em;
+              letter-spacing: -0.02em;
               color: #ffffff;
               line-height: 1;
-              will-change: filter;
+              margin: 0;
             "
           >
             Võ Quang Minh
@@ -2647,7 +2592,6 @@
                 transparent
               );
               margin: 1.4rem auto;
-              transform-origin: center;
             "
           ></div>
 
@@ -2661,44 +2605,10 @@
               letter-spacing: 0.22em;
               text-transform: uppercase;
               color: rgba(255, 255, 255, 0.35);
-              will-change: filter;
             "
           >
             Strategist · Dalat · Vietnam
           </p>
-        </div>
-
-        <!-- Service Cards -->
-        <div
-          id="hero-services"
-          style="
-            width: 100%;
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1rem;
-          "
-        >
-          <div class="hero-service-card">
-            <span class="hero-svc-num">01</span>
-            <span class="hero-svc-title">Production</span>
-            <p class="hero-svc-desc">
-              Chụp ảnh thương mại, video quảng cáo &amp; content thực địa.
-            </p>
-          </div>
-          <div class="hero-service-card">
-            <span class="hero-svc-num">02</span>
-            <span class="hero-svc-title">Strategy</span>
-            <p class="hero-svc-desc">
-              Chiến lược nội dung đa nền tảng &amp; định vị thương hiệu dài hạn.
-            </p>
-          </div>
-          <div class="hero-service-card">
-            <span class="hero-svc-num">03</span>
-            <span class="hero-svc-title">Post-Process</span>
-            <p class="hero-svc-desc">
-              Hậu kỳ ảnh, dựng phim &amp; motion graphics chuyên nghiệp.
-            </p>
-          </div>
         </div>
       </div>
     </section>
@@ -6122,62 +6032,6 @@
         ).matches;
         if (reduced) return;
 
-        /* ── Hero load animation — blur-in sequence + cards stagger ── */
-        var heroTl = gsap.timeline({ defaults: { ease: "power2.out" } });
-        heroTl
-          .from("#hero-eyebrow", {
-            filter: "blur(10px)",
-            opacity: 0,
-            y: 6,
-            duration: 0.9,
-            delay: 0.15,
-            clearProps: "all",
-          })
-          .from(
-            "#hero-name",
-            {
-              filter: "blur(24px)",
-              opacity: 0,
-              y: 14,
-              duration: 1.1,
-              clearProps: "all",
-            },
-            "-=0.5",
-          )
-          .from(
-            "#hero-divider",
-            {
-              scaleX: 0,
-              opacity: 0,
-              duration: 0.6,
-              ease: "power3.inOut",
-              clearProps: "all",
-            },
-            "-=0.5",
-          )
-          .from(
-            "#hero-tagline",
-            {
-              filter: "blur(8px)",
-              opacity: 0,
-              duration: 0.8,
-              clearProps: "all",
-            },
-            "-=0.4",
-          )
-          .from(
-            ".hero-service-card",
-            {
-              filter: "blur(6px)",
-              opacity: 0,
-              y: 36,
-              duration: 0.65,
-              stagger: 0.2,
-              clearProps: "all",
-            },
-            "-=0.3",
-          );
-
         function fadeUp(targets, trigger, opts) {
           gsap.from(
             targets,
@@ -6198,6 +6052,50 @@
             ),
           );
         }
+
+        /* ── Hero load animation — blur-in sequence ── */
+        gsap
+          .timeline({ defaults: { ease: "power2.out" } })
+          .from("#hero-eyebrow", {
+            filter: "blur(10px)",
+            opacity: 0,
+            y: 6,
+            duration: 0.9,
+            delay: 0.15,
+            clearProps: "filter,opacity,transform",
+          })
+          .from(
+            "#hero-name",
+            {
+              filter: "blur(24px)",
+              opacity: 0,
+              y: 14,
+              duration: 1.1,
+              clearProps: "filter,opacity,transform",
+            },
+            "-=0.5",
+          )
+          .from(
+            "#hero-divider",
+            {
+              scaleX: 0,
+              opacity: 0,
+              duration: 0.6,
+              ease: "power3.inOut",
+              clearProps: "filter,opacity,transform",
+            },
+            "-=0.5",
+          )
+          .from(
+            "#hero-tagline",
+            {
+              filter: "blur(8px)",
+              opacity: 0,
+              duration: 0.8,
+              clearProps: "filter,opacity,transform",
+            },
+            "-=0.4",
+          );
 
         /* ── Social ── */
         fadeUp("#social h2", "#social h2");
