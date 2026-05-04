@@ -1,0 +1,29 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node -e \"let d='';process.stdin.on('data',c=>d+=c);process.stdin.on('end',()=>{try{const f=JSON.parse(d).tool_input.file_path;if(f){require('child_process').execSync('npx prettier --write '+JSON.stringify(f),{stdio:'inherit'})}}catch(e){}})\" 2>/dev/null || true"
+          }
+        ]
+      }
+    ]
+  },
+  "mcpServers": {
+    "filesystem": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem", "G:\\Claude_Projects"]
+    },
+    "google-drive": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-gdrive"],
+      "env": {
+        "GDRIVE_OAUTH_PATH": "C:\\Users\\Administrator\\gcp-oauth.keys.json",
+        "GDRIVE_CREDENTIALS_PATH": "C:\\Users\\Administrator\\.config\\gdrive-mcp\\credentials.json"
+      }
+    }
+  }
+}

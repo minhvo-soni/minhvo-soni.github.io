@@ -1,0 +1,6139 @@
+﻿<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SONI — Nhiếp Ảnh & Media</title>
+
+    <!-- Resource Hints: Ưu tiên kết nối để giảm độ trễ phân giải DNS -->
+    <link rel="preconnect" href="https://cdn.tailwindcss.com" crossorigin />
+    <link rel="preconnect" href="https://unpkg.com" crossorigin />
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Fonts: Cormorant Garamond (serif hero) · Playfair Display · Be Vietnam Pro (body + Vietnamese) · Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600;1,700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,700;1,800&family=Inter:wght@300;400;500&family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://api.fontshare.com" />
+    <link
+      href="https://api.fontshare.com/v2/css?f[]=amulya@900,800,700,400&f[]=synonym@400,500,300&display=swap"
+      rel="stylesheet"
+    />
+
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              bg: "#050505",
+              bg2: "#0d0d0d",
+              accent: "#D4AF37",
+              cream: "#FFFFFF",
+              faded: "rgba(255,255,255,0.50)",
+            },
+            fontFamily: {
+              display: ["Amulya", "Georgia", "serif"],
+              hero: ["Cormorant Garamond", "Georgia", "serif"],
+              body: ["Synonym", "system-ui", "sans-serif"],
+            },
+          },
+        },
+      };
+    </script>
+
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      html {
+        /* scroll-behavior: smooth; -- Tạm tắt để tránh xung đột với Lenis */
+      }
+
+      body {
+        background: #050505;
+        color: #ffffff;
+        font-family: "Synonym", system-ui, sans-serif;
+      }
+
+      ::selection {
+        background: #d4af37;
+        color: #050505;
+      }
+
+      ::-webkit-scrollbar {
+        width: 2px;
+      }
+
+      ::-webkit-scrollbar-track {
+        background: #050505;
+      }
+
+      ::-webkit-scrollbar-thumb {
+        background: #d4af37;
+      }
+
+      /* ── Section brightness tint — consistency with hero ── */
+      section:not(#hero) {
+        background-color: rgba(255, 255, 255, 0.025);
+      }
+
+      /* ── Glassmorphism — service description blocks ── */
+      .service-col {
+        background: rgba(255, 255, 255, 0.038);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        transition: background 0.3s;
+      }
+
+      .service-col:hover {
+        background: rgba(255, 255, 255, 0.06);
+      }
+
+      /* ── Glassmorphism — gallery phase text block ── */
+      .gal-phase-name,
+      .gal-phase-desc {
+        text-shadow: 0 1px 3px rgba(0, 0, 0, 0.45);
+      }
+
+      /* ── Video GPU acceleration ── */
+      video {
+        backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
+        image-rendering: -webkit-optimize-contrast;
+        transform: translateZ(0);
+      }
+
+      /* ── Animations ── */
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(28px);
+        }
+
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes slideIn {
+        from {
+          opacity: 0;
+          transform: translateX(-20px);
+        }
+
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+
+      @keyframes gridDrift {
+        0% {
+          background-position: 0 0;
+        }
+
+        100% {
+          background-position: 80px 80px;
+        }
+      }
+
+      .fade-up {
+        animation: fadeUp 0.85s cubic-bezier(0.22, 1, 0.36, 1) both;
+      }
+
+      .slide-in {
+        animation: slideIn 0.65s cubic-bezier(0.22, 1, 0.36, 1) both;
+      }
+
+      .d1 {
+        animation-delay: 0.12s;
+      }
+
+      .d2 {
+        animation-delay: 0.26s;
+      }
+
+      .d3 {
+        animation-delay: 0.4s;
+      }
+
+      .d4 {
+        animation-delay: 0.54s;
+      }
+
+      /* ── Service Grid ── */
+      .service-col {
+        padding: 3rem 3.5rem;
+      }
+
+      .service-num {
+        font-family: "Cormorant Garamond", Georgia, serif;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: rgba(212, 175, 55, 0.55);
+        display: block;
+        margin-bottom: 1.4rem;
+      }
+
+      .service-title {
+        font-family: "Cormorant Garamond", Georgia, serif;
+        font-size: clamp(28px, 3.2vw, 46px);
+        font-weight: 600;
+        font-style: italic;
+        letter-spacing: 0.01em;
+        color: rgba(255, 255, 255, 0.9);
+        line-height: 1.05;
+        margin-bottom: 1.25rem;
+      }
+
+      .service-desc {
+        font-family: "Be Vietnam Pro", system-ui, sans-serif;
+        font-size: 12px;
+        font-weight: 400;
+        line-height: 1.9;
+        color: rgba(255, 255, 255, 0.45);
+        letter-spacing: 0;
+        text-align: left;
+      }
+
+      @media (max-width: 767px) {
+        .service-grid-inner {
+          grid-template-columns: 1fr !important;
+        }
+
+        .service-col {
+          padding: 2.25rem 1.75rem !important;
+        }
+
+        .service-col + .service-col {
+          border-left: none !important;
+          border-top: 0.5px solid rgba(255, 255, 255, 0.1) !important;
+        }
+      }
+
+      /* ── Floating Island Nav ── */
+      .float-island {
+        max-width: 880px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 52px;
+        padding: 0 1.5rem;
+        background: rgba(5, 5, 5, 0.72);
+        backdrop-filter: blur(20px) saturate(160%);
+        -webkit-backdrop-filter: blur(20px) saturate(160%);
+        border: 0.5px solid rgba(255, 255, 255, 0.09);
+        border-radius: 9999px;
+        box-shadow:
+          0 8px 32px rgba(0, 0, 0, 0.48),
+          inset 0 1px 0 rgba(255, 255, 255, 0.04);
+      }
+
+      .float-menu {
+        max-width: 880px;
+        margin: 0.5rem auto 0;
+        border-radius: 1.35rem;
+        padding: 0.75rem 1.5rem 1rem;
+        background: rgba(5, 5, 5, 0.88);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 0.5px solid rgba(255, 255, 255, 0.07);
+        box-shadow: 0 8px 28px rgba(0, 0, 0, 0.48);
+      }
+
+      /* ── Nav link underline ── */
+      .nav-link {
+        position: relative;
+        font-family: "Be Vietnam Pro", system-ui, sans-serif;
+        font-size: 10px;
+        font-weight: 500;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.52);
+        transition: color 0.25s;
+      }
+
+      .nav-link:hover {
+        color: #ffffff;
+      }
+
+      .nav-link::after {
+        content: "";
+        position: absolute;
+        bottom: -4px;
+        left: 0;
+        width: 0;
+        height: 1px;
+        background: #d4af37;
+        transition: width 0.3s ease;
+      }
+
+      .nav-link:hover::after {
+        width: 100%;
+      }
+
+      /* ── CONTACT button ── */
+      .contact-btn {
+        font-family: "Be Vietnam Pro", system-ui, sans-serif;
+        font-size: 10px;
+        font-weight: 500;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: #d4af37;
+        border: 0.5px solid rgba(212, 175, 55, 0.45);
+        padding: 0.42rem 1.1rem;
+        border-radius: 9999px;
+        transition:
+          border-color 0.28s ease,
+          color 0.28s ease,
+          background 0.28s ease;
+        white-space: nowrap;
+      }
+
+      .contact-btn:hover {
+        border-color: #d4af37;
+        color: #ffffff;
+        background: rgba(212, 175, 55, 0.1);
+      }
+
+      /* ── Mobile menu links ── */
+      .mMenu-link {
+        font-family: "Be Vietnam Pro", system-ui, sans-serif;
+        font-size: 11px;
+        font-weight: 500;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.52);
+        display: flex;
+        align-items: center;
+        min-height: 44px;
+        padding: 0.5rem 0;
+        border-bottom: 0.5px solid rgba(255, 255, 255, 0.05);
+        transition: color 0.22s;
+      }
+
+      .mMenu-link:last-of-type {
+        border-bottom: none;
+      }
+
+      .mMenu-link:hover {
+        color: #ffffff;
+      }
+
+      /* ── Project card ── */
+      .card {
+        position: relative;
+        overflow: hidden;
+        cursor: pointer;
+      }
+
+      .card-img {
+        transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+
+      .card:hover .card-img {
+        transform: scale(1.05);
+      }
+
+      .card-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          160deg,
+          rgba(212, 175, 55, 0.15) 0%,
+          rgba(0, 0, 0, 0.75) 100%
+        );
+        opacity: 0;
+        transition: opacity 0.4s ease;
+      }
+
+      .card:hover .card-overlay {
+        opacity: 1;
+      }
+
+      /* ── Card tech-specs panel (slides up on hover) ── */
+      .card-specs {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 0.8rem 1.1rem;
+        background: linear-gradient(
+          0deg,
+          rgba(0, 0, 0, 0.92) 0%,
+          rgba(0, 0, 0, 0.3) 80%,
+          transparent 100%
+        );
+        transform: translateY(102%);
+        transition: transform 0.42s cubic-bezier(0.22, 1, 0.36, 1);
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.3rem;
+        pointer-events: none;
+      }
+
+      .card:hover .card-specs {
+        transform: translateY(0);
+      }
+
+      .card-specs span {
+        font-family: "Synonym", sans-serif;
+        font-size: 9.5px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.78);
+        background: rgba(212, 175, 55, 0.08);
+        border: 0.5px solid rgba(212, 175, 55, 0.28);
+        padding: 0.18rem 0.5rem;
+      }
+
+      /* ── GALLERIES — campaign phase cards ── */
+      @keyframes shimmer {
+        0% {
+          transform: translateX(-100%);
+        }
+
+        100% {
+          transform: translateX(100%);
+        }
+      }
+
+      .gal-card {
+        flex-shrink: 0;
+        width: 100vw;
+        height: 100%;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        padding: 5.5rem 3.5rem 3rem;
+        cursor: pointer;
+        overflow: hidden;
+        border-right: 0.5px solid rgba(255, 255, 255, 0.045);
+        transition: background 0.4s ease;
+      }
+
+      .gal-card:hover {
+        background: rgba(255, 255, 255, 0.01);
+      }
+
+      /* ── Gallery prev / next nav buttons ── */
+      .gal-nav-btn {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 20;
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        background: rgba(5, 5, 5, 0.55);
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
+        border: 0.5px solid rgba(255, 255, 255, 0.13);
+        color: rgba(255, 255, 255, 0.65);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        opacity: 0.22;
+        transition:
+          opacity 0.28s,
+          background 0.25s,
+          border-color 0.25s,
+          color 0.25s;
+        pointer-events: auto;
+      }
+
+      #galleries-sticky:hover .gal-nav-btn {
+        opacity: 1;
+      }
+
+      .gal-nav-btn:hover {
+        background: rgba(212, 175, 55, 0.12);
+        border-color: rgba(212, 175, 55, 0.45);
+        color: #d4af37;
+      }
+
+      .gal-nav-btn:active {
+        transform: translateY(-50%) scale(0.92);
+      }
+
+      .gal-nav-prev {
+        left: 1.25rem;
+      }
+
+      .gal-nav-next {
+        right: 1.25rem;
+      }
+
+      @media (max-width: 767px) {
+        .gal-nav-btn {
+          display: none;
+        }
+      }
+
+      .gal-tint {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      .gal-img-wrap {
+        position: relative;
+        flex: 1;
+        overflow: hidden;
+        background: #0b0b0b;
+        margin-bottom: 1.75rem;
+        z-index: 1;
+      }
+
+      .gal-img-wrap::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          90deg,
+          transparent 0%,
+          rgba(255, 255, 255, 0.022) 50%,
+          transparent 100%
+        );
+        animation: shimmer 2.8s ease-in-out infinite;
+      }
+
+      .gal-img-inner {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+      }
+
+      .gal-img-icon {
+        color: rgba(255, 255, 255, 0.07);
+        margin-bottom: 0.2rem;
+      }
+
+      .gal-img-size {
+        font-family: "Synonym", sans-serif;
+        font-size: 11px;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.13);
+      }
+
+      .gal-img-ratio {
+        font-family: "Synonym", sans-serif;
+        font-size: 9px;
+        letter-spacing: 0.14em;
+        color: rgba(255, 255, 255, 0.07);
+      }
+
+      .gal-meta {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 1rem;
+        z-index: 1;
+        position: relative;
+      }
+
+      .gal-venue-tag {
+        font-family: "Synonym", sans-serif;
+        font-size: 9.5px;
+        letter-spacing: 0.24em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.26);
+      }
+
+      .gal-phase-num {
+        font-family: "Synonym", sans-serif;
+        font-size: 9.5px;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: rgba(212, 175, 55, 0.55);
+      }
+
+      .gal-bottom {
+        z-index: 1;
+        position: relative;
+      }
+
+      .gal-phase-name {
+        font-family: "Cormorant Garamond", Georgia, serif;
+        font-size: clamp(22px, 2.2vw, 36px);
+        font-weight: 700;
+        letter-spacing: -0.015em;
+        color: #ffffff;
+        line-height: 1.1;
+        margin-bottom: 0.6rem;
+      }
+
+      .gal-phase-desc {
+        font-family: "Be Vietnam Pro", system-ui, sans-serif;
+        font-size: 0.8rem;
+        font-weight: 300;
+        color: rgba(255, 255, 255, 0.4);
+        line-height: 1.9;
+        letter-spacing: 0;
+        max-width: 34rem;
+      }
+
+      .gal-arrow {
+        position: absolute;
+        bottom: 3rem;
+        right: 3.5rem;
+        z-index: 1;
+        width: 40px;
+        height: 40px;
+        border: 0.5px solid rgba(255, 255, 255, 0.13);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition:
+          border-color 0.3s,
+          background 0.3s;
+      }
+
+      .gal-card:hover .gal-arrow {
+        border-color: rgba(212, 175, 55, 0.4);
+        background: rgba(212, 175, 55, 0.04);
+      }
+
+      /* Mobile: JS-driven transform carousel — cuộn dọc tự do */
+      @media (max-width: 767px) {
+        .gal-card {
+          width: 100vw !important;
+          height: 100vh !important;
+          flex-shrink: 0;
+          padding: 4.5rem 1.5rem 4rem;
+          border-right: 0.5px solid rgba(255, 255, 255, 0.04);
+          border-bottom: none;
+        }
+
+        .gal-img-wrap {
+          min-height: 42vw;
+        }
+
+        .gal-arrow {
+          bottom: 1.75rem;
+          right: 1.5rem;
+        }
+      }
+
+      /* ── About — editorial 6:4 grid ── */
+      .about-grid {
+        display: grid;
+        grid-template-columns: 6fr 4fr;
+        gap: 5rem;
+        align-items: start;
+      }
+
+      @media (max-width: 1023px) {
+        .about-grid {
+          grid-template-columns: 1fr;
+          gap: 2.5rem;
+        }
+      }
+
+      /* Force Be Vietnam Pro for all about-section body text (overrides Inter inline styles) */
+      #about p,
+      #about span {
+        font-family: "Be Vietnam Pro", system-ui, sans-serif !important;
+        letter-spacing: 0;
+      }
+
+      .about-portrait {
+        position: relative;
+        width: 100%;
+        aspect-ratio: 3/4;
+        max-height: 580px;
+        background: #0b0b0b;
+        overflow: hidden;
+      }
+
+      .about-portrait::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        background: linear-gradient(
+          90deg,
+          transparent 0%,
+          rgba(255, 255, 255, 0.018) 50%,
+          transparent 100%
+        );
+        animation: shimmer 3.2s ease-in-out infinite;
+      }
+
+      .timeline-item {
+        padding: 1.15rem 0;
+        border-top: 0.5px solid rgba(255, 255, 255, 0.065);
+      }
+
+      .timeline-item:last-child {
+        border-bottom: 0.5px solid rgba(255, 255, 255, 0.065);
+      }
+
+      /* ── Skill cards v2 — gold hairline + hover brighten ── */
+      .skill-card {
+        padding: 1.75rem;
+        border: 0.5px solid rgba(212, 175, 55, 0.1);
+        background: rgba(255, 255, 255, 0.02);
+        transition:
+          border-color 0.35s ease,
+          background 0.35s ease;
+      }
+
+      .skill-card:hover {
+        border-color: rgba(212, 175, 55, 0.38);
+        background: rgba(212, 175, 55, 0.022);
+      }
+
+      .skill-icon {
+        width: 2.25rem;
+        height: 2.25rem;
+        border: 0.5px solid rgba(212, 175, 55, 0.2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 1.5rem;
+        color: rgba(212, 175, 55, 0.65);
+        transition:
+          border-color 0.35s,
+          color 0.35s,
+          box-shadow 0.35s;
+      }
+
+      .skill-card:hover .skill-icon {
+        border-color: rgba(212, 175, 55, 0.65);
+        color: #d4af37;
+        box-shadow: 0 0 14px rgba(212, 175, 55, 0.1);
+      }
+
+      .skill-name {
+        font-family: "Be Vietnam Pro", system-ui, sans-serif;
+        font-weight: 600;
+        font-size: 1.05rem;
+        color: rgba(255, 255, 255, 0.8);
+        letter-spacing: 0;
+        margin-bottom: 0.45rem;
+        transition: color 0.35s;
+      }
+
+      .skill-card:hover .skill-name {
+        color: #ffffff;
+      }
+
+      .skill-desc {
+        font-family: "Be Vietnam Pro", system-ui, sans-serif;
+        font-size: 0.775rem;
+        font-weight: 300;
+        color: rgba(255, 255, 255, 0.4);
+        letter-spacing: 0;
+        line-height: 1.85;
+        margin-bottom: 1.25rem;
+      }
+
+      /* ── Social Media Strategy ── */
+      .sms-phone-wrap {
+        display: flex;
+        flex-direction: column;
+        gap: 0.85rem;
+        cursor: pointer;
+        flex-shrink: 0;
+        width: 300px;
+        scroll-snap-align: center;
+      }
+
+      .sms-vid-wrap {
+        position: relative;
+        width: 100%;
+        aspect-ratio: 9 / 16;
+        border-radius: 6px;
+        overflow: hidden;
+        background: #0b0b0b;
+        border: 0.5px solid rgba(255, 255, 255, 0.05);
+        transition:
+          border-color 0.3s ease,
+          box-shadow 0.3s ease;
+        will-change: transform;
+        transform: translateZ(0);
+      }
+
+      .sms-phone-wrap:hover .sms-vid-wrap {
+        border-color: rgba(212, 175, 55, 0.35);
+        box-shadow: 0 0 32px rgba(212, 175, 55, 0.06);
+      }
+
+      .sms-video {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: 0;
+        will-change: transform;
+        transform: translateZ(0);
+        backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
+        image-rendering: -webkit-optimize-contrast;
+      }
+
+      .sms-placeholder {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 0.55rem;
+      }
+
+      .sms-ph-icon {
+        color: rgba(255, 255, 255, 0.06);
+      }
+
+      .sms-ph-ratio {
+        font-family: "Synonym", sans-serif;
+        font-size: 9px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.1);
+      }
+
+      .sms-overlay {
+        position: absolute;
+        inset: 0;
+        z-index: 2;
+        background: linear-gradient(
+          0deg,
+          rgba(0, 0, 0, 0.9) 0%,
+          rgba(0, 0, 0, 0.32) 55%,
+          transparent 100%
+        );
+        opacity: 0;
+        transition: opacity 0.38s ease;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        padding: 1.15rem 0.95rem 1.4rem;
+        pointer-events: none;
+      }
+
+      .sms-phone-wrap:hover .sms-overlay {
+        opacity: 1;
+      }
+
+      .sms-platform-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.28rem;
+        font-family: "Be Vietnam Pro", system-ui, sans-serif;
+        font-size: 8px;
+        font-weight: 500;
+        letter-spacing: 0.13em;
+        text-transform: uppercase;
+        color: rgba(212, 175, 55, 0.88);
+        background: rgba(212, 175, 55, 0.07);
+        border: 0.5px solid rgba(212, 175, 55, 0.22);
+        padding: 0.2rem 0.5rem;
+        margin-bottom: 0.6rem;
+        width: fit-content;
+      }
+
+      .sms-campaign-label {
+        font-family: "Synonym", sans-serif;
+        font-size: 8.5px;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.38);
+        margin-bottom: 0.18rem;
+      }
+
+      .sms-campaign-name {
+        font-family: "Cormorant Garamond", Georgia, serif;
+        font-size: 1rem;
+        font-weight: 700;
+        color: #ffffff;
+        line-height: 1.2;
+        margin-bottom: 0.6rem;
+      }
+
+      .sms-metrics {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.28rem;
+      }
+
+      .sms-metric {
+        font-family: "Be Vietnam Pro", system-ui, sans-serif;
+        font-size: 8px;
+        font-weight: 400;
+        letter-spacing: 0.06em;
+        color: rgba(255, 255, 255, 0.58);
+        background: rgba(255, 255, 255, 0.07);
+        border: 0.5px solid rgba(255, 255, 255, 0.1);
+        padding: 0.18rem 0.45rem;
+      }
+
+      .sms-cap-num {
+        font-family: "Synonym", sans-serif;
+        font-size: 9px;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: rgba(212, 175, 55, 0.4);
+        margin-bottom: 0.15rem;
+        text-align: center;
+      }
+
+      .sms-cap-title {
+        font-family: "Be Vietnam Pro", system-ui, sans-serif;
+        font-size: 0.72rem;
+        font-weight: 300;
+        color: rgba(255, 255, 255, 0.35);
+        letter-spacing: 0;
+        text-align: center;
+      }
+
+      @media (max-width: 767px) {
+        .film-strip .sms-phone-wrap,
+        .film-strip .brand-ph-card {
+          width: 80vw !important;
+          min-width: 80vw !important;
+          max-width: 80vw !important;
+        }
+
+        /* On mobile: overlay on tap */
+        .sms-overlay {
+          opacity: 0;
+          transition: opacity 0.25s ease;
+        }
+
+        .sms-phone-wrap.is-playing .sms-overlay {
+          opacity: 0;
+        }
+
+        .sms-phone-wrap.sms-tapped .sms-overlay {
+          opacity: 1;
+        }
+
+        /* Tap-to-play hint icon */
+        .sms-tap-icon {
+          display: flex;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          z-index: 3;
+          width: 44px;
+          height: 44px;
+          background: rgba(212, 175, 55, 0.18);
+          border: 0.5px solid rgba(212, 175, 55, 0.35);
+          border-radius: 50%;
+          align-items: center;
+          justify-content: center;
+          color: rgba(255, 255, 255, 0.8);
+          pointer-events: none;
+          transition: opacity 0.3s ease;
+        }
+
+        .sms-phone-wrap.is-playing .sms-tap-icon {
+          opacity: 0;
+        }
+      }
+
+      /* ── Single Row Film Strip ── */
+      .film-strip-wrap {
+        margin-left: -1.5rem;
+        margin-right: -1.5rem;
+        position: relative;
+      }
+
+      .film-strip {
+        display: flex;
+        overflow-x: auto;
+        gap: 0.75rem;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        padding: 0 1.5rem 1.5rem;
+        scrollbar-width: none;
+        align-items: center;
+      }
+
+      .film-strip::-webkit-scrollbar {
+        display: none;
+      }
+
+      /* Active focus — spotlight effect on scroll */
+      .film-strip .sms-phone-wrap,
+      .film-strip .brand-ph-card {
+        transition:
+          transform 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+          opacity 0.45s ease,
+          filter 0.45s ease;
+        will-change: transform, opacity, filter;
+      }
+
+      .film-strip.has-focus .sms-phone-wrap,
+      .film-strip.has-focus .brand-ph-card {
+        transform: scale(0.96);
+        opacity: 0.35;
+        filter: grayscale(40%) brightness(0.5);
+      }
+
+      .film-strip .sms-phone-wrap.is-active,
+      .film-strip .brand-ph-card.is-active {
+        transform: scale(1.02) !important;
+        opacity: 1 !important;
+        filter: grayscale(0%) brightness(1) !important;
+      }
+
+      /* Filtered hidden */
+      .film-strip .sms-phone-wrap.film-hidden,
+      .film-strip .brand-ph-card.film-hidden {
+        display: none;
+      }
+
+      /* Placeholder card */
+      .brand-ph-card {
+        flex-shrink: 0;
+        width: 300px;
+        scroll-snap-align: center;
+        display: flex;
+        flex-direction: column;
+        gap: 0.85rem;
+        cursor: default;
+      }
+
+      .brand-ph-wrap {
+        width: 100%;
+        aspect-ratio: 9 / 16;
+        border-radius: 6px;
+        background: #111111;
+        border: 1px dashed rgba(255, 255, 255, 0.2);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 0.6rem;
+      }
+
+      .brand-ph-label {
+        font-family: "Be Vietnam Pro", system-ui, sans-serif;
+        font-size: 9px;
+        font-weight: 400;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.22);
+      }
+
+      /* ── Brand Navigation Tabs ── */
+      .brand-nav-bar {
+        display: flex;
+        gap: 0;
+        margin-bottom: 2rem;
+        border-bottom: 0.5px solid rgba(255, 255, 255, 0.07);
+      }
+
+      .brand-nav-btn {
+        font-family: "Be Vietnam Pro", system-ui, sans-serif;
+        font-size: 9.5px;
+        font-weight: 500;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.3);
+        background: transparent;
+        border: none;
+        padding: 0.7rem 1.5rem 0.7rem 0;
+        margin-right: 1.75rem;
+        cursor: pointer;
+        position: relative;
+        transition: color 0.22s;
+      }
+
+      .brand-nav-btn::after {
+        content: "";
+        position: absolute;
+        bottom: -0.5px;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: #d4af37;
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      .brand-nav-btn:hover {
+        color: rgba(255, 255, 255, 0.6);
+      }
+
+      .brand-nav-btn.is-active {
+        color: #d4af37;
+      }
+
+      .brand-nav-btn.is-active::after {
+        transform: scaleX(1);
+      }
+
+      /* ── Film Edge Arrows ── */
+      .film-edge-btn {
+        position: absolute;
+        top: 38%;
+        transform: translateY(-50%);
+        z-index: 10;
+        width: 32px;
+        height: 32px;
+        background: transparent;
+        border: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: rgba(255, 255, 255, 0.35);
+        cursor: pointer;
+        transition: color 0.2s;
+      }
+
+      .film-edge-btn:hover {
+        color: rgba(255, 255, 255, 0.9);
+      }
+
+      .film-edge-prev {
+        left: 1rem;
+      }
+
+      .film-edge-next {
+        right: 1rem;
+      }
+
+      @media (max-width: 767px) {
+        .film-edge-btn {
+          display: none;
+        }
+      }
+
+      /* ── Social: Modal play-hint icon ── */
+      .sms-yt-hint {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 3;
+        width: 48px;
+        height: 48px;
+        background: rgba(0, 0, 0, 0.42);
+        border: 0.5px solid rgba(255, 255, 255, 0.22);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0.55;
+        transition:
+          opacity 0.3s ease,
+          background 0.3s ease,
+          border-color 0.3s ease;
+        pointer-events: none;
+      }
+
+      .sms-phone-wrap:hover .sms-yt-hint {
+        opacity: 1;
+        background: rgba(212, 175, 55, 0.18);
+        border-color: rgba(212, 175, 55, 0.55);
+      }
+
+      /* ── Video duration badge ── */
+      .sms-duration {
+        position: absolute;
+        bottom: 0.5rem;
+        right: 0.5rem;
+        z-index: 4;
+        font-family: "Synonym", sans-serif;
+        font-size: 9px;
+        font-weight: 600;
+        letter-spacing: 0.06em;
+        color: rgba(255, 255, 255, 0.9);
+        background: rgba(0, 0, 0, 0.58);
+        padding: 0.17rem 0.4rem;
+        border-radius: 3px;
+        opacity: 0;
+        transition: opacity 0.3s;
+        pointer-events: none;
+      }
+
+      .sms-duration.loaded {
+        opacity: 1;
+      }
+
+      /* ── YouTube Modal ── */
+      #yt-modal {
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        background: rgba(0, 0, 0, 0.88);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+      }
+
+      #yt-modal.is-open {
+        display: flex;
+      }
+
+      #yt-modal-inner {
+        position: relative;
+        height: 85vh;
+        aspect-ratio: 9 / 16;
+        max-width: calc(85vh * 9 / 16);
+        background: #000;
+        border: 0.5px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 32px 80px rgba(0, 0, 0, 0.8);
+      }
+
+      #yt-modal-inner iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
+        display: block;
+      }
+
+      #yt-modal-close {
+        position: absolute;
+        top: -2.8rem;
+        right: 0;
+        width: 36px;
+        height: 36px;
+        background: rgba(255, 255, 255, 0.06);
+        border: 0.5px solid rgba(255, 255, 255, 0.16);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: rgba(255, 255, 255, 0.7);
+        cursor: pointer;
+        transition:
+          background 0.2s ease,
+          color 0.2s ease,
+          border-color 0.2s ease;
+      }
+
+      #yt-modal-close:hover {
+        background: rgba(212, 175, 55, 0.15);
+        color: #d4af37;
+        border-color: rgba(212, 175, 55, 0.45);
+      }
+
+      @media (max-width: 767px) {
+        #yt-modal-inner {
+          height: auto;
+          width: 92vw;
+          max-width: 92vw;
+          aspect-ratio: 9 / 16;
+        }
+
+        #yt-modal-close {
+          top: -2.5rem;
+        }
+      }
+
+      /* ── Video Lightbox ── */
+      #vid-lightbox {
+        position: fixed;
+        inset: 0;
+        z-index: 9998;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(0, 0, 0, 0.92);
+        backdrop-filter: blur(18px);
+        -webkit-backdrop-filter: blur(18px);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.32s ease;
+      }
+
+      #vid-lightbox.is-open {
+        opacity: 1;
+        pointer-events: all;
+      }
+
+      #vid-lb-inner {
+        position: relative;
+        height: 88vh;
+        aspect-ratio: 9 / 16;
+        max-width: calc(88vh * 9 / 16);
+        border-radius: 8px;
+        overflow: hidden;
+        background: #000;
+        transform: scale(0.94) translateZ(0);
+        transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        will-change: transform;
+      }
+
+      #vid-lightbox.is-open #vid-lb-inner {
+        transform: scale(1) translateZ(0);
+      }
+
+      #vid-lb-video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        will-change: transform;
+        transform: translateZ(0);
+        backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
+        image-rendering: -webkit-optimize-contrast;
+      }
+
+      #vid-lb-close {
+        position: fixed;
+        top: 1.25rem;
+        right: 1.25rem;
+        z-index: 9999;
+        width: 40px;
+        height: 40px;
+        background: rgba(255, 255, 255, 0.07);
+        border: 0.5px solid rgba(255, 255, 255, 0.18);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: rgba(255, 255, 255, 0.8);
+        cursor: pointer;
+        transition:
+          background 0.2s,
+          color 0.2s,
+          transform 0.25s;
+      }
+
+      #vid-lb-close:hover {
+        background: rgba(212, 175, 55, 0.15);
+        color: #d4af37;
+        border-color: rgba(212, 175, 55, 0.4);
+        transform: rotate(90deg);
+      }
+
+      @media (max-width: 767px) {
+        #vid-lb-inner {
+          height: auto;
+          width: 92vw;
+          max-width: 92vw;
+          aspect-ratio: 9 / 16;
+        }
+      }
+
+      /* ── WP Cover Card ── */
+      .gal-card.wp-cover {
+        overflow: hidden;
+        cursor: pointer;
+        aspect-ratio: unset;
+        height: 100% !important;
+        width: 100vw;
+        position: relative;
+      }
+
+      .gal-card.wp-cover .gal-tint {
+        display: none;
+      }
+
+      /* Image fills the 3:2 container absolutely */
+      .gal-card.wp-cover .gal-img-wrap {
+        position: absolute;
+        inset: 0;
+        flex: none;
+        margin: 0;
+        z-index: 0;
+      }
+
+      .gal-card.wp-cover .gal-img-wrap img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+
+      /* Gradient dark at bottom → text readable at bottom-left */
+      .gal-card.wp-cover .gal-img-wrap::after {
+        animation: none;
+        background: linear-gradient(
+          to top,
+          rgba(5, 5, 5, 0.9) 0%,
+          rgba(5, 5, 5, 0.5) 28%,
+          rgba(5, 5, 5, 0.05) 58%,
+          rgba(5, 5, 5, 0.42) 100%
+        );
+        z-index: 1;
+      }
+
+      /* Meta (venue + phase) at top via card padding, above image */
+      .gal-card.wp-cover .gal-meta {
+        position: relative;
+        z-index: 3;
+      }
+
+      /* Heading styled uppercase for the cover card */
+      .gal-card.wp-cover .gal-phase-name {
+        font-size: clamp(16px, 1.6vw, 26px);
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        line-height: 1.15;
+      }
+
+      /* Text block pinned bottom-LEFT */
+      .gal-card.wp-cover .gal-bottom {
+        position: absolute;
+        bottom: 2rem;
+        left: 2.5rem;
+        right: auto;
+        max-width: 380px;
+        z-index: 3;
+        margin: 0;
+      }
+
+      .gal-card.wp-cover .gal-arrow {
+        z-index: 3;
+      }
+
+      .wp-cover-cta {
+        font-family: "Be Vietnam Pro", system-ui, sans-serif;
+        font-size: 10px;
+        font-weight: 300;
+        color: rgba(212, 175, 55, 0.65);
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        margin-top: 0.55rem;
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        transition: color 0.2s;
+      }
+
+      .wp-cover-cta::after {
+        content: "→";
+        transition: transform 0.22s;
+      }
+
+      .gal-card.wp-cover:hover .wp-cover-cta {
+        color: rgba(212, 175, 55, 0.95);
+      }
+
+      .gal-card.wp-cover:hover .wp-cover-cta::after {
+        transform: translateX(5px);
+      }
+
+      /* Mobile: 3:2 với khoảng hở hai bên + gradient mượt hơn */
+      @media (max-width: 767px) {
+        .gal-card.wp-cover {
+          width: 100vw !important;
+          height: 100vh !important;
+          aspect-ratio: unset;
+          margin: 0 !important;
+          padding: 1rem 1.1rem;
+          flex-shrink: 0;
+        }
+
+        .gal-card.wp-cover .gal-img-wrap::after {
+          background: linear-gradient(
+            to top,
+            rgba(5, 5, 5, 0.95) 0%,
+            rgba(5, 5, 5, 0.65) 35%,
+            rgba(5, 5, 5, 0.08) 62%,
+            rgba(5, 5, 5, 0.38) 100%
+          );
+        }
+
+        .gal-card.wp-cover .gal-bottom {
+          bottom: 0.85rem;
+          left: 1.1rem;
+        }
+
+        .gal-card.wp-cover .gal-phase-name {
+          font-size: 1.5rem;
+        }
+
+        .gal-card.wp-cover .gal-arrow {
+          bottom: 0.85rem;
+          right: 1.1rem;
+        }
+      }
+
+      /* ── Cuisine Gallery Lightbox ── */
+      #cuisine-lb {
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        background: rgba(0, 0, 0, 0.96);
+        backdrop-filter: blur(22px);
+        -webkit-backdrop-filter: blur(22px);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+        overflow: hidden;
+      }
+
+      #cuisine-lb.is-open {
+        opacity: 1;
+        pointer-events: all;
+      }
+
+      #cuisine-lb-close {
+        position: fixed;
+        top: max(1rem, env(safe-area-inset-top, 1rem));
+        right: max(1rem, env(safe-area-inset-right, 1rem));
+        z-index: 10001;
+        width: 48px;
+        height: 48px;
+        min-width: 44px;
+        min-height: 44px;
+        border: 0.5px solid rgba(255, 255, 255, 0.22);
+        background: rgba(0, 0, 0, 0.55);
+        color: rgba(255, 255, 255, 0.85);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        border-radius: 50%;
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        transition:
+          border-color 0.22s,
+          background 0.22s,
+          color 0.22s;
+        touch-action: manipulation;
+      }
+
+      #cuisine-lb-close:hover {
+        border-color: rgba(212, 175, 55, 0.5);
+        background: rgba(212, 175, 55, 0.08);
+        color: #fff;
+      }
+
+      #cuisine-lb-scroll {
+        height: 100%;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        padding: 5rem 1.25rem 4rem;
+        scrollbar-width: thin;
+        scrollbar-color: rgba(212, 175, 55, 0.18) transparent;
+      }
+
+      #cuisine-lb-scroll::-webkit-scrollbar {
+        width: 4px;
+      }
+
+      #cuisine-lb-scroll::-webkit-scrollbar-track {
+        background: transparent;
+      }
+
+      #cuisine-lb-scroll::-webkit-scrollbar-thumb {
+        background: rgba(212, 175, 55, 0.18);
+        border-radius: 2px;
+      }
+
+      #cuisine-lb-header {
+        text-align: center;
+        margin-bottom: 2rem;
+      }
+
+      .cuisine-eyebrow {
+        font-family: "Synonym", sans-serif;
+        font-size: 10px;
+        letter-spacing: 0.28em;
+        text-transform: uppercase;
+        color: rgba(212, 175, 55, 0.55);
+        margin-bottom: 0.55rem;
+      }
+
+      .cuisine-title {
+        font-family: "Cormorant Garamond", Georgia, serif;
+        font-size: clamp(26px, 5vw, 46px);
+        font-weight: 700;
+        color: #fff;
+        line-height: 1.05;
+        margin-bottom: 0.5rem;
+      }
+
+      .cuisine-subtitle {
+        font-family: "Be Vietnam Pro", system-ui, sans-serif;
+        font-size: 12px;
+        color: rgba(255, 255, 255, 0.28);
+        letter-spacing: 0;
+        font-weight: 300;
+      }
+
+      /* Mobile: 1 cột full-width để dễ xem chi tiết món ăn */
+      #cuisine-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+        max-width: 960px;
+        margin: 0 auto;
+      }
+
+      @media (min-width: 480px) {
+        #cuisine-grid {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 0.6rem;
+        }
+      }
+
+      @media (min-width: 600px) {
+        #cuisine-grid {
+          grid-template-columns: repeat(3, 1fr);
+          gap: 0.75rem;
+        }
+
+        #cuisine-lb-scroll {
+          padding: 5.5rem 2rem 4rem;
+        }
+      }
+
+      @media (min-width: 1024px) {
+        #cuisine-grid {
+          grid-template-columns: repeat(4, 1fr);
+          gap: 1rem;
+        }
+
+        #cuisine-lb-scroll {
+          padding: 6rem 3rem 4rem;
+        }
+      }
+
+      .cuisine-item {
+        display: flex;
+        flex-direction: column;
+        gap: 0.35rem;
+        transition:
+          opacity 0.45s ease,
+          filter 0.45s ease,
+          transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+
+      .cuisine-img-wrap {
+        aspect-ratio: 3 / 4;
+        overflow: hidden;
+        border-radius: 3px;
+        background: #111;
+        border: 0.5px solid rgba(255, 255, 255, 0.05);
+      }
+
+      .cuisine-img-wrap img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      @media (hover: hover) {
+        /* Hiệu ứng Spotlight: CHỈ khi đang chỉ vào một hình cụ thể, các hình còn lại mới mờ đi */
+        #cuisine-grid:has(.cuisine-item:hover) .cuisine-item,
+        #gem-grid:has(.cuisine-item:hover) .cuisine-item,
+        #lounge-grid:has(.cuisine-item:hover) .cuisine-item,
+        #mangden-grid:has(.cuisine-item:hover) .cuisine-item {
+          opacity: 0.45;
+          filter: grayscale(50%) brightness(0.6);
+        }
+
+        /* Hình đang được di chuột vào sẽ sáng rõ và nổi bật lên */
+        #cuisine-grid .cuisine-item:hover,
+        #gem-grid .cuisine-item:hover,
+        #lounge-grid .cuisine-item:hover,
+        #mangden-grid .cuisine-item:hover {
+          opacity: 1 !important;
+          filter: grayscale(0%) brightness(1.2) !important;
+          transform: scale(1.1);
+          position: relative;
+          z-index: 20;
+          box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.8);
+        }
+
+        .cuisine-item:hover .cuisine-img-wrap img {
+          transform: scale(1.15);
+        }
+      }
+
+      .cuisine-cap-name {
+        font-family: "Be Vietnam Pro", system-ui, sans-serif;
+        font-size: 11px;
+        font-weight: 500;
+        color: rgba(255, 255, 255, 0.65);
+        letter-spacing: 0;
+        line-height: 1.3;
+      }
+
+      .cuisine-cap-desc {
+        font-family: "Be Vietnam Pro", system-ui, sans-serif;
+        font-size: 9.5px;
+        font-weight: 300;
+        color: rgba(255, 255, 255, 0.28);
+        letter-spacing: 0;
+        line-height: 1.6;
+      }
+
+      /* ── Gem Center Lightbox ── */
+      #gem-lb {
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        background: rgba(0, 0, 0, 0.96);
+        backdrop-filter: blur(22px);
+        -webkit-backdrop-filter: blur(22px);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+        overflow: hidden;
+      }
+
+      #gem-lb.is-open {
+        opacity: 1;
+        pointer-events: all;
+      }
+
+      #gem-lb-close {
+        position: fixed;
+        top: max(1rem, env(safe-area-inset-top, 1rem));
+        right: max(1rem, env(safe-area-inset-right, 1rem));
+        z-index: 10001;
+        width: 48px;
+        height: 48px;
+        border: 0.5px solid rgba(255, 255, 255, 0.22);
+        background: rgba(0, 0, 0, 0.55);
+        color: rgba(255, 255, 255, 0.85);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        border-radius: 50%;
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        transition:
+          border-color 0.22s,
+          background 0.22s,
+          color 0.22s;
+        touch-action: manipulation;
+      }
+
+      #gem-lb-close:hover {
+        border-color: rgba(212, 175, 55, 0.5);
+        background: rgba(212, 175, 55, 0.08);
+        color: #fff;
+      }
+
+      #gem-lb-scroll {
+        height: 100%;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        padding: 5rem 1.25rem 4rem;
+        scrollbar-width: thin;
+        scrollbar-color: rgba(212, 175, 55, 0.18) transparent;
+      }
+
+      #gem-lb-scroll::-webkit-scrollbar {
+        width: 4px;
+      }
+
+      #gem-lb-scroll::-webkit-scrollbar-track {
+        background: transparent;
+      }
+
+      #gem-lb-scroll::-webkit-scrollbar-thumb {
+        background: rgba(212, 175, 55, 0.18);
+        border-radius: 2px;
+      }
+
+      #gem-lb-header {
+        text-align: center;
+        margin-bottom: 2rem;
+      }
+
+      #gem-grid {
+        columns: 2;
+        column-gap: 0.75rem;
+        max-width: 1100px;
+        margin: 0 auto;
+      }
+
+      #gem-grid .cuisine-item {
+        break-inside: avoid;
+        margin-bottom: 0.75rem;
+      }
+
+      #gem-grid .cuisine-img-wrap {
+        aspect-ratio: unset;
+        height: auto;
+      }
+
+      #gem-grid .cuisine-img-wrap img {
+        width: 100%;
+        height: auto;
+        object-fit: unset;
+      }
+
+      @media (min-width: 600px) {
+        #gem-grid {
+          columns: 3;
+          column-gap: 0.75rem;
+        }
+
+        #gem-lb-scroll {
+          padding: 5.5rem 2rem 4rem;
+        }
+      }
+
+      @media (min-width: 1024px) {
+        #gem-grid {
+          columns: 4;
+          column-gap: 1rem;
+        }
+
+        #gem-lb-scroll {
+          padding: 6rem 3rem 4rem;
+        }
+      }
+
+      /* ── Golden Sun Lounge Lightbox ── */
+      #lounge-lb {
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        background: rgba(0, 0, 0, 0.96);
+        backdrop-filter: blur(22px);
+        -webkit-backdrop-filter: blur(22px);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+        overflow: hidden;
+      }
+
+      #lounge-lb.is-open {
+        opacity: 1;
+        pointer-events: all;
+      }
+
+      #lounge-lb-close {
+        position: fixed;
+        top: max(1rem, env(safe-area-inset-top, 1rem));
+        right: max(1rem, env(safe-area-inset-right, 1rem));
+        z-index: 10001;
+        width: 48px;
+        height: 48px;
+        border: 0.5px solid rgba(255, 255, 255, 0.22);
+        background: rgba(0, 0, 0, 0.55);
+        color: rgba(255, 255, 255, 0.85);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        border-radius: 50%;
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        transition:
+          border-color 0.22s,
+          background 0.22s,
+          color 0.22s;
+        touch-action: manipulation;
+      }
+
+      #lounge-lb-close:hover {
+        border-color: rgba(212, 175, 55, 0.5);
+        background: rgba(212, 175, 55, 0.08);
+        color: #fff;
+      }
+
+      #lounge-lb-scroll {
+        height: 100%;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        padding: 5rem 1.25rem 4rem;
+        scrollbar-width: thin;
+        scrollbar-color: rgba(212, 175, 55, 0.18) transparent;
+      }
+
+      #lounge-lb-scroll::-webkit-scrollbar {
+        width: 4px;
+      }
+
+      #lounge-lb-scroll::-webkit-scrollbar-track {
+        background: transparent;
+      }
+
+      #lounge-lb-scroll::-webkit-scrollbar-thumb {
+        background: rgba(212, 175, 55, 0.18);
+        border-radius: 2px;
+      }
+
+      #lounge-lb-header {
+        text-align: center;
+        margin-bottom: 2rem;
+      }
+
+      #lounge-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+        max-width: 960px;
+        margin: 0 auto;
+      }
+
+      @media (min-width: 480px) {
+        #lounge-grid {
+          grid-template-columns: repeat(3, 1fr);
+          gap: 0.6rem;
+        }
+
+        #lounge-lb-scroll {
+          padding: 5.5rem 2rem 4rem;
+        }
+      }
+
+      @media (min-width: 1024px) {
+        #lounge-grid {
+          gap: 1rem;
+        }
+
+        #lounge-lb-scroll {
+          padding: 6rem 3rem 4rem;
+        }
+      }
+
+      /* ── Golden Sun Mang Den Lightbox ── */
+      #mangden-lb {
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        background: rgba(0, 0, 0, 0.96);
+        backdrop-filter: blur(22px);
+        -webkit-backdrop-filter: blur(22px);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+        overflow: hidden;
+      }
+
+      #mangden-lb.is-open {
+        opacity: 1;
+        pointer-events: all;
+      }
+
+      #mangden-lb-close {
+        position: fixed;
+        top: max(1rem, env(safe-area-inset-top, 1rem));
+        right: max(1rem, env(safe-area-inset-right, 1rem));
+        z-index: 10001;
+        width: 48px;
+        height: 48px;
+        border: 0.5px solid rgba(255, 255, 255, 0.22);
+        background: rgba(0, 0, 0, 0.55);
+        color: rgba(255, 255, 255, 0.85);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        border-radius: 50%;
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        transition:
+          border-color 0.22s,
+          background 0.22s,
+          color 0.22s;
+        touch-action: manipulation;
+      }
+
+      #mangden-lb-close:hover {
+        border-color: rgba(212, 175, 55, 0.5);
+        background: rgba(212, 175, 55, 0.08);
+        color: #fff;
+      }
+
+      #mangden-lb-scroll {
+        height: 100%;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        padding: 5rem 1.25rem 4rem;
+        scrollbar-width: thin;
+        scrollbar-color: rgba(212, 175, 55, 0.18) transparent;
+      }
+
+      #mangden-lb-scroll::-webkit-scrollbar {
+        width: 4px;
+      }
+
+      #mangden-lb-scroll::-webkit-scrollbar-track {
+        background: transparent;
+      }
+
+      #mangden-lb-scroll::-webkit-scrollbar-thumb {
+        background: rgba(212, 175, 55, 0.18);
+        border-radius: 2px;
+      }
+
+      #mangden-lb-header {
+        text-align: center;
+        margin-bottom: 2rem;
+      }
+
+      #mangden-grid {
+        columns: 2;
+        column-gap: 0.75rem;
+        max-width: 1100px;
+        margin: 0 auto;
+      }
+
+      #mangden-grid .cuisine-item {
+        break-inside: avoid;
+        margin-bottom: 0.75rem;
+      }
+
+      #mangden-grid .cuisine-img-wrap {
+        aspect-ratio: unset;
+        height: auto;
+      }
+
+      #mangden-grid .cuisine-img-wrap img {
+        width: 100%;
+        height: auto;
+        object-fit: unset;
+      }
+
+      @media (min-width: 480px) {
+        #mangden-lb-scroll {
+          padding: 5.5rem 2rem 4rem;
+        }
+      }
+
+      @media (min-width: 768px) {
+        #mangden-grid {
+          columns: 3;
+          column-gap: 0.75rem;
+        }
+      }
+
+      @media (min-width: 1024px) {
+        #mangden-grid {
+          columns: 4;
+          column-gap: 1rem;
+        }
+
+        #mangden-lb-scroll {
+          padding: 6rem 3rem 4rem;
+        }
+      }
+
+      /* ── #social — compact full-viewport fit ── */
+      #social {
+        padding-top: 2rem;
+        padding-bottom: 2rem;
+      }
+
+      #social .film-strip {
+        align-items: flex-start;
+        flex-wrap: nowrap;
+        gap: 1.5rem;
+        width: 100%;
+      }
+
+      #social .sms-phone-wrap {
+        flex: 0 0 300px;
+        width: 300px !important;
+        min-width: 300px;
+        height: auto;
+      }
+
+      #social .sms-vid-wrap {
+        aspect-ratio: 9 / 16;
+        width: 100%;
+        height: auto;
+      }
+
+      @media (max-width: 767px) {
+        #social {
+          padding-top: 1.25rem;
+        }
+
+        #social .sms-phone-wrap {
+          flex: 0 0 72vw !important;
+          width: 72vw !important;
+          min-width: 72vw !important;
+          height: auto;
+        }
+      }
+
+      /* ── Accent bar ── */
+      .acc {
+        display: inline-block;
+        width: 36px;
+        height: 2px;
+        background: #d4af37;
+        vertical-align: middle;
+        margin-right: 10px;
+        border-radius: 1px;
+      }
+
+      /* ── Divider ── */
+      .div-line {
+        border-color: rgba(255, 255, 255, 0.05);
+      }
+
+      /* ── Skill row ── */
+      .skill-track {
+        height: 0.5px;
+        background: rgba(255, 255, 255, 0.06);
+      }
+
+      /* ── Studio background — Subtle Moving Grainy Gradient ── */
+      #studio-bg {
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        background: #050505;
+        pointer-events: none;
+        overflow: hidden;
+      }
+
+      .s-blob {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(90px);
+        will-change: transform;
+      }
+
+      .s-b1 {
+        width: 70vw;
+        height: 70vw;
+        background: radial-gradient(
+          ellipse at center,
+          rgba(24, 24, 24, 1) 0%,
+          transparent 70%
+        );
+        top: -20%;
+        left: -20%;
+        animation: sBlob1 22s ease-in-out infinite;
+      }
+
+      .s-b2 {
+        width: 65vw;
+        height: 65vw;
+        background: radial-gradient(
+          ellipse at center,
+          rgba(18, 18, 18, 1) 0%,
+          transparent 70%
+        );
+        top: 30%;
+        right: -22%;
+        animation: sBlob2 28s ease-in-out infinite;
+      }
+
+      .s-b3 {
+        width: 60vw;
+        height: 60vw;
+        background: radial-gradient(
+          ellipse at center,
+          rgba(20, 20, 20, 1) 0%,
+          transparent 70%
+        );
+        bottom: -18%;
+        left: 18%;
+        animation: sBlob3 34s ease-in-out infinite;
+      }
+
+      @keyframes sBlob1 {
+        0%,
+        100% {
+          transform: translate(0, 0) scale(1);
+        }
+
+        25% {
+          transform: translate(4vw, 2vh) scale(1.04);
+        }
+
+        50% {
+          transform: translate(-2vw, 5vh) scale(0.97);
+        }
+
+        75% {
+          transform: translate(3vw, -3vh) scale(1.02);
+        }
+      }
+
+      @keyframes sBlob2 {
+        0%,
+        100% {
+          transform: translate(0, 0) scale(1);
+        }
+
+        33% {
+          transform: translate(-5vw, -3vh) scale(1.05);
+        }
+
+        66% {
+          transform: translate(2vw, 4vh) scale(0.95);
+        }
+      }
+
+      @keyframes sBlob3 {
+        0%,
+        100% {
+          transform: translate(0, 0) scale(1);
+        }
+
+        40% {
+          transform: translate(3vw, -4vh) scale(1.06);
+        }
+
+        80% {
+          transform: translate(-4vw, 2vh) scale(0.97);
+        }
+      }
+
+      #grain {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        opacity: 0.04;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+        background-size: 180px 180px;
+      }
+
+      /* ── Page content layers above gradient ── */
+      #hero,
+      #work,
+      #social,
+      #about,
+      #skills,
+      #contact,
+      .service-grid-wrap,
+      footer {
+        position: relative;
+        z-index: 1;
+      }
+
+      /* ── Hairline section dividers — 0.5px luxury ── */
+      #work,
+      #social,
+      #about,
+      #skills,
+      #contact,
+      footer {
+        border-top-width: 0.5px;
+      }
+
+      /* ── Scroll offset — clears floating island nav (~68px) + breathing room ── */
+      #contact {
+        scroll-margin-top: 90px;
+      }
+
+      /* ── Heading shadow — crisp dark halo, max contrast, no text blur ── */
+      .h-shadow {
+        text-shadow: 0 2px 16px rgba(0, 0, 0, 0.7);
+      }
+
+      /* ── Sub-headline 80% white ── */
+      .sub-text {
+        color: rgba(255, 255, 255, 0.8);
+      }
+
+      .skill-fill {
+        height: 1px;
+        background: #d4af37;
+      }
+
+      /* ── Animated hamburger ── */
+      .ham-btn {
+        display: flex;
+        flex-direction: column;
+        gap: 5.5px;
+        padding: 10px 6px;
+        cursor: pointer;
+        background: none;
+        border: none;
+        min-width: 44px;
+        min-height: 44px;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .ham-line {
+        display: block;
+        width: 22px;
+        height: 1.5px;
+        background: #ffffff;
+        transition:
+          transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+          opacity 0.22s ease,
+          width 0.3s ease;
+        transform-origin: center;
+      }
+
+      .ham-btn.is-open .ham-line:nth-child(1) {
+        transform: translateY(7px) rotate(45deg);
+      }
+
+      .ham-btn.is-open .ham-line:nth-child(2) {
+        opacity: 0;
+        width: 0;
+      }
+
+      .ham-btn.is-open .ham-line:nth-child(3) {
+        transform: translateY(-7px) rotate(-45deg);
+      }
+
+      /* ── Mobile menu overlay ── */
+      #mMenu {
+        transition:
+          max-height 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+          opacity 0.28s ease;
+        max-height: 0;
+        opacity: 0;
+        overflow: hidden;
+        display: block !important;
+      }
+
+      #mMenu.is-open {
+        max-height: 600px;
+        opacity: 1;
+      }
+
+      /* ══════════════════════════════════════
+       MOBILE — COMPREHENSIVE (≤ 767px)
+    ══════════════════════════════════════ */
+      @media (max-width: 767px) {
+        /* ── Section padding ── */
+        #about,
+        #skills,
+        #social {
+          padding-top: 5rem !important;
+          padding-bottom: 5rem !important;
+        }
+
+        /* ── About: portrait compact + heading scale ── */
+        .about-portrait {
+          height: 70vw !important;
+          max-height: none !important;
+          aspect-ratio: unset !important;
+        }
+
+        #about h2 {
+          font-size: clamp(30px, 8vw, 42px) !important;
+          margin-bottom: 1.25rem !important;
+        }
+
+        /* Be Vietnam Pro for all Vietnamese timeline text */
+        .timeline-item p {
+          font-family: "Be Vietnam Pro", system-ui, sans-serif !important;
+          letter-spacing: 0 !important;
+        }
+
+        /* ── Social stats — stack 1 column ── */
+        .sms-stats-row {
+          grid-template-columns: 1fr !important;
+          gap: 1.5rem !important;
+        }
+
+        /* ── Touch targets: all tappable elements ≥ 44px ── */
+        .nav-link,
+        #mMenu a {
+          min-height: 44px;
+          display: flex;
+          align-items: center;
+        }
+
+        #mMenu a {
+          font-size: 12px !important;
+          letter-spacing: 0.2em !important;
+          padding: 0.6rem 0;
+          border-bottom: 0.5px solid rgba(255, 255, 255, 0.04);
+        }
+
+        #mMenu a:last-child {
+          border-bottom: none;
+          min-height: 48px;
+          justify-content: flex-start;
+          margin-top: 0.5rem;
+          padding: 0.65rem 1.25rem;
+        }
+
+        /* touch targets for buttons */
+        button {
+          min-height: 44px;
+        }
+
+        /* ── Skills: 1 column on phone ── */
+        #skills .grid {
+          grid-template-columns: 1fr !important;
+        }
+
+        /* ── Be Vietnam Pro + open line-height on mobile ── */
+        .skill-name,
+        .skill-desc {
+          letter-spacing: 0 !important;
+        }
+
+        .sms-cap-title,
+        .sms-campaign-name {
+          font-family: "Be Vietnam Pro", system-ui, sans-serif !important;
+          letter-spacing: 0 !important;
+        }
+
+        #about p,
+        #about span {
+          letter-spacing: 0 !important;
+        }
+
+        .gal-phase-desc {
+          line-height: 2 !important;
+        }
+
+        .service-desc {
+          line-height: 2 !important;
+        }
+
+        /* ── Hero heading reduce letter-spacing on very small screens ── */
+        @media (max-width: 400px) {
+          #hero h1 {
+            letter-spacing: -0.04em !important;
+          }
+        }
+      }
+
+      /* ── Contact cards v2 ── */
+      .contact-card {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        padding: 1.75rem 1.5rem;
+        border: 0.5px solid rgba(255, 255, 255, 0.08);
+        background: rgba(255, 255, 255, 0.02);
+        transition:
+          border-color 0.3s ease,
+          background 0.3s ease,
+          box-shadow 0.3s ease;
+      }
+
+      .contact-card:hover {
+        border-color: rgba(212, 175, 55, 0.5);
+        background: rgba(212, 175, 55, 0.025);
+        box-shadow: 0 0 22px rgba(212, 175, 55, 0.07);
+      }
+
+      .contact-card-label {
+        font-family: "Be Vietnam Pro", system-ui, sans-serif;
+        font-size: 9.5px;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.36);
+        margin-bottom: 0.4rem;
+      }
+
+      .contact-card-value {
+        font-family: "Be Vietnam Pro", system-ui, sans-serif;
+        font-size: 0.95rem;
+        font-weight: 500;
+        color: #ffffff;
+        letter-spacing: 0;
+        line-height: 1.35;
+        transition: color 0.3s ease;
+        word-break: break-word;
+      }
+
+      .contact-card:hover .contact-card-value {
+        color: #d4af37;
+      }
+
+      .contact-arrow {
+        color: rgba(255, 255, 255, 0.22);
+        flex-shrink: 0;
+        transition:
+          color 0.3s ease,
+          transform 0.3s ease;
+        transform: translateX(0);
+      }
+
+      .contact-card:hover .contact-arrow {
+        color: #d4af37;
+        transform: translateX(5px);
+      }
+
+      /* ── Footer social icon hover — handled inline ── */
+    </style>
+  </head>
+
+  <body>
+    <!-- Studio Background — Subtle Moving Grainy Gradient -->
+    <div id="studio-bg" aria-hidden="true">
+      <div class="s-blob s-b1"></div>
+      <div class="s-blob s-b2"></div>
+      <div class="s-blob s-b3"></div>
+      <div id="grain"></div>
+    </div>
+
+    <!-- ══════════════════════════════════════════
+     NAVIGATION — Floating Island
+══════════════════════════════════════════ -->
+    <nav
+      id="nav"
+      class="fixed top-0 inset-x-0 z-50"
+      style="padding: 1rem 1.25rem 0"
+    >
+      <!-- ── Island pill ── -->
+      <div class="float-island">
+        <!-- Logo -->
+        <a
+          href="#hero"
+          class="font-display font-bold text-cream text-xl"
+          style="letter-spacing: 0.3em; flex-shrink: 0"
+          >SONI</a
+        >
+
+        <!-- Desktop links — centred -->
+        <div class="hidden md:flex items-center gap-7">
+          <a href="#work" class="nav-link">Dự Án</a>
+          <a href="#social" class="nav-link">Social</a>
+          <a href="#about" class="nav-link">Về Tôi</a>
+          <a href="#skills" class="nav-link">Kỹ Năng</a>
+        </div>
+
+        <!-- CONTACT button (desktop) + hamburger (mobile) -->
+        <div class="flex items-center gap-3">
+          <a href="#contact" class="hidden md:inline-flex contact-btn"
+            >Contact</a
+          >
+          <button
+            id="hamBtn"
+            class="ham-btn md:hidden"
+            aria-label="Toggle menu"
+            aria-expanded="false"
+          >
+            <span class="ham-line"></span>
+            <span class="ham-line"></span>
+            <span class="ham-line"></span>
+          </button>
+        </div>
+      </div>
+
+      <!-- ── Mobile dropdown menu (slides below island) ── -->
+      <div id="mMenu" class="md:hidden float-menu">
+        <a href="#work" class="mMenu-link">Dự Án</a>
+        <a href="#social" class="mMenu-link">Social</a>
+        <a href="#about" class="mMenu-link">Về Tôi</a>
+        <a href="#skills" class="mMenu-link">Kỹ Năng</a>
+        <a
+          href="#contact"
+          class="contact-btn inline-flex items-center justify-center"
+          style="
+            margin-top: 0.75rem;
+            width: 100%;
+            text-align: center;
+            min-height: 46px;
+            border-radius: 9999px;
+          "
+          >Contact</a
+        >
+      </div>
+    </nav>
+
+    <!-- ══════════════════════════════════════════
+     HERO — Personal Introduction
+══════════════════════════════════════════ -->
+    <section
+      id="hero"
+      style="
+        position: relative;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+      "
+    >
+      <!-- Decorative background -->
+      <div
+        style="
+          position: absolute;
+          inset: 0;
+          background:
+            radial-gradient(
+              ellipse at 25% 35%,
+              rgba(212, 175, 55, 0.14) 0%,
+              transparent 55%
+            ),
+            radial-gradient(
+              ellipse at 75% 65%,
+              rgba(180, 140, 80, 0.07) 0%,
+              transparent 50%
+            ),
+            #050505;
+          z-index: 0;
+        "
+      ></div>
+
+      <!-- Frosted glass overlay -->
+      <div
+        style="
+          position: absolute;
+          inset: 0;
+          background: rgba(255, 255, 255, 0.6);
+          backdrop-filter: blur(50px) saturate(180%);
+          -webkit-backdrop-filter: blur(50px) saturate(180%);
+          z-index: 1;
+        "
+      ></div>
+
+      <!-- Content -->
+      <div
+        style="
+          position: relative;
+          z-index: 2;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          text-align: center;
+          padding: 2rem 1.5rem;
+        "
+      >
+        <h1
+          style="
+            font-family: &quot;Cormorant Garamond&quot;, Georgia, serif;
+            font-size: clamp(32px, 5.5vw, 80px);
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            color: #1a1a1a;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            text-transform: uppercase;
+            line-height: 1.05;
+          "
+        >
+          VÕ QUANG MINH
+        </h1>
+        <p
+          style="
+            font-family: &quot;Inter&quot;, system-ui, sans-serif;
+            font-size: clamp(10px, 1vw, 13px);
+            font-weight: 500;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: #333;
+            margin-top: 1.5rem;
+          "
+        >
+          Photographer &amp; Digital Media Strategist
+        </p>
+        <p
+          style="
+            font-family: &quot;Inter&quot;, system-ui, sans-serif;
+            font-size: 0.82rem;
+            font-weight: 500;
+            color: #333;
+            letter-spacing: 0.06em;
+            margin-top: 0.65rem;
+          "
+        >
+          Based in Dalat, Vietnam
+        </p>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════
+     SOCIAL MEDIA STRATEGY
+══════════════════════════════════════════ -->
+    <section id="social" class="border-t div-line">
+      <div class="max-w-7xl mx-auto px-6 lg:px-14">
+        <!-- Eyebrow -->
+        <div class="flex items-center gap-3 mb-5">
+          <span class="acc"></span>
+          <span
+            style="
+              font-family: &quot;Synonym&quot;, sans-serif;
+              font-size: 10px;
+              letter-spacing: 0.28em;
+              text-transform: uppercase;
+              color: rgba(212, 175, 55, 0.75);
+            "
+            >Social Impact</span
+          >
+        </div>
+
+        <!-- Heading + subtitle row -->
+        <div
+          class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-4 mb-4"
+        >
+          <h2
+            style="
+              font-family: &quot;Cormorant Garamond&quot;, Georgia, serif;
+              font-style: normal;
+              font-size: clamp(26px, 2.8vw, 44px);
+              font-weight: 700;
+              color: #ffffff;
+              line-height: 1.04;
+              letter-spacing: 0;
+            "
+          >
+            SOCIAL MEDIA<br />
+            <span style="color: #d4af37">STRATEGY</span>
+          </h2>
+          <p
+            style="
+              font-family: &quot;Be Vietnam Pro&quot;, system-ui, sans-serif;
+              font-size: 0.85rem;
+              font-weight: 300;
+              color: rgba(255, 255, 255, 0.45);
+              max-width: 30rem;
+              line-height: 1.9;
+              letter-spacing: 0;
+            "
+          >
+            Chuyển hóa ngôn ngữ hình ảnh thành hiệu quả<br
+              class="hidden lg:block"
+            />
+            truyền thông đa nền tảng.
+          </p>
+        </div>
+
+        <!-- Brand Navigation Tabs -->
+        <div class="brand-nav-bar">
+          <button class="brand-nav-btn is-active" data-brand="all">All</button>
+          <button class="brand-nav-btn" data-brand="mo2">La Maritza</button>
+          <button class="brand-nav-btn" data-brand="lounge">
+            Golden Lounge
+          </button>
+          <button class="brand-nav-btn" data-brand="sun">Golden Sun</button>
+        </div>
+
+        <!-- Single Row Brand Focus - Film Strip -->
+        <div class="film-strip-wrap">
+          <button
+            class="film-edge-btn film-edge-prev"
+            id="filmPrev"
+            aria-label="Previous clip"
+          >
+            <svg
+              width="12"
+              height="12"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              viewBox="0 0 24 24"
+            >
+              <path d="M15 18l-6-6 6-6" />
+            </svg>
+          </button>
+          <button
+            class="film-edge-btn film-edge-next"
+            id="filmNext"
+            aria-label="Next clip"
+          >
+            <svg
+              width="12"
+              height="12"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              viewBox="0 0 24 24"
+            >
+              <path d="M9 18l6-6-6-6" />
+            </svg>
+          </button>
+          <div class="film-strip" id="filmStrip">
+            <!-- Brand 1: LA MARITZA -->
+            <div class="sms-phone-wrap" data-brand="mo2">
+              <div class="sms-vid-wrap">
+                <video
+                  class="sms-video"
+                  loop
+                  muted
+                  playsinline
+                  preload="metadata"
+                  style="background: #111111"
+                >
+                  <source
+                    data-src="./assets/gallery/Lamaritza/lamaritza-1.mp4"
+                    type="video/mp4"
+                  />
+                </video>
+                <span class="sms-duration"></span>
+              </div>
+              <div>
+                <div class="sms-cap-num">01</div>
+                <div
+                  class="sms-cap-title"
+                  style="
+                    font-family:
+                      &quot;Be Vietnam Pro&quot;, system-ui, sans-serif;
+                    letter-spacing: 0;
+                  "
+                >
+                  La Maritza
+                </div>
+              </div>
+            </div>
+
+            <!-- Brand 2: GOLDEN LOUNGE -->
+            <div class="sms-phone-wrap" data-brand="lounge">
+              <div class="sms-vid-wrap">
+                <video
+                  class="sms-video"
+                  src="./assets/lounge_1.mp4"
+                  poster="./assets/lounge_poster.jpg"
+                  loop
+                  muted
+                  playsinline
+                  preload="metadata"
+                  style="background: #000"
+                ></video>
+                <span class="sms-duration"></span>
+              </div>
+              <div>
+                <div class="sms-cap-num">02</div>
+                <div
+                  class="sms-cap-title"
+                  style="
+                    font-family:
+                      &quot;Be Vietnam Pro&quot;, system-ui, sans-serif;
+                    letter-spacing: 0;
+                  "
+                >
+                  Golden Lounge
+                </div>
+              </div>
+            </div>
+
+            <!-- Brand 2b: GOLDEN LOUNGE — Moment -->
+            <div class="sms-phone-wrap" data-brand="lounge">
+              <div class="sms-vid-wrap">
+                <video
+                  class="sms-video"
+                  poster="./assets/gallery/lougne/lounge-moment-poster.jpg"
+                  loop
+                  muted
+                  playsinline
+                  preload="metadata"
+                  style="background: #0a0a0a"
+                >
+                  <source
+                    data-src="./assets/gallery/lougne/lounge-moment.mp4"
+                    type="video/mp4"
+                  />
+                </video>
+                <span class="sms-duration"></span>
+              </div>
+              <div>
+                <div class="sms-cap-num">03</div>
+                <div
+                  class="sms-cap-title"
+                  style="
+                    font-family:
+                      &quot;Be Vietnam Pro&quot;, system-ui, sans-serif;
+                    letter-spacing: 0;
+                  "
+                >
+                  Golden Lounge — Moment
+                </div>
+              </div>
+            </div>
+
+            <!-- Brand 3: GOLDEN SUN HOTEL -->
+            <div class="sms-phone-wrap" data-brand="sun">
+              <div class="sms-vid-wrap">
+                <video
+                  class="sms-video"
+                  loop
+                  muted
+                  playsinline
+                  preload="metadata"
+                  style="background: #0a0a0a"
+                >
+                  <source
+                    data-src="./assets/gallery/golden-sun/golden-sun-1.mp4"
+                    type="video/mp4"
+                  />
+                </video>
+                <span class="sms-duration"></span>
+                <div class="sms-overlay">
+                  <div class="sms-platform-badge">
+                    <svg
+                      width="8"
+                      height="8"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                    >
+                      <path
+                        d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"
+                      />
+                    </svg>
+                    INSTAGRAM
+                  </div>
+                  <div
+                    class="sms-campaign-label"
+                    style="
+                      font-family:
+                        &quot;Be Vietnam Pro&quot;, system-ui, sans-serif;
+                    "
+                  >
+                    Brand Content
+                  </div>
+                  <div
+                    class="sms-campaign-name"
+                    style="
+                      font-family:
+                        &quot;Be Vietnam Pro&quot;, system-ui, sans-serif;
+                      letter-spacing: 0;
+                    "
+                  >
+                    Golden Sun Hotel
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div class="sms-cap-num">04</div>
+                <div
+                  class="sms-cap-title"
+                  style="
+                    font-family:
+                      &quot;Be Vietnam Pro&quot;, system-ui, sans-serif;
+                    letter-spacing: 0;
+                  "
+                >
+                  Golden Sun Hotel
+                </div>
+              </div>
+            </div>
+
+            <!-- Brand 3b: GOLDEN SUN — Christmas -->
+            <div class="sms-phone-wrap" data-brand="sun">
+              <div class="sms-vid-wrap">
+                <video
+                  class="sms-video"
+                  poster="./assets/gallery/golden-sun/golden-sun-christmas-poster.jpg"
+                  loop
+                  muted
+                  playsinline
+                  preload="metadata"
+                  style="background: #0a0a0a"
+                >
+                  <source
+                    data-src="./assets/gallery/golden-sun/golden-sun-christmas.mp4"
+                    type="video/mp4"
+                  />
+                </video>
+                <span class="sms-duration"></span>
+              </div>
+              <div>
+                <div class="sms-cap-num">05</div>
+                <div
+                  class="sms-cap-title"
+                  style="
+                    font-family:
+                      &quot;Be Vietnam Pro&quot;, system-ui, sans-serif;
+                    letter-spacing: 0;
+                  "
+                >
+                  Golden Sun — Christmas
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /film-strip-wrap -->
+
+        <!-- Stats row -->
+        <div
+          class="sms-stats-row"
+          style="
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 0.5px solid rgba(255, 255, 255, 0.05);
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+          "
+        >
+          <div>
+            <div
+              style="
+                font-family: &quot;Cormorant Garamond&quot;, Georgia, serif;
+                font-size: clamp(34px, 3.6vw, 54px);
+                font-weight: 700;
+                color: #d4af37;
+                line-height: 1;
+              "
+            >
+              235k+
+            </div>
+            <div
+              style="
+                font-family: &quot;Be Vietnam Pro&quot;, system-ui, sans-serif;
+                font-size: 0.75rem;
+                font-weight: 300;
+                color: rgba(255, 255, 255, 0.38);
+                letter-spacing: 0;
+                margin-top: 0.45rem;
+              "
+            >
+              Tổng lượt tiếp cận
+            </div>
+          </div>
+          <div>
+            <div
+              style="
+                font-family: &quot;Cormorant Garamond&quot;, Georgia, serif;
+                font-size: clamp(34px, 3.6vw, 54px);
+                font-weight: 700;
+                color: #d4af37;
+                line-height: 1;
+              "
+            >
+              4.7%
+            </div>
+            <div
+              style="
+                font-family: &quot;Be Vietnam Pro&quot;, system-ui, sans-serif;
+                font-size: 0.75rem;
+                font-weight: 300;
+                color: rgba(255, 255, 255, 0.38);
+                letter-spacing: 0;
+                margin-top: 0.45rem;
+              "
+            >
+              Tỉ lệ tương tác trung bình
+            </div>
+          </div>
+          <div>
+            <div
+              style="
+                font-family: &quot;Cormorant Garamond&quot;, Georgia, serif;
+                font-size: clamp(34px, 3.6vw, 54px);
+                font-weight: 700;
+                color: #d4af37;
+                line-height: 1;
+              "
+            >
+              12+
+            </div>
+            <div
+              style="
+                font-family: &quot;Be Vietnam Pro&quot;, system-ui, sans-serif;
+                font-size: 0.75rem;
+                font-weight: 300;
+                color: rgba(255, 255, 255, 0.38);
+                letter-spacing: 0;
+                margin-top: 0.45rem;
+              "
+            >
+              Chiến dịch thành công
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════
+     SERVICE GRID
+══════════════════════════════════════════ -->
+    <div
+      class="service-grid-wrap"
+      style="
+        background: #050505;
+        border-top: 0.5px solid rgba(255, 255, 255, 0.08);
+        border-bottom: 0.5px solid rgba(255, 255, 255, 0.08);
+      "
+    >
+      <div
+        class="service-grid-inner"
+        style="
+          max-width: 1280px;
+          margin: 0 auto;
+          display: grid;
+          grid-template-columns: 1fr 1fr 1fr;
+        "
+      >
+        <!-- 01 — PRODUCTION -->
+        <div class="service-col">
+          <span class="service-num">01</span>
+          <h3 class="service-title">Production</h3>
+          <p class="service-desc">
+            Sản xuất hình ảnh chuẩn mực cho không gian nghỉ dưỡng và kiến trúc.
+          </p>
+        </div>
+
+        <!-- 02 — STRATEGY -->
+        <div
+          class="service-col"
+          style="
+            border-left: 0.5px solid rgba(255, 255, 255, 0.1);
+            border-right: 0.5px solid rgba(255, 255, 255, 0.1);
+          "
+        >
+          <span class="service-num">02</span>
+          <h3 class="service-title">Strategy</h3>
+          <p class="service-desc">
+            Định hướng hình ảnh và kế hoạch nội dung đa nền tảng.
+          </p>
+        </div>
+
+        <!-- 03 — POST-PROCESS -->
+        <div class="service-col">
+          <span class="service-num">03</span>
+          <h3 class="service-title">Post-Process</h3>
+          <p class="service-desc">
+            Hậu kỳ chuyên sâu, tạo sắc thái điện ảnh riêng biệt cho từng dự án.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════
+     GALLERIES — Campaign Phase Cards
+══════════════════════════════════════════ -->
+    <section
+      id="work"
+      style="border-top: 0.5px solid rgba(255, 255, 255, 0.05)"
+    >
+      <div
+        id="galleries-sticky"
+        style="position: sticky; top: 0; height: 100vh; overflow: hidden"
+      >
+        <!-- Header bar -->
+        <div
+          style="
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 10;
+            padding: 1.5rem 3.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: linear-gradient(
+              180deg,
+              rgba(5, 5, 5, 0.92) 0%,
+              transparent 100%
+            );
+            pointer-events: none;
+          "
+        >
+          <div style="display: flex; align-items: baseline; gap: 1.4rem">
+            <h2
+              style="
+                font-family: &quot;Cormorant Garamond&quot;, Georgia, serif;
+                font-size: clamp(16px, 1.6vw, 22px);
+                font-weight: 700;
+                letter-spacing: 0.01em;
+                color: rgba(255, 255, 255, 0.1);
+                -webkit-text-stroke: 0.5px rgba(255, 255, 255, 0.16);
+              "
+            >
+              GALLERIES
+            </h2>
+            <span
+              id="gal-venue-name"
+              style="
+                font-family: &quot;Synonym&quot;, sans-serif;
+                font-size: 10px;
+                letter-spacing: 0.24em;
+                text-transform: uppercase;
+                color: rgba(255, 255, 255, 0.32);
+                transition: opacity 0.3s;
+              "
+              >White Palace</span
+            >
+          </div>
+          <div style="display: flex; align-items: center; gap: 1.2rem">
+            <span
+              id="gal-phase-label"
+              style="
+                font-family: &quot;Synonym&quot;, sans-serif;
+                font-size: 10px;
+                letter-spacing: 0.22em;
+                text-transform: uppercase;
+                color: rgba(212, 175, 55, 0.5);
+              "
+              >Phase 01</span
+            >
+            <span
+              style="
+                font-family: &quot;Synonym&quot;, sans-serif;
+                font-size: 11px;
+                letter-spacing: 0.2em;
+                color: rgba(255, 255, 255, 0.22);
+              "
+              ><span id="gal-cur">01</span
+              ><span style="margin: 0 0.45em; color: rgba(255, 255, 255, 0.1)"
+                >/</span
+              >04</span
+            >
+          </div>
+        </div>
+
+        <!-- Phase dots -->
+        <div
+          style="
+            position: absolute;
+            bottom: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            pointer-events: none;
+          "
+        >
+          <span
+            style="
+              font-family: &quot;Synonym&quot;, sans-serif;
+              font-size: 9px;
+              letter-spacing: 0.2em;
+              text-transform: uppercase;
+              color: rgba(255, 255, 255, 0.18);
+            "
+            >01</span
+          >
+          <div
+            id="gal-dot-0"
+            style="
+              width: 6px;
+              height: 6px;
+              border-radius: 50%;
+              background: #d4af37;
+              transition: all 0.4s;
+            "
+          ></div>
+          <span
+            style="
+              font-family: &quot;Synonym&quot;, sans-serif;
+              font-size: 9px;
+              letter-spacing: 0.2em;
+              text-transform: uppercase;
+              color: rgba(255, 255, 255, 0.18);
+            "
+            >02</span
+          >
+          <div
+            id="gal-dot-1"
+            style="
+              width: 6px;
+              height: 6px;
+              border-radius: 50%;
+              background: rgba(255, 255, 255, 0.12);
+              transition: all 0.4s;
+            "
+          ></div>
+          <span
+            style="
+              font-family: &quot;Synonym&quot;, sans-serif;
+              font-size: 9px;
+              letter-spacing: 0.2em;
+              text-transform: uppercase;
+              color: rgba(255, 255, 255, 0.18);
+            "
+            >03</span
+          >
+          <div
+            id="gal-dot-2"
+            style="
+              width: 6px;
+              height: 6px;
+              border-radius: 50%;
+              background: rgba(255, 255, 255, 0.12);
+              transition: all 0.4s;
+            "
+          ></div>
+          <span
+            style="
+              font-family: &quot;Synonym&quot;, sans-serif;
+              font-size: 9px;
+              letter-spacing: 0.2em;
+              text-transform: uppercase;
+              color: rgba(255, 255, 255, 0.18);
+            "
+            >04</span
+          >
+          <div
+            id="gal-dot-3"
+            style="
+              width: 6px;
+              height: 6px;
+              border-radius: 50%;
+              background: rgba(255, 255, 255, 0.12);
+              transition: all 0.4s;
+            "
+          ></div>
+        </div>
+
+        <!-- Gallery prev / next buttons -->
+        <button
+          id="galPrev"
+          class="gal-nav-btn gal-nav-prev"
+          aria-label="Previous project"
+        >
+          <svg
+            width="14"
+            height="14"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            viewBox="0 0 24 24"
+          >
+            <path d="M15 18l-6-6 6-6" />
+          </svg>
+        </button>
+        <button
+          id="galNext"
+          class="gal-nav-btn gal-nav-next"
+          aria-label="Next project"
+        >
+          <svg
+            width="14"
+            height="14"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            viewBox="0 0 24 24"
+          >
+            <path d="M9 18l6-6-6-6" />
+          </svg>
+        </button>
+
+        <!-- Cards track -->
+        <div
+          id="galleries-track"
+          style="
+            display: flex;
+            height: 100%;
+            will-change: transform;
+            align-items: stretch;
+          "
+        >
+          <!-- ───────────────────── VENUE 02 · White Palace ─────────────────────── -->
+
+          <div
+            class="gal-card wp-cover"
+            data-venue="1"
+            data-phase="0"
+            onclick="openCuisineGallery()"
+          >
+            <div class="gal-meta">
+              <span class="gal-venue-tag">02 · White Palace</span>
+              <span class="gal-phase-num">Phase 01</span>
+            </div>
+            <div class="gal-img-wrap">
+              <img
+                src="./assets/B%C3%A1nh%20socola%20Ph%C3%B4%20mai.jpg"
+                alt="White Palace Cuisine"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+            <div class="gal-bottom">
+              <h3 class="gal-phase-name">White Palace Cuisine</h3>
+              <p class="wp-cover-cta">Click to explore</p>
+            </div>
+            <div class="gal-arrow">
+              <svg
+                width="12"
+                height="12"
+                fill="none"
+                stroke="rgba(255,255,255,.38)"
+                stroke-width="1.5"
+                viewBox="0 0 24 24"
+              >
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </div>
+          </div>
+
+          <!-- ───────────────────── VENUE 03 · Gem Center ─────────────────────── -->
+
+          <div
+            class="gal-card wp-cover"
+            data-venue="2"
+            data-phase="0"
+            onclick="openGemLightbox()"
+          >
+            <div class="gal-meta">
+              <span class="gal-venue-tag">03 · Gem Center</span>
+              <span class="gal-phase-num">Phase 01</span>
+            </div>
+            <div class="gal-img-wrap">
+              <img
+                src="./assets/gallery/gem-center/gem-2.jpg"
+                alt="Gem Center"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+            <div class="gal-bottom">
+              <h3 class="gal-phase-name">Gem Center Weddings</h3>
+              <p class="wp-cover-cta">Click to explore</p>
+            </div>
+            <div class="gal-arrow">
+              <svg
+                width="12"
+                height="12"
+                fill="none"
+                stroke="rgba(255,255,255,.38)"
+                stroke-width="1.5"
+                viewBox="0 0 24 24"
+              >
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </div>
+          </div>
+
+          <!-- ───────────────────── VENUE 04 · Golden Sun Lounge ─────────────────────── -->
+
+          <div
+            class="gal-card wp-cover"
+            data-venue="3"
+            data-phase="0"
+            onclick="openLoungeLightbox()"
+          >
+            <div class="gal-meta">
+              <span class="gal-venue-tag">04 · Golden Sun Lounge</span>
+              <span class="gal-phase-num">Phase 01</span>
+            </div>
+            <div class="gal-img-wrap">
+              <img
+                src="./assets/gallery/lougne/lougne-4.jpg"
+                alt="Golden Sun Lounge"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+            <div class="gal-bottom">
+              <h3 class="gal-phase-name">Velvet Hour</h3>
+              <p class="wp-cover-cta">Click to explore</p>
+            </div>
+            <div class="gal-arrow">
+              <svg
+                width="12"
+                height="12"
+                fill="none"
+                stroke="rgba(255,255,255,.38)"
+                stroke-width="1.5"
+                viewBox="0 0 24 24"
+              >
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </div>
+          </div>
+
+          <!-- ───────────────────── VENUE 05 · Golden Sun Mang Den ─────────────────────── -->
+
+          <div
+            class="gal-card wp-cover"
+            data-venue="4"
+            data-phase="0"
+            onclick="openMangdenLightbox()"
+          >
+            <div class="gal-meta">
+              <span class="gal-venue-tag">05 · Golden Sun Mang Den</span>
+              <span class="gal-phase-num">Phase 01</span>
+            </div>
+            <div class="gal-img-wrap">
+              <img
+                src="./assets/gallery/golden-sun-mangden/mangden-10.jpg"
+                alt="Golden Sun Mang Den"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+            <div class="gal-bottom">
+              <h3 class="gal-phase-name">Concept Menu</h3>
+              <p class="wp-cover-cta">Click to explore</p>
+            </div>
+            <div class="gal-arrow">
+              <svg
+                width="12"
+                height="12"
+                fill="none"
+                stroke="rgba(255,255,255,.38)"
+                stroke-width="1.5"
+                viewBox="0 0 24 24"
+              >
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </div>
+          </div>
+        </div>
+        <!-- /track -->
+
+        <!-- Segmented progress bar — 3 venues -->
+        <div
+          style="
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            z-index: 10;
+            display: flex;
+            gap: 1px;
+          "
+        >
+          <div
+            style="
+              flex: 1;
+              background: rgba(255, 255, 255, 0.04);
+              position: relative;
+            "
+          >
+            <div
+              id="gal-fill-0"
+              style="
+                position: absolute;
+                inset: 0;
+                background: #d4af37;
+                width: 0%;
+              "
+            ></div>
+          </div>
+          <div
+            style="
+              flex: 1;
+              background: rgba(255, 255, 255, 0.04);
+              position: relative;
+            "
+          >
+            <div
+              id="gal-fill-1"
+              style="
+                position: absolute;
+                inset: 0;
+                background: #d4af37;
+                width: 0%;
+              "
+            ></div>
+          </div>
+          <div
+            style="
+              flex: 1;
+              background: rgba(255, 255, 255, 0.04);
+              position: relative;
+            "
+          >
+            <div
+              id="gal-fill-2"
+              style="
+                position: absolute;
+                inset: 0;
+                background: #d4af37;
+                width: 0%;
+              "
+            ></div>
+          </div>
+          <div
+            style="
+              flex: 1;
+              background: rgba(255, 255, 255, 0.04);
+              position: relative;
+            "
+          >
+            <div
+              id="gal-fill-3"
+              style="
+                position: absolute;
+                inset: 0;
+                background: #d4af37;
+                width: 0%;
+              "
+            ></div>
+          </div>
+        </div>
+      </div>
+      <!-- /sticky -->
+    </section>
+
+    <!-- ══════════════════════════════════════════
+     VỀ TÔI
+══════════════════════════════════════════ -->
+    <section id="about" class="py-28 lg:py-44 border-t div-line">
+      <div class="max-w-7xl mx-auto px-6 lg:px-14">
+        <!-- Eyebrow -->
+        <div class="flex items-center gap-3 mb-16 lg:mb-20">
+          <span class="acc"></span>
+          <span
+            style="
+              font-family: &quot;Inter&quot;, sans-serif;
+              font-size: 10px;
+              letter-spacing: 0.28em;
+              text-transform: uppercase;
+              color: rgba(212, 175, 55, 0.75);
+            "
+            >Về Tôi</span
+          >
+        </div>
+
+        <!-- 6:4 editorial grid -->
+        <div class="about-grid">
+          <!-- ─── LEFT: Portrait ─── -->
+          <div>
+            <div class="about-portrait">
+              <!-- inner frame -->
+              <div
+                style="
+                  position: absolute;
+                  inset: 1.5rem;
+                  border: 0.5px solid rgba(255, 255, 255, 0.04);
+                  z-index: 2;
+                  pointer-events: none;
+                "
+              ></div>
+              <!-- placeholder content -->
+              <div
+                style="
+                  position: absolute;
+                  inset: 0;
+                  display: flex;
+                  flex-direction: column;
+                  align-items: center;
+                  justify-content: center;
+                  gap: 0.5rem;
+                  z-index: 1;
+                "
+              >
+                <svg
+                  width="26"
+                  height="26"
+                  fill="none"
+                  stroke="rgba(255,255,255,.07)"
+                  stroke-width="1"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" />
+                  <circle cx="12" cy="7" r="4" />
+                </svg>
+                <p
+                  style="
+                    font-family: &quot;Inter&quot;, sans-serif;
+                    font-size: 10px;
+                    letter-spacing: 0.18em;
+                    text-transform: uppercase;
+                    color: rgba(255, 255, 255, 0.12);
+                  "
+                >
+                  2480 × 3508
+                </p>
+                <p
+                  style="
+                    font-family: &quot;Inter&quot;, sans-serif;
+                    font-size: 9px;
+                    letter-spacing: 0.14em;
+                    color: rgba(255, 255, 255, 0.07);
+                  "
+                >
+                  Portrait · Sony A7IV
+                </p>
+              </div>
+              <!-- bottom caption -->
+              <div
+                style="
+                  position: absolute;
+                  bottom: 0;
+                  left: 0;
+                  right: 0;
+                  padding: 1.5rem 1.75rem;
+                  background: linear-gradient(
+                    0deg,
+                    rgba(0, 0, 0, 0.82) 0%,
+                    transparent 100%
+                  );
+                  z-index: 3;
+                "
+              >
+                <p
+                  style="
+                    font-family: &quot;Inter&quot;, sans-serif;
+                    font-size: 9px;
+                    letter-spacing: 0.2em;
+                    text-transform: uppercase;
+                    color: rgba(255, 255, 255, 0.28);
+                  "
+                >
+                  Võ Quang Minh · Đà Lạt, 2025
+                </p>
+              </div>
+            </div>
+
+            <!-- Equipment tags -->
+            <div
+              style="
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0.4rem;
+                margin-top: 1.1rem;
+              "
+            >
+              <span
+                style="
+                  font-family: &quot;Inter&quot;, sans-serif;
+                  font-size: 9.5px;
+                  letter-spacing: 0.12em;
+                  color: rgba(255, 255, 255, 0.32);
+                  border: 0.5px solid rgba(255, 255, 255, 0.08);
+                  padding: 0.25rem 0.65rem;
+                "
+                >Sony a7 IV</span
+              >
+              <span
+                style="
+                  font-family: &quot;Inter&quot;, sans-serif;
+                  font-size: 9.5px;
+                  letter-spacing: 0.12em;
+                  color: rgba(255, 255, 255, 0.32);
+                  border: 0.5px solid rgba(255, 255, 255, 0.08);
+                  padding: 0.25rem 0.65rem;
+                "
+                >S&#8209;Log3</span
+              >
+              <span
+                style="
+                  font-family: &quot;Inter&quot;, sans-serif;
+                  font-size: 9.5px;
+                  letter-spacing: 0.12em;
+                  color: rgba(255, 255, 255, 0.32);
+                  border: 0.5px solid rgba(255, 255, 255, 0.08);
+                  padding: 0.25rem 0.65rem;
+                "
+                >FL / IN Profile</span
+              >
+              <span
+                style="
+                  font-family: &quot;Inter&quot;, sans-serif;
+                  font-size: 9.5px;
+                  letter-spacing: 0.12em;
+                  color: rgba(255, 255, 255, 0.32);
+                  border: 0.5px solid rgba(255, 255, 255, 0.08);
+                  padding: 0.25rem 0.65rem;
+                "
+                >Lightroom</span
+              >
+              <span
+                style="
+                  font-family: &quot;Inter&quot;, sans-serif;
+                  font-size: 9.5px;
+                  letter-spacing: 0.12em;
+                  color: rgba(255, 255, 255, 0.32);
+                  border: 0.5px solid rgba(255, 255, 255, 0.08);
+                  padding: 0.25rem 0.65rem;
+                "
+                >DaVinci Resolve</span
+              >
+            </div>
+          </div>
+
+          <!-- ─── RIGHT: Typography ─── -->
+          <div>
+            <!-- Heading — Cormorant Garamond Italic, letter-spacing:0 for clean Vietnamese rendering -->
+            <h2
+              style="
+                font-family: &quot;Cormorant Garamond&quot;, Georgia, serif;
+                font-style: italic;
+                font-size: clamp(40px, 4.6vw, 68px);
+                font-weight: 700;
+                color: #ffffff;
+                line-height: 1.06;
+                letter-spacing: 0;
+                margin-bottom: 1.75rem;
+              "
+            >
+              Ánh Sáng,<br />
+              <span style="color: #d4af37">Màu Sắc</span><br />
+              &amp;&nbsp;Câu Chuyện
+            </h2>
+
+            <!-- Bio — Inter for full Vietnamese support -->
+            <p
+              style="
+                font-family: &quot;Inter&quot;, sans-serif;
+                font-size: 0.875rem;
+                font-weight: 300;
+                color: rgba(255, 255, 255, 0.6);
+                line-height: 1.95;
+                margin-bottom: 1rem;
+              "
+            >
+              Tôi là
+              <strong style="color: #ffffff; font-weight: 500"
+                >Võ Quang Minh (Soni)</strong
+              >
+              — nhiếp ảnh gia và digital media strategist với hơn 2 năm kinh
+              nghiệm chuyên sâu về F&amp;B, hospitality và content creation.
+            </p>
+            <p
+              style="
+                font-family: &quot;Inter&quot;, sans-serif;
+                font-size: 0.875rem;
+                font-weight: 300;
+                color: rgba(255, 255, 255, 0.6);
+                line-height: 1.95;
+                margin-bottom: 2.25rem;
+              "
+            >
+              Hiện đảm nhận toàn bộ sản xuất nội dung hình ảnh và video cho
+              <strong style="color: #ffffff; font-weight: 500"
+                >Golden Sun Hotel Đà Lạt</strong
+              >
+              — gồm khách sạn chính, Golden Sun Lounge và La Maritza Music Sky
+              Lounge — theo định hướng phong cách <em>European Luxury</em>.
+            </p>
+
+            <!-- Timeline — 0.5px hairline dividers -->
+            <div style="margin-bottom: 2.25rem">
+              <div class="timeline-item">
+                <p
+                  style="
+                    font-family: &quot;Inter&quot;, sans-serif;
+                    font-size: 9px;
+                    letter-spacing: 0.22em;
+                    text-transform: uppercase;
+                    color: rgba(212, 175, 55, 0.65);
+                    margin-bottom: 0.35rem;
+                  "
+                >
+                  Hiện Tại
+                </p>
+                <p
+                  style="
+                    font-family: &quot;Inter&quot;, sans-serif;
+                    font-weight: 500;
+                    font-size: 0.975rem;
+                    color: #ffffff;
+                    letter-spacing: 0;
+                    margin-bottom: 0.2rem;
+                  "
+                >
+                  Media Specialist
+                </p>
+                <p
+                  style="
+                    font-family: &quot;Inter&quot;, sans-serif;
+                    font-size: 0.8rem;
+                    font-weight: 300;
+                    color: rgba(255, 255, 255, 0.42);
+                  "
+                >
+                  Golden Sun Hotel Đà Lạt — 3 venues
+                </p>
+              </div>
+
+              <div class="timeline-item">
+                <p
+                  style="
+                    font-family: &quot;Inter&quot;, sans-serif;
+                    font-size: 9px;
+                    letter-spacing: 0.22em;
+                    text-transform: uppercase;
+                    color: rgba(255, 255, 255, 0.28);
+                    margin-bottom: 0.35rem;
+                  "
+                >
+                  2024 – 2025
+                </p>
+                <p
+                  style="
+                    font-family: &quot;Inter&quot;, sans-serif;
+                    font-weight: 500;
+                    font-size: 0.975rem;
+                    color: #ffffff;
+                    letter-spacing: 0;
+                    margin-bottom: 0.2rem;
+                  "
+                >
+                  Nhiếp ảnh gia tự do
+                </p>
+                <p
+                  style="
+                    font-family: &quot;Inter&quot;, sans-serif;
+                    font-size: 0.8rem;
+                    font-weight: 300;
+                    color: rgba(255, 255, 255, 0.42);
+                  "
+                >
+                  MV "Em Xinh" &amp; "Open Your Eye" — MONO
+                </p>
+              </div>
+
+              <div class="timeline-item">
+                <p
+                  style="
+                    font-family: &quot;Inter&quot;, sans-serif;
+                    font-size: 9px;
+                    letter-spacing: 0.22em;
+                    text-transform: uppercase;
+                    color: rgba(255, 255, 255, 0.28);
+                    margin-bottom: 0.35rem;
+                  "
+                >
+                  2022 – 2023
+                </p>
+                <p
+                  style="
+                    font-family: &quot;Inter&quot;, sans-serif;
+                    font-weight: 500;
+                    font-size: 0.975rem;
+                    color: #ffffff;
+                    letter-spacing: 0;
+                    margin-bottom: 0.2rem;
+                  "
+                >
+                  Photographer
+                </p>
+                <p
+                  style="
+                    font-family: &quot;Inter&quot;, sans-serif;
+                    font-size: 0.8rem;
+                    font-weight: 300;
+                    color: rgba(255, 255, 255, 0.42);
+                  "
+                >
+                  In Holding Vietnam — White Palace, Gem Center
+                </p>
+              </div>
+            </div>
+
+            <!-- Quote -->
+            <div
+              style="
+                padding: 1.4rem 1.6rem;
+                border-left: 1.5px solid rgba(212, 175, 55, 0.32);
+                background: rgba(212, 175, 55, 0.03);
+              "
+            >
+              <p
+                style="
+                  font-family: &quot;Cormorant Garamond&quot;, Georgia, serif;
+                  font-style: italic;
+                  font-size: 1rem;
+                  color: rgba(255, 255, 255, 0.7);
+                  line-height: 1.78;
+                  letter-spacing: 0;
+                  margin-bottom: 0.65rem;
+                "
+              >
+                "Mỗi khung hình là một câu chuyện —<br />tôi tìm ánh sáng, tôi
+                tìm cảm xúc."
+              </p>
+              <p
+                style="
+                  font-family: &quot;Inter&quot;, sans-serif;
+                  font-size: 9px;
+                  letter-spacing: 0.2em;
+                  text-transform: uppercase;
+                  color: rgba(255, 255, 255, 0.28);
+                "
+              >
+                — Võ Quang Minh / Soni
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════
+     KỸ NĂNG
+══════════════════════════════════════════ -->
+    <section id="skills" class="py-28 lg:py-40 border-t div-line">
+      <div class="max-w-7xl mx-auto px-6 lg:px-14">
+        <p
+          class="flex items-center mb-4"
+          style="
+            font-family: &quot;Be Vietnam Pro&quot;, sans-serif;
+            font-size: 10px;
+            letter-spacing: 0.28em;
+            text-transform: uppercase;
+            color: rgba(212, 175, 55, 0.75);
+          "
+        >
+          <span class="acc"></span>Chuyên Môn
+        </p>
+        <h2
+          style="
+            font-family: &quot;Be Vietnam Pro&quot;, sans-serif;
+            font-size: clamp(32px, 5vw, 58px);
+            font-weight: 700;
+            color: #ffffff;
+            line-height: 1.05;
+            letter-spacing: 0;
+            margin-bottom: 4rem;
+          "
+        >
+          Kỹ Năng
+        </h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+          <!-- 01 — Nhiếp Ảnh -->
+          <div class="skill-card">
+            <div class="skill-icon">
+              <svg
+                width="15"
+                height="15"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z"
+                />
+                <circle cx="12" cy="13" r="4" />
+              </svg>
+            </div>
+            <h3 class="skill-name">Nhiếp Ảnh</h3>
+            <p class="skill-desc">
+              Commercial · Kiến Trúc · Sự Kiện · Chân Dung
+            </p>
+            <div class="skill-track">
+              <div class="skill-fill" style="width: 90%"></div>
+            </div>
+          </div>
+
+          <!-- 02 — Cinematography -->
+          <div class="skill-card">
+            <div class="skill-icon">
+              <svg
+                width="15"
+                height="15"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                viewBox="0 0 24 24"
+              >
+                <polygon points="23 7 16 12 23 17 23 7" />
+                <rect x="1" y="5" width="15" height="14" rx="2" ry="2" />
+              </svg>
+            </div>
+            <h3 class="skill-name">Cinematography</h3>
+            <p class="skill-desc">
+              S&#8209;Log3 Workflow · Color Grading · Kể Chuyện Bằng Hình Ảnh
+            </p>
+            <div class="skill-track">
+              <div class="skill-fill" style="width: 80%"></div>
+            </div>
+          </div>
+
+          <!-- 03 — Hậu Kỳ -->
+          <div class="skill-card">
+            <div class="skill-icon">
+              <svg
+                width="15"
+                height="15"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                viewBox="0 0 24 24"
+              >
+                <circle cx="12" cy="12" r="3" />
+                <path
+                  d="M19.07 4.93a10 10 0 010 14.14M4.93 4.93a10 10 0 000 14.14"
+                />
+              </svg>
+            </div>
+            <h3 class="skill-name">Hậu Kỳ</h3>
+            <p class="skill-desc">
+              Lightroom · Photoshop · DaVinci Resolve · Premiere Pro
+            </p>
+            <div class="skill-track">
+              <div class="skill-fill" style="width: 85%"></div>
+            </div>
+          </div>
+
+          <!-- 04 — Chiến Lược Nội Dung -->
+          <div class="skill-card">
+            <div class="skill-icon">
+              <svg
+                width="15"
+                height="15"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"
+                />
+                <polyline points="14 2 14 8 20 8" />
+              </svg>
+            </div>
+            <h3 class="skill-name">Chiến Lược Nội Dung</h3>
+            <p class="skill-desc">
+              Social Media · Thương Hiệu Visual · Marketing Đa Nền Tảng
+            </p>
+            <div class="skill-track">
+              <div class="skill-fill" style="width: 75%"></div>
+            </div>
+          </div>
+
+          <!-- 05 — Thiết Kế Ánh Sáng -->
+          <div class="skill-card">
+            <div class="skill-icon">
+              <svg
+                width="15"
+                height="15"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                viewBox="0 0 24 24"
+              >
+                <circle cx="12" cy="12" r="5" />
+                <path
+                  d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"
+                />
+              </svg>
+            </div>
+            <h3 class="skill-name">Thiết Kế Ánh Sáng</h3>
+            <p class="skill-desc">
+              Studio · Ánh Sáng Tự Nhiên · Warm Ambiance · On&#8209;Set
+            </p>
+            <div class="skill-track">
+              <div class="skill-fill" style="width: 88%"></div>
+            </div>
+          </div>
+
+          <!-- 06 — Quản Lý Sản Xuất -->
+          <div class="skill-card">
+            <div class="skill-icon">
+              <svg
+                width="15"
+                height="15"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                viewBox="0 0 24 24"
+              >
+                <rect x="2" y="3" width="20" height="14" rx="2" />
+                <path d="M8 21h8M12 17v4" />
+              </svg>
+            </div>
+            <h3 class="skill-name">Quản Lý Sản Xuất</h3>
+            <p class="skill-desc">
+              Điều Phối On&#8209;Set · Lịch Trình · Thiết Bị · Hậu Cần
+            </p>
+            <div class="skill-track">
+              <div class="skill-fill" style="width: 82%"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════
+     CONTACT — GET IN TOUCH
+══════════════════════════════════════════ -->
+    <section id="contact" class="py-24 lg:py-36 border-t div-line">
+      <div class="max-w-7xl mx-auto px-6 lg:px-14">
+        <!-- Eyebrow + Heading -->
+        <div class="mb-12 lg:mb-16">
+          <p
+            class="flex items-center mb-5"
+            style="
+              font-family: &quot;Be Vietnam Pro&quot;, system-ui, sans-serif;
+              font-size: 10px;
+              font-weight: 500;
+              letter-spacing: 0.28em;
+              text-transform: uppercase;
+              color: rgba(212, 175, 55, 0.75);
+            "
+          >
+            <span class="acc"></span>Kết Nối
+          </p>
+          <h2
+            class="font-display h-shadow"
+            style="
+              font-size: clamp(38px, 8vw, 110px);
+              font-weight: 900;
+              letter-spacing: -0.02em;
+              line-height: 0.92;
+            "
+          >
+            <span class="text-cream">GET IN</span><br />
+            <span
+              style="
+                color: rgba(255, 255, 255, 0.08);
+                -webkit-text-stroke: 1px rgba(255, 255, 255, 0.2);
+              "
+              >TOUCH</span
+            >
+          </h2>
+        </div>
+
+        <!-- Contact cards — 2×2 grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-10">
+          <!-- Email -->
+          <a href="mailto:voquangminh771@gmail.com" class="contact-card">
+            <div class="min-w-0">
+              <p class="contact-card-label">Email</p>
+              <p class="contact-card-value">voquangminh771@gmail.com</p>
+            </div>
+            <svg
+              class="contact-arrow"
+              width="14"
+              height="14"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+              viewBox="0 0 24 24"
+            >
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+          </a>
+
+          <!-- Phone -->
+          <a href="tel:0384316771" class="contact-card">
+            <div class="min-w-0">
+              <p
+                class="contact-card-label"
+                style="
+                  font-family:
+                    &quot;Be Vietnam Pro&quot;, system-ui, sans-serif;
+                "
+              >
+                Điện Thoại
+              </p>
+              <p class="contact-card-value">038 4316 771</p>
+            </div>
+            <svg
+              class="contact-arrow"
+              width="14"
+              height="14"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+              viewBox="0 0 24 24"
+            >
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+          </a>
+
+          <!-- Instagram -->
+          <a
+            href="https://instagram.com/soni.photoo"
+            target="_blank"
+            rel="noopener"
+            class="contact-card"
+          >
+            <div class="min-w-0">
+              <p class="contact-card-label">Instagram</p>
+              <p class="contact-card-value">@Soni.photoo</p>
+            </div>
+            <svg
+              class="contact-arrow"
+              width="14"
+              height="14"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+              viewBox="0 0 24 24"
+            >
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+          </a>
+
+          <!-- Behance -->
+          <a
+            href="https://www.behance.net/quangminhvo"
+            target="_blank"
+            rel="noopener"
+            class="contact-card"
+          >
+            <div class="min-w-0">
+              <p class="contact-card-label">Behance</p>
+              <p class="contact-card-value">quangminhvo</p>
+            </div>
+            <svg
+              class="contact-arrow"
+              width="14"
+              height="14"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+              viewBox="0 0 24 24"
+            >
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+          </a>
+        </div>
+
+        <!-- Address — centered -->
+        <div class="flex items-center justify-center gap-3">
+          <svg
+            width="13"
+            height="13"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            viewBox="0 0 24 24"
+            style="color: rgba(212, 175, 55, 0.55); flex-shrink: 0"
+          >
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" />
+            <circle cx="12" cy="10" r="3" />
+          </svg>
+          <p
+            style="
+              font-family: &quot;Be Vietnam Pro&quot;, system-ui, sans-serif;
+              font-size: 0.8rem;
+              font-weight: 300;
+              color: rgba(255, 255, 255, 0.36);
+              letter-spacing: 0;
+            "
+          >
+            6A/2 Hồ Xuân Hương, Lâm Viên – Đà Lạt, Lâm Đồng
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════
+     FOOTER — Minimal
+══════════════════════════════════════════ -->
+    <footer
+      class="border-t div-line py-8"
+      style="border-top-color: rgba(255, 255, 255, 0.05)"
+    >
+      <div class="max-w-7xl mx-auto px-6 lg:px-14">
+        <div
+          class="flex flex-col md:flex-row items-center justify-between gap-5"
+        >
+          <!-- Logo -->
+          <a
+            href="#hero"
+            class="font-display font-bold text-xl text-cream"
+            style="letter-spacing: 0.3em; flex-shrink: 0"
+            >SONI</a
+          >
+
+          <!-- Copyright -->
+          <p
+            style="
+              font-family: &quot;Be Vietnam Pro&quot;, system-ui, sans-serif;
+              font-size: 0.72rem;
+              font-weight: 300;
+              color: rgba(255, 255, 255, 0.32);
+              letter-spacing: 0;
+              text-align: center;
+            "
+          >
+            © 2026 Võ Quang Minh (Soni). All rights reserved.
+          </p>
+
+          <!-- Social icons -->
+          <div class="flex items-center gap-5">
+            <!-- Instagram -->
+            <a
+              href="https://instagram.com/soni.photoo"
+              target="_blank"
+              rel="noopener"
+              style="color: rgba(255, 255, 255, 0.3); transition: color 0.25s"
+              onmouseenter="this.style.color = '#D4AF37'"
+              onmouseleave="this.style.color = 'rgba(255,255,255,.3)'"
+              aria-label="Instagram"
+            >
+              <svg
+                width="16"
+                height="16"
+                fill="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"
+                />
+              </svg>
+            </a>
+            <!-- Email -->
+            <a
+              href="mailto:voquangminh771@gmail.com"
+              style="color: rgba(255, 255, 255, 0.3); transition: color 0.25s"
+              onmouseenter="this.style.color = '#D4AF37'"
+              onmouseleave="this.style.color = 'rgba(255,255,255,.3)'"
+              aria-label="Email"
+            >
+              <svg
+                width="16"
+                height="16"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"
+                />
+                <polyline points="22,6 12,13 2,6" />
+              </svg>
+            </a>
+            <!-- Phone -->
+            <a
+              href="tel:0384316771"
+              style="color: rgba(255, 255, 255, 0.3); transition: color 0.25s"
+              onmouseenter="this.style.color = '#D4AF37'"
+              onmouseleave="this.style.color = 'rgba(255,255,255,.3)'"
+              aria-label="Phone"
+            >
+              <svg
+                width="16"
+                height="16"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8a19.79 19.79 0 01-3.07-8.68A2 2 0 012 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14.92v2z"
+                />
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- ══════════════════════════════════════════
+     MODALS
+══════════════════════════════════════════ -->
+    <!-- Modal 1 -->
+    <div
+      id="m1"
+      class="fixed inset-0 z-[100] hidden items-center justify-center p-6"
+      style="background: rgba(0, 0, 0, 0.97); backdrop-filter: blur(14px)"
+      onclick="closeModal('m1')"
+    >
+      <div
+        class="max-w-xl w-full p-10 border div-line relative"
+        style="background: #0a0a0a"
+        onclick="event.stopPropagation()"
+      >
+        <button
+          class="absolute top-5 right-5 text-faded hover:text-cream"
+          onclick="closeModal('m1')"
+        >
+          <svg
+            width="18"
+            height="18"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            viewBox="0 0 24 24"
+          >
+            <path d="M18 6L6 18M6 6l12 12" />
+          </svg>
+        </button>
+        <p
+          class="font-body text-[11px] tracking-[.2em] uppercase text-accent mb-2"
+        >
+          Dự Án 01
+        </p>
+        <h3 class="font-display font-bold text-cream text-3xl mb-5">
+          Golden Sun Hotel — Đà Lạt
+        </h3>
+        <p
+          class="font-body text-sm text-faded leading-[2] mb-6"
+          style="font-weight: 300"
+        >
+          Phụ trách toàn bộ nội dung hình ảnh và video cho 3 venues: khách sạn
+          chính, Golden Sun Lounge và La Maritza Music Sky Lounge. Phong cách
+          European Luxury với tông warm sang trọng, sử dụng Creative Look FL/IN
+          trên Sony a7 IV.
+        </p>
+        <div class="flex flex-wrap gap-2 mb-8">
+          <span
+            class="font-body text-[11px] px-3 py-1 border div-line text-faded"
+            >Sony a7 IV</span
+          >
+          <span
+            class="font-body text-[11px] px-3 py-1 border div-line text-faded"
+            >S-Log3</span
+          >
+          <span
+            class="font-body text-[11px] px-3 py-1 border div-line text-faded"
+            >FL / IN Profile</span
+          >
+          <span
+            class="font-body text-[11px] px-3 py-1 border div-line text-faded"
+            >Kiến Trúc</span
+          >
+        </div>
+        <div class="h-px" style="background: rgba(212, 175, 55, 0.2)"></div>
+        <p
+          class="font-body text-xs text-faded mt-4"
+          style="font-style: italic; font-weight: 300"
+        >
+          [ Ảnh thực tế sẽ được thêm vào bước tiếp theo ]
+        </p>
+      </div>
+    </div>
+
+    <!-- Modal 2 -->
+    <div
+      id="m2"
+      class="fixed inset-0 z-[100] hidden items-center justify-center p-6"
+      style="background: rgba(0, 0, 0, 0.97); backdrop-filter: blur(14px)"
+      onclick="closeModal('m2')"
+    >
+      <div
+        class="max-w-xl w-full p-10 border div-line relative"
+        style="background: #0a0a0a"
+        onclick="event.stopPropagation()"
+      >
+        <button
+          class="absolute top-5 right-5 text-faded hover:text-cream"
+          onclick="closeModal('m2')"
+        >
+          <svg
+            width="18"
+            height="18"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            viewBox="0 0 24 24"
+          >
+            <path d="M18 6L6 18M6 6l12 12" />
+          </svg>
+        </button>
+        <p
+          class="font-body text-[11px] tracking-[.2em] uppercase text-accent mb-2"
+        >
+          Dự Án 02
+        </p>
+        <h3 class="font-display font-bold text-cream text-3xl mb-5">
+          White Palace
+        </h3>
+        <p
+          class="font-body text-sm text-faded leading-[2] mb-6"
+          style="font-weight: 300"
+        >
+          Phụ trách hình ảnh cho White Palace — không gian tiệc sự kiện cao cấp
+          của In Holding Vietnam tại TP.HCM. Chụp ảnh tiệc cưới, sự kiện doanh
+          nghiệp và F&amp;B, phối hợp chặt chẽ với team marketing để xây dựng bộ
+          nhận diện visual sang trọng.
+        </p>
+        <div class="flex flex-wrap gap-2 mb-8">
+          <span
+            class="font-body text-[11px] px-3 py-1 border div-line text-faded"
+            >F&amp;B Photography</span
+          >
+          <span
+            class="font-body text-[11px] px-3 py-1 border div-line text-faded"
+            >Tiệc Cưới</span
+          >
+          <span
+            class="font-body text-[11px] px-3 py-1 border div-line text-faded"
+            >Sự Kiện</span
+          >
+          <span
+            class="font-body text-[11px] px-3 py-1 border div-line text-faded"
+            >In Holding Vietnam</span
+          >
+        </div>
+        <div class="h-px" style="background: rgba(212, 175, 55, 0.2)"></div>
+        <p
+          class="font-body text-xs text-faded mt-4"
+          style="font-style: italic; font-weight: 300"
+        >
+          [ Ảnh thực tế sẽ được thêm vào bước tiếp theo ]
+        </p>
+      </div>
+    </div>
+
+    <!-- Modal 3 -->
+    <div
+      id="m3"
+      class="fixed inset-0 z-[100] hidden items-center justify-center p-6"
+      style="background: rgba(0, 0, 0, 0.97); backdrop-filter: blur(14px)"
+      onclick="closeModal('m3')"
+    >
+      <div
+        class="max-w-xl w-full p-10 border div-line relative"
+        style="background: #0a0a0a"
+        onclick="event.stopPropagation()"
+      >
+        <button
+          class="absolute top-5 right-5 text-faded hover:text-cream"
+          onclick="closeModal('m3')"
+        >
+          <svg
+            width="18"
+            height="18"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            viewBox="0 0 24 24"
+          >
+            <path d="M18 6L6 18M6 6l12 12" />
+          </svg>
+        </button>
+        <p
+          class="font-body text-[11px] tracking-[.2em] uppercase text-accent mb-2"
+        >
+          Dự Án 03
+        </p>
+        <h3 class="font-display font-bold text-cream text-3xl mb-5">
+          Gem Center
+        </h3>
+        <p
+          class="font-body text-sm text-faded leading-[2] mb-6"
+          style="font-weight: 300"
+        >
+          Phụ trách hình ảnh cho Gem Center — trung tâm sự kiện và hội nghị hiện
+          đại của In Holding Vietnam tại TP.HCM. Ghi lại kiến trúc không gian,
+          sự kiện quy mô lớn và các buổi hội nghị doanh nghiệp với phong cách
+          editorial chuyên nghiệp.
+        </p>
+        <div class="flex flex-wrap gap-2 mb-8">
+          <span
+            class="font-body text-[11px] px-3 py-1 border div-line text-faded"
+            >Event &amp; Space</span
+          >
+          <span
+            class="font-body text-[11px] px-3 py-1 border div-line text-faded"
+            >Kiến Trúc</span
+          >
+          <span
+            class="font-body text-[11px] px-3 py-1 border div-line text-faded"
+            >Hội Nghị</span
+          >
+          <span
+            class="font-body text-[11px] px-3 py-1 border div-line text-faded"
+            >In Holding Vietnam</span
+          >
+        </div>
+        <div class="h-px" style="background: rgba(212, 175, 55, 0.2)"></div>
+        <p
+          class="font-body text-xs text-faded mt-4"
+          style="font-style: italic; font-weight: 300"
+        >
+          [ Ảnh thực tế sẽ được thêm vào bước tiếp theo ]
+        </p>
+      </div>
+    </div>
+
+    <script>
+      function openModal(id) {
+        const el = document.getElementById(id);
+        el.classList.remove("hidden");
+        el.classList.add("flex");
+        document.body.style.overflow = "hidden";
+      }
+      function closeModal(id) {
+        const el = document.getElementById(id);
+        el.classList.add("hidden");
+        el.classList.remove("flex");
+        document.body.style.overflow = "";
+      }
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+          ["m1", "m2", "m3"].forEach(closeModal);
+          closeCuisineGallery();
+          closeGemLightbox();
+          closeLoungeLightbox();
+          closeMangdenLightbox();
+        }
+      });
+
+      function openCuisineGallery() {
+        var lb = document.getElementById("cuisine-lb");
+        if (!lb) return;
+        lb.classList.add("is-open");
+        document.body.style.overflow = "hidden";
+        lb.querySelector("#cuisine-lb-scroll").scrollTop = 0;
+      }
+      function closeCuisineGallery() {
+        var lb = document.getElementById("cuisine-lb");
+        if (!lb) return;
+        lb.classList.remove("is-open");
+        document.body.style.overflow = "";
+      }
+
+      function openGemLightbox() {
+        var lb = document.getElementById("gem-lb");
+        if (!lb) return;
+        lb.classList.add("is-open");
+        document.body.style.overflow = "hidden";
+        lb.querySelector("#gem-lb-scroll").scrollTop = 0;
+      }
+      function closeGemLightbox() {
+        var lb = document.getElementById("gem-lb");
+        if (!lb) return;
+        lb.classList.remove("is-open");
+        document.body.style.overflow = "";
+      }
+      function openLoungeLightbox() {
+        var lb = document.getElementById("lounge-lb");
+        if (!lb) return;
+        lb.classList.add("is-open");
+        document.body.style.overflow = "hidden";
+        lb.querySelector("#lounge-lb-scroll").scrollTop = 0;
+      }
+      function closeLoungeLightbox() {
+        var lb = document.getElementById("lounge-lb");
+        if (!lb) return;
+        lb.classList.remove("is-open");
+        document.body.style.overflow = "";
+      }
+      function openMangdenLightbox() {
+        var lb = document.getElementById("mangden-lb");
+        if (!lb) return;
+        lb.classList.add("is-open");
+        document.body.style.overflow = "hidden";
+        lb.querySelector("#mangden-lb-scroll").scrollTop = 0;
+      }
+      function closeMangdenLightbox() {
+        var lb = document.getElementById("mangden-lb");
+        if (!lb) return;
+        lb.classList.remove("is-open");
+        document.body.style.overflow = "";
+      }
+
+      // Floating Particles
+      (function () {
+        const canvas = document.getElementById("particles");
+        if (!canvas) return;
+        const ctx = canvas.getContext("2d");
+        const pts = [];
+        function resize() {
+          const hero = canvas.parentElement;
+          canvas.width = hero.offsetWidth;
+          canvas.height = hero.offsetHeight;
+        }
+        function rand(a, b) {
+          return Math.random() * (b - a) + a;
+        }
+        function spawn() {
+          pts.push({
+            x: rand(0, canvas.width),
+            y: rand(canvas.height * 0.2, canvas.height + 30),
+            r: rand(0.4, 1.6),
+            vy: -rand(0.12, 0.5),
+            vx: rand(-0.1, 0.1),
+            a: rand(0.12, 0.45),
+            d: rand(0.0003, 0.0009),
+          });
+        }
+        function frame() {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          while (pts.length < 60) spawn();
+          for (let i = pts.length - 1; i >= 0; i--) {
+            const p = pts[i];
+            p.x += p.vx;
+            p.y += p.vy;
+            p.a -= p.d;
+            if (p.a <= 0 || p.y < -10) {
+              pts.splice(i, 1);
+              continue;
+            }
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(212,175,55,${p.a.toFixed(3)})`;
+            ctx.fill();
+          }
+          requestAnimationFrame(frame);
+        }
+        resize();
+        window.addEventListener("resize", resize);
+        frame();
+      })();
+
+      // Active nav on scroll
+      const secs = document.querySelectorAll("section[id]");
+      const links = document.querySelectorAll(".nav-link");
+      window.addEventListener("scroll", () => {
+        let cur = "";
+        secs.forEach((s) => {
+          if (window.scrollY >= s.offsetTop - 80) cur = s.id;
+        });
+        links.forEach((a) => {
+          a.style.color = a.getAttribute("href") === "#" + cur ? "#D4AF37" : "";
+        });
+      });
+
+      // Section scroll snap (wheel only, desktop)
+      (function () {
+        var targets = ["hero", "social", "work", "about", "skills", "contact"]
+          .map(function (id) {
+            return document.getElementById(id);
+          })
+          .filter(Boolean);
+        var footer = document.querySelector("footer");
+        if (footer) targets.push(footer);
+
+        var busy = false;
+
+        function currentIdx() {
+          var mid = window.scrollY + window.innerHeight * 0.35;
+          var idx = 0;
+          targets.forEach(function (el, i) {
+            if (el.offsetTop <= mid) idx = i;
+          });
+          return idx;
+        }
+
+        function goTo(idx) {
+          idx = Math.max(0, Math.min(targets.length - 1, idx));
+          busy = true;
+          targets[idx].scrollIntoView({ behavior: "smooth" });
+          setTimeout(function () {
+            busy = false;
+          }, 850);
+        }
+
+        window.addEventListener(
+          "wheel",
+          function (e) {
+            // Skip if any overlay/lightbox is open
+            if (document.body.style.overflow === "hidden") return;
+            // Skip inside horizontal film strip
+            if (e.target.closest && e.target.closest("#filmStrip")) return;
+            // Mobile: skip small deltaY (trackpad inertia)
+            if (Math.abs(e.deltaY) < 30) return;
+
+            if (busy) {
+              e.preventDefault();
+              return;
+            }
+            e.preventDefault();
+            goTo(currentIdx() + (e.deltaY > 0 ? 1 : -1));
+          },
+          { passive: false },
+        );
+      })();
+
+      // GALLERIES — nút/vuốt điều hướng, cuộn dọc hoàn toàn tự do
+      (function () {
+        var track = document.getElementById("galleries-track");
+        var cards = Array.prototype.slice.call(
+          document.querySelectorAll(".gal-card"),
+        );
+        var curEl = document.getElementById("gal-cur");
+        var venueEl = document.getElementById("gal-venue-name");
+        var phaseEl = document.getElementById("gal-phase-label");
+        var fills = [
+          "gal-fill-0",
+          "gal-fill-1",
+          "gal-fill-2",
+          "gal-fill-3",
+        ].map(function (id) {
+          return document.getElementById(id);
+        });
+        var dotGroups = [
+          ["gal-dot-0"],
+          ["gal-dot-1"],
+          ["gal-dot-2"],
+          ["gal-dot-3"],
+        ].map(function (g) {
+          return g.map(function (id) {
+            return document.getElementById(id);
+          });
+        });
+
+        var VENUES = [
+          "White Palace",
+          "Gem Center",
+          "Golden Sun Lounge",
+          "Golden Sun Mang Den",
+        ];
+        var PHASES = ["Phase 01"];
+        var PER_VENUE = 1;
+        var N = cards.length;
+        if (!track || N === 0) return;
+
+        var currentIdx = 0;
+
+        function getCardW() {
+          return window.innerWidth;
+        }
+
+        function updateHUD(idx) {
+          var venue = Math.floor(idx / PER_VENUE);
+          var phase = idx % PER_VENUE;
+          if (curEl) curEl.textContent = String(idx + 1).padStart(2, "0");
+          if (venueEl) venueEl.textContent = VENUES[venue] || "";
+          if (phaseEl) phaseEl.textContent = PHASES[phase] || "";
+          dotGroups.forEach(function (grp, v) {
+            grp.forEach(function (dot, p) {
+              if (!dot) return;
+              var active = v < venue || (v === venue && p <= phase);
+              dot.style.background = active
+                ? "#D4AF37"
+                : "rgba(255,255,255,.12)";
+              dot.style.transform =
+                v === venue && p === phase ? "scale(1.4)" : "scale(1)";
+            });
+          });
+          fills.forEach(function (fill, v) {
+            if (!fill) return;
+            if (v < venue) {
+              fill.style.width = "100%";
+            } else if (v === venue) {
+              fill.style.width = ((phase + 1) / PER_VENUE) * 100 + "%";
+            } else {
+              fill.style.width = "0%";
+            }
+          });
+        }
+
+        function goTo(idx, animate) {
+          idx = Math.max(0, Math.min(N - 1, idx));
+          currentIdx = idx;
+          track.style.transition =
+            animate === false
+              ? "none"
+              : "transform 0.42s cubic-bezier(0.4, 0, 0.2, 1)";
+          var cardW = getCardW();
+          var offset = Math.round((window.innerWidth - cardW) / 2);
+          track.style.transform =
+            "translateX(" + (offset - idx * cardW) + "px)";
+          updateHUD(idx);
+        }
+
+        // Khởi tạo — KHÔNG đặt section.height → cuộn dọc tự do
+        goTo(0, false);
+        window.addEventListener("resize", function () {
+          goTo(currentIdx, false);
+        });
+
+        // Nút Prev / Next
+        var galPrev = document.getElementById("galPrev");
+        var galNext = document.getElementById("galNext");
+        if (galPrev)
+          galPrev.addEventListener("click", function () {
+            goTo(currentIdx - 1);
+          });
+        if (galNext)
+          galNext.addEventListener("click", function () {
+            goTo(currentIdx + 1);
+          });
+
+        // Touch swipe — Mobile vuốt ngang để chuyển dự án
+        var touchX = 0,
+          touchY = 0,
+          touchT = 0;
+        track.addEventListener(
+          "touchstart",
+          function (e) {
+            touchX = e.touches[0].clientX;
+            touchY = e.touches[0].clientY;
+            touchT = Date.now();
+            track.style.transition = "none";
+          },
+          { passive: true },
+        );
+        track.addEventListener(
+          "touchend",
+          function (e) {
+            var dx = e.changedTouches[0].clientX - touchX;
+            var dy = e.changedTouches[0].clientY - touchY;
+            var dt = Date.now() - touchT;
+            // Vuốt ngang > dọc và đủ mạnh hoặc đủ nhanh
+            if (
+              Math.abs(dx) > Math.abs(dy) &&
+              (Math.abs(dx) > 40 || (Math.abs(dx) > 15 && dt < 300))
+            ) {
+              goTo(dx < 0 ? currentIdx + 1 : currentIdx - 1);
+              e.stopPropagation();
+            } else {
+              // Không phải swipe → giữ nguyên vị trí hiện tại
+              goTo(currentIdx);
+            }
+          },
+          { passive: true },
+        );
+      })();
+    </script>
+
+    <!-- Social Media Strategy — lazy load + hover (desktop) / tap-to-play (mobile) -->
+    <script>
+      (function () {
+        var wraps = document.querySelectorAll(".sms-phone-wrap");
+        if (!wraps.length) return;
+
+        var isTouch = "ontouchstart" in window || navigator.maxTouchPoints > 0;
+
+        /* Show tap icons on touch devices */
+        if (isTouch) {
+          document.querySelectorAll(".sms-tap-icon").forEach(function (el) {
+            el.style.display = "flex";
+          });
+        }
+
+        function attemptPlay(video, wrap) {
+          if (video.readyState >= 1) {
+            video.play().catch(function () {});
+            wrap.classList.add("is-playing");
+            wrap.classList.remove("sms-tapped");
+          } else {
+            video.dataset.playOnLoad = "1";
+          }
+        }
+
+        function stopVideo(video, wrap) {
+          video.dataset.playOnLoad = "";
+          video.pause();
+          video.load();
+          wrap.classList.remove("is-playing");
+          wrap.classList.remove("sms-tapped");
+        }
+
+        wraps.forEach(function (wrap) {
+          var video = wrap.querySelector(".sms-video");
+          if (!video) return;
+
+          /* Cards with data-yt-id autoplay on their own — skip hover/tap logic */
+          if (wrap.dataset.ytId) return;
+
+          if (isTouch) {
+            /* ── Tap to play / pause on mobile ── */
+            wrap.addEventListener(
+              "touchend",
+              function (e) {
+                e.preventDefault();
+                if (video.paused) {
+                  attemptPlay(video, wrap);
+                  wrap.classList.add("sms-tapped");
+                } else {
+                  stopVideo(video, wrap);
+                }
+              },
+              { passive: false },
+            );
+
+            /* Auto-pause when card scrolls out of view */
+            video.addEventListener("pause", function () {
+              wrap.classList.remove("is-playing");
+            });
+          } else {
+            /* ── Hover: spotlight + play on desktop ── */
+            wrap.addEventListener("mouseenter", function () {
+              var strip = document.getElementById("filmStrip");
+              if (strip) {
+                strip.classList.add("has-focus");
+                strip
+                  .querySelectorAll(
+                    ".sms-phone-wrap:not(.film-hidden),.brand-ph-card:not(.film-hidden)",
+                  )
+                  .forEach(function (c) {
+                    c.classList.remove("is-active");
+                  });
+                wrap.classList.add("is-active");
+              }
+              attemptPlay(video, wrap);
+            });
+            wrap.addEventListener("mouseleave", function () {
+              stopVideo(video, wrap);
+              /* Remove spotlight entirely — all cards return to full brightness */
+              var strip = document.getElementById("filmStrip");
+              if (strip) {
+                strip.classList.remove("has-focus");
+                strip
+                  .querySelectorAll(".sms-phone-wrap, .brand-ph-card")
+                  .forEach(function (c) {
+                    c.classList.remove("is-active");
+                  });
+              }
+            });
+          }
+        });
+
+        /* ── Duration badge helper ── */
+        function showDuration(video, wrap) {
+          var badge = wrap.querySelector(".sms-duration");
+          if (!badge || !video.duration || isNaN(video.duration)) return;
+          var secs = Math.round(video.duration);
+          var m = Math.floor(secs / 60);
+          var s = secs % 60;
+          badge.textContent = m + ":" + (s < 10 ? "0" : "") + s;
+          badge.classList.add("loaded");
+        }
+
+        /* Wire duration for videos that already have a src (non-lazy) */
+        wraps.forEach(function (wrap) {
+          var video = wrap.querySelector(".sms-video");
+          if (!video || video.querySelector("source[data-src]")) return;
+          if (video.readyState >= 1) {
+            showDuration(video, wrap);
+          } else {
+            video.addEventListener("loadedmetadata", function () {
+              showDuration(video, wrap);
+            });
+          }
+        });
+
+        /* ── IntersectionObserver: lazy-load src when card nears viewport ── */
+        /* rootMargin 600px horizontal → preload cards before scrolling to them */
+        if (!("IntersectionObserver" in window)) return;
+
+        var observer = new IntersectionObserver(
+          function (entries) {
+            entries.forEach(function (entry) {
+              var wrap = entry.target;
+              var video = wrap.querySelector(".sms-video");
+              if (!video) return;
+              var src = video.querySelector("source[data-src]");
+
+              if (entry.isIntersecting) {
+                /* Inject src on first enter */
+                if (src && !src.src) {
+                  src.src = src.dataset.src;
+                  video.load();
+                  video.addEventListener("loadedmetadata", function onReady() {
+                    video.removeEventListener("loadedmetadata", onReady);
+                    showDuration(video, wrap);
+                    if (video.dataset.playOnLoad === "1") {
+                      video.play().catch(function () {});
+                      wrap.classList.add("is-playing");
+                    }
+                  });
+                  observer.unobserve(wrap);
+                }
+              } else {
+                /* Pause video when scrolled out of view on mobile */
+                if (isTouch && !video.paused) {
+                  video.pause();
+                  wrap.classList.remove("is-playing");
+                }
+              }
+            });
+          },
+          {
+            rootMargin: "150px 600px",
+            threshold: 0,
+          },
+        );
+
+        wraps.forEach(function (wrap) {
+          observer.observe(wrap);
+        });
+      })();
+    </script>
+
+    <!-- YouTube Modal -->
+    <div
+      id="yt-modal"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Video player"
+    >
+      <div id="yt-modal-inner">
+        <button id="yt-modal-close" aria-label="Đóng video">
+          <svg
+            width="12"
+            height="12"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+          >
+            <path d="M18 6L6 18M6 6l12 12" />
+          </svg>
+        </button>
+        <iframe
+          id="yt-iframe"
+          allow="autoplay; fullscreen; picture-in-picture"
+          allowfullscreen
+        >
+        </iframe>
+      </div>
+    </div>
+
+    <!-- YouTube Modal JS -->
+    <script>
+      (function () {
+        var modal = document.getElementById("yt-modal");
+        var iframe = document.getElementById("yt-iframe");
+        var closeBtn = document.getElementById("yt-modal-close");
+        if (!modal || !iframe || !closeBtn) return;
+
+        function openModal(ytId) {
+          modal.classList.add("is-open"); // Mở UI ngay lập tức
+          iframe.src =
+            "https://www.youtube.com/embed/" +
+            ytId +
+            "?autoplay=1&mute=0&playsinline=1&modestbranding=1&rel=0";
+          document.body.style.overflow = "hidden";
+        }
+
+        function closeModal() {
+          modal.classList.remove("is-open");
+          iframe.src = "";
+          document.body.style.overflow = "";
+        }
+
+        document
+          .querySelectorAll(".sms-phone-wrap[data-yt-id]")
+          .forEach(function (wrap) {
+            wrap.addEventListener("click", function () {
+              openModal(wrap.dataset.ytId);
+            });
+          });
+
+        closeBtn.addEventListener("click", function (e) {
+          e.stopPropagation();
+          closeModal();
+        });
+
+        modal.addEventListener("click", function (e) {
+          if (e.target === modal) closeModal();
+        });
+
+        document.addEventListener("keydown", function (e) {
+          if (e.key === "Escape" && modal.classList.contains("is-open"))
+            closeModal();
+        });
+      })();
+    </script>
+
+    <!-- Film Strip: Active Focus + Brand Filter + Nav Arrows -->
+    <script>
+      (function () {
+        var strip = document.getElementById("filmStrip");
+        if (!strip) return;
+        var scrollTimer;
+
+        function getVisibleCards() {
+          return Array.prototype.slice.call(
+            strip.querySelectorAll(
+              ".sms-phone-wrap:not(.film-hidden), .brand-ph-card:not(.film-hidden)",
+            ),
+          );
+        }
+
+        function updateFocus() {
+          var center = strip.scrollLeft + strip.clientWidth / 2;
+          var cards = getVisibleCards();
+          if (!cards.length) return;
+          var active = cards.reduce(function (best, card) {
+            var cardCenter = card.offsetLeft + card.offsetWidth / 2;
+            var dist = Math.abs(cardCenter - center);
+            return !best || dist < best.dist
+              ? { card: card, dist: dist }
+              : best;
+          }, null);
+          strip.classList.add("has-focus");
+          cards.forEach(function (c) {
+            c.classList.remove("is-active");
+          });
+          if (active) active.card.classList.add("is-active");
+        }
+
+        strip.addEventListener("scroll", function () {
+          clearTimeout(scrollTimer);
+          scrollTimer = setTimeout(function () {
+            requestAnimationFrame(updateFocus);
+          }, 30);
+        });
+
+        /* Nav arrows */
+        var prevBtn = document.getElementById("filmPrev");
+        var nextBtn = document.getElementById("filmNext");
+
+        function getActiveIdx() {
+          var cards = getVisibleCards();
+          var idx = cards.findIndex(function (c) {
+            return c.classList.contains("is-active");
+          });
+          if (idx >= 0) return idx;
+          /* Fallback: find card nearest to center when nothing is active yet */
+          var center = strip.scrollLeft + strip.clientWidth / 2;
+          var best = 0,
+            bestDist = Infinity;
+          cards.forEach(function (c, i) {
+            var dist = Math.abs(c.offsetLeft + c.offsetWidth / 2 - center);
+            if (dist < bestDist) {
+              bestDist = dist;
+              best = i;
+            }
+          });
+          return best;
+        }
+
+        function scrollToIdx(idx) {
+          var cards = getVisibleCards();
+          if (!cards.length) return;
+          idx = Math.max(0, Math.min(idx, cards.length - 1));
+          var card = cards[idx];
+          /* Apply spotlight immediately — don't wait for scroll to finish */
+          strip.classList.add("has-focus");
+          cards.forEach(function (c) {
+            c.classList.remove("is-active");
+          });
+          card.classList.add("is-active");
+          var target =
+            card.offsetLeft - (strip.clientWidth - card.offsetWidth) / 2;
+          strip.scrollTo({ left: target, behavior: "smooth" });
+        }
+
+        if (prevBtn)
+          prevBtn.addEventListener("click", function () {
+            scrollToIdx(getActiveIdx() - 1);
+          });
+        if (nextBtn)
+          nextBtn.addEventListener("click", function () {
+            scrollToIdx(getActiveIdx() + 1);
+          });
+
+        /* Brand navigation — scroll to first card of brand */
+        document.querySelectorAll(".brand-nav-btn").forEach(function (btn) {
+          btn.addEventListener("click", function () {
+            var brand = btn.dataset.brand;
+            document.querySelectorAll(".brand-nav-btn").forEach(function (b) {
+              b.classList.remove("is-active");
+            });
+            btn.classList.add("is-active");
+
+            if (brand === "all") {
+              strip.scrollTo({ left: 0, behavior: "smooth" });
+            } else {
+              var target = strip.querySelector('[data-brand="' + brand + '"]');
+              if (target) {
+                var targetLeft =
+                  target.offsetLeft -
+                  (strip.clientWidth - target.offsetWidth) / 2;
+                strip.scrollTo({
+                  left: Math.max(0, targetLeft),
+                  behavior: "smooth",
+                });
+              }
+            }
+            setTimeout(updateFocus, 450);
+          });
+        });
+
+        /* Spotlight activates on first interaction (hover or scroll) — not on load */
+      })();
+    </script>
+
+    <!-- Video Lightbox Overlay -->
+    <div
+      id="vid-lightbox"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Xem video đầy đủ"
+    >
+      <div id="vid-lb-inner">
+        <video id="vid-lb-video" playsinline controls></video>
+      </div>
+      <button id="vid-lb-close" aria-label="Đóng">
+        <svg
+          width="14"
+          height="14"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.5"
+          viewBox="0 0 24 24"
+        >
+          <path d="M18 6L6 18M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Video Lightbox JS -->
+    <script>
+      (function () {
+        var lb = document.getElementById("vid-lightbox");
+        var lbVideo = document.getElementById("vid-lb-video");
+        var lbClose = document.getElementById("vid-lb-close");
+        if (!lb || !lbVideo || !lbClose) return;
+
+        function openLightbox(src) {
+          lb.classList.add("is-open");
+          lbVideo.src = src; // Nạp nguồn sau khi UI đã mở
+          document.body.style.overflow = "hidden";
+          lbVideo.play().catch(function () {});
+        }
+
+        function closeLightbox() {
+          lb.classList.remove("is-open");
+          document.body.style.overflow = "";
+          /* wait for fade-out before killing src */
+          setTimeout(function () {
+            lbVideo.pause();
+            lbVideo.src = "";
+          }, 340);
+        }
+
+        /* Wire every film-strip card */
+        document
+          .querySelectorAll(".film-strip .sms-phone-wrap")
+          .forEach(function (wrap) {
+            wrap.style.cursor = "pointer";
+            wrap.addEventListener("click", function () {
+              var vid = wrap.querySelector(".sms-video");
+              if (!vid) return;
+              /* resolve src: direct src attr → source[src] → source[data-src] */
+              var src =
+                vid.getAttribute("src") ||
+                (vid.querySelector("source[src]") &&
+                  vid.querySelector("source[src]").getAttribute("src")) ||
+                (vid.querySelector("source[data-src]") &&
+                  vid.querySelector("source[data-src]").dataset.src);
+              if (!src || src === window.location.href)
+                return; /* guard empty */
+              openLightbox(src);
+            });
+          });
+
+        lbClose.addEventListener("click", closeLightbox);
+        lb.addEventListener("click", function (e) {
+          if (e.target === lb) closeLightbox();
+        });
+        document.addEventListener("keydown", function (e) {
+          if (e.key === "Escape" && lb.classList.contains("is-open"))
+            closeLightbox();
+        });
+      })();
+    </script>
+
+    <!-- Hamburger animated toggle -->
+    <script>
+      (function () {
+        var btn = document.getElementById("hamBtn");
+        var menu = document.getElementById("mMenu");
+        if (!btn || !menu) return;
+
+        btn.addEventListener("click", function () {
+          var open = menu.classList.toggle("is-open");
+          btn.classList.toggle("is-open", open);
+          btn.setAttribute("aria-expanded", open ? "true" : "false");
+        });
+
+        /* Close menu when any link is tapped */
+        menu.querySelectorAll("a").forEach(function (link) {
+          link.addEventListener("click", function () {
+            menu.classList.remove("is-open");
+            btn.classList.remove("is-open");
+            btn.setAttribute("aria-expanded", "false");
+          });
+        });
+      })();
+    </script>
+
+    <!-- ── Cuisine Gallery Lightbox ── -->
+    <div
+      id="cuisine-lb"
+      role="dialog"
+      aria-modal="true"
+      aria-label="White Palace Cuisine Gallery"
+    >
+      <button
+        id="cuisine-lb-close"
+        aria-label="Đóng gallery"
+        onclick="closeCuisineGallery()"
+      >
+        <svg
+          width="16"
+          height="16"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          viewBox="0 0 24 24"
+        >
+          <path d="M18 6L6 18M6 6l12 12" />
+        </svg>
+      </button>
+      <div
+        id="cuisine-lb-scroll"
+        data-lenis-prevent
+        onclick="if (event.target === this) closeCuisineGallery();"
+      >
+        <div id="cuisine-lb-header">
+          <p class="cuisine-eyebrow">02 · White Palace · Phase 01</p>
+          <h2 class="cuisine-title">Cuisine Photography</h2>
+          <p class="cuisine-subtitle">
+            8 tác phẩm ẩm thực — tinh tế từng chi tiết
+          </p>
+        </div>
+        <div id="cuisine-grid">
+          <div class="cuisine-item">
+            <div class="cuisine-img-wrap">
+              <img
+                src="./assets/B%C3%A1nh%20socola%20Ph%C3%B4%20mai.jpg"
+                alt="Chocolate Cheese"
+                decoding="async"
+              />
+            </div>
+            <p class="cuisine-cap-name">Chocolate Cheese</p>
+            <p class="cuisine-cap-desc">
+              Bộ đôi đắng ngọt sô-cô-la và béo ngậy cream cheese hoà quyện trong
+              từng lớp
+            </p>
+          </div>
+
+          <div class="cuisine-item">
+            <div class="cuisine-img-wrap">
+              <img
+                src="./assets/B%C3%A1nh%20S%C3%B4c%C3%B4la%20Cu%E1%BB%99n%20Nh%C3%A2n%20Custard.jpg"
+                alt="Chocolate Roulade"
+                decoding="async"
+              />
+            </div>
+            <p class="cuisine-cap-name">Chocolate Roulade</p>
+            <p class="cuisine-cap-desc">
+              Cuộn ganache satin bọc lớp kem custard vàng óng — sang trọng và
+              quyến rũ
+            </p>
+          </div>
+
+          <div class="cuisine-item">
+            <div class="cuisine-img-wrap">
+              <img
+                src="./assets/Food_WP_01-6__595.jpg"
+                alt="Solar Spheres"
+                decoding="async"
+              />
+            </div>
+            <p class="cuisine-cap-name">Solar Spheres</p>
+            <p class="cuisine-cap-desc">
+              Vũ trụ thu nhỏ — những khối cầu sô-cô-la xoay quanh quỹ đạo ánh
+              sáng
+            </p>
+          </div>
+
+          <div class="cuisine-item">
+            <div class="cuisine-img-wrap">
+              <img
+                src="./assets/B%C3%A1nh%20Tart%20S%C3%B4c%C3%B4la%20Ph%C3%B4%20Mai.jpg"
+                alt="Dark Chocolate Tart"
+                decoding="async"
+              />
+            </div>
+            <p class="cuisine-cap-name">Dark Chocolate Tart</p>
+            <p class="cuisine-cap-desc">
+              Đế tart giòn rụm ôm trọn nhân sô-cô-la đắng và phô mai kem mịn
+              màng
+            </p>
+          </div>
+
+          <div class="cuisine-item">
+            <div class="cuisine-img-wrap">
+              <img
+                src="./assets/Food_WP_01-6__714.jpg"
+                alt="Pistachio Sprout"
+                decoding="async"
+              />
+            </div>
+            <p class="cuisine-cap-name">Pistachio Sprout</p>
+            <p class="cuisine-cap-desc">
+              Mầm xanh Pistachio đâm chồi trên nền đất sô-cô-la vụn — thiên
+              nhiên trong ẩm thực
+            </p>
+          </div>
+
+          <div class="cuisine-item">
+            <div class="cuisine-img-wrap">
+              <img
+                src="./assets/B%C3%A1nh%20muffin%20nho.jpg"
+                alt="Grape Muffin"
+                decoding="async"
+              />
+            </div>
+            <p class="cuisine-cap-name">Grape Muffin</p>
+            <p class="cuisine-cap-desc">
+              Muffin mềm ẩm điểm xuyết nho tươi mọng nước — giản dị mà tinh tế
+            </p>
+          </div>
+
+          <div class="cuisine-item">
+            <div class="cuisine-img-wrap">
+              <img
+                src="./assets/Food_WP_01-6__254.jpg"
+                alt="Modern Opera"
+                decoding="async"
+              />
+            </div>
+            <p class="cuisine-cap-name">Modern Opera</p>
+            <p class="cuisine-cap-desc">
+              Bản giao hưởng nhiều tầng của cà phê Robusta và sô-cô-la Valrhona
+              béo ngậy
+            </p>
+          </div>
+
+          <div class="cuisine-item">
+            <div class="cuisine-img-wrap">
+              <img
+                src="./assets/S%C3%BAp%20Dumpling%20b%C3%A0o%20ng%C6%B0.jpg"
+                alt="Abalone Dumpling"
+                decoding="async"
+              />
+            </div>
+            <p class="cuisine-cap-name">Abalone Dumpling</p>
+            <p class="cuisine-cap-desc">
+              Vị umami đại dương trong lớp bột mỏng như tơ — tinh tế từng chi
+              tiết nhỏ nhất
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /cuisine-lb -->
+
+    <!-- ── Gem Center Wedding Gallery Lightbox ── -->
+    <div
+      id="gem-lb"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Gem Center Wedding Gallery"
+    >
+      <button
+        id="gem-lb-close"
+        aria-label="Đóng gallery"
+        onclick="closeGemLightbox()"
+      >
+        <svg
+          width="16"
+          height="16"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          viewBox="0 0 24 24"
+        >
+          <path d="M18 6L6 18M6 6l12 12" />
+        </svg>
+      </button>
+      <div
+        id="gem-lb-scroll"
+        data-lenis-prevent
+        onclick="if (event.target === this) closeGemLightbox();"
+      >
+        <div id="gem-lb-header">
+          <p class="cuisine-eyebrow">03 · Gem Center · Wedding Concept</p>
+          <h2 class="cuisine-title">Gem Center Weddings</h2>
+          <p class="cuisine-subtitle">
+            13 tác phẩm concept tiệc cưới — ánh sáng, không gian và cảm xúc
+          </p>
+        </div>
+        <div id="gem-grid">
+          <!-- Row 1: wide + portrait + portrait -->
+          <div class="cuisine-item">
+            <div class="cuisine-img-wrap">
+              <img
+                src="./assets/gallery/gem-center/gem-2.jpg"
+                alt="Sân khấu lễ cưới"
+                decoding="async"
+              />
+            </div>
+            <p class="cuisine-cap-name">Sân khấu lễ cưới</p>
+            <p class="cuisine-cap-desc">
+              Dàn dựng backdrop vàng ánh kim với hiệu ứng mây và ánh sáng laser
+            </p>
+          </div>
+          <div class="cuisine-item">
+            <div class="cuisine-img-wrap">
+              <img
+                src="./assets/gallery/gem-center/gem-1.jpg"
+                alt="Không gian tiệc cưới"
+                decoding="async"
+              />
+            </div>
+            <p class="cuisine-cap-name">Không gian tiệc cưới</p>
+            <p class="cuisine-cap-desc">
+              Toàn cảnh sân khấu và bố cục ánh sáng chính
+            </p>
+          </div>
+          <div class="cuisine-item">
+            <div class="cuisine-img-wrap">
+              <img
+                src="./assets/gallery/gem-center/gem-3.jpg"
+                alt="Chi tiết hoa trang trí"
+                decoding="async"
+              />
+            </div>
+            <p class="cuisine-cap-name">Chi tiết hoa trang trí</p>
+            <p class="cuisine-cap-desc">
+              Hoa tươi tông pastel kết hợp cùng kiến trúc sân khấu
+            </p>
+          </div>
+
+          <!-- Row 2: portrait + portrait + wide -->
+          <div class="cuisine-item">
+            <div class="cuisine-img-wrap">
+              <img
+                src="./assets/gallery/gem-center/gem-4.jpg"
+                alt="Không gian hội trường"
+                decoding="async"
+              />
+            </div>
+            <p class="cuisine-cap-name">Không gian hội trường</p>
+            <p class="cuisine-cap-desc">
+              Bố cục bàn tiệc và lối đi dành cho khách mời
+            </p>
+          </div>
+          <div class="cuisine-item">
+            <div class="cuisine-img-wrap">
+              <img
+                src="./assets/gallery/gem-center/gem-5.jpg"
+                alt="Bố trí bàn tiệc"
+                decoding="async"
+              />
+            </div>
+            <p class="cuisine-cap-name">Bố trí bàn tiệc</p>
+            <p class="cuisine-cap-desc">
+              Decor bàn tiệc tỉ mỉ với hoa, nến và khăn bàn cao cấp
+            </p>
+          </div>
+          <div class="cuisine-item">
+            <div class="cuisine-img-wrap">
+              <img
+                src="./assets/gallery/gem-center/gem-6.jpg"
+                alt="Ánh sáng và không gian"
+                decoding="async"
+              />
+            </div>
+            <p class="cuisine-cap-name">Ánh sáng và không gian</p>
+            <p class="cuisine-cap-desc">
+              Hiệu ứng ánh sáng tạo không khí lãng mạn và sang trọng
+            </p>
+          </div>
+
+          <!-- Row 3: wide + portrait + portrait -->
+          <div class="cuisine-item">
+            <div class="cuisine-img-wrap">
+              <img
+                src="./assets/gallery/gem-center/gem-7.jpg"
+                alt="Concept chân dung"
+                decoding="async"
+              />
+            </div>
+            <p class="cuisine-cap-name">Concept chân dung</p>
+            <p class="cuisine-cap-desc">
+              Chụp concept cô dâu trong không gian tiệc cưới dàn dựng
+            </p>
+          </div>
+          <div class="cuisine-item">
+            <div class="cuisine-img-wrap">
+              <img
+                src="./assets/gallery/gem-center/gem-8.jpg"
+                alt="Lối đi lễ cưới"
+                decoding="async"
+              />
+            </div>
+            <p class="cuisine-cap-name">Lối đi lễ cưới</p>
+            <p class="cuisine-cap-desc">
+              Chi tiết lối đi trải hoa và backdrop sau lễ đường
+            </p>
+          </div>
+          <div class="cuisine-item">
+            <div class="cuisine-img-wrap">
+              <img
+                src="./assets/gallery/gem-center/gem-9.jpg"
+                alt="Toàn cảnh venue"
+                decoding="async"
+              />
+            </div>
+            <p class="cuisine-cap-name">Toàn cảnh venue</p>
+            <p class="cuisine-cap-desc">
+              Góc rộng ghi lại toàn bộ không gian hội trường Gem Center
+            </p>
+          </div>
+
+          <!-- Row 4: portrait + portrait + wide -->
+          <div class="cuisine-item">
+            <div class="cuisine-img-wrap">
+              <img
+                src="./assets/gallery/gem-center/gem-10.jpg"
+                alt="Khu vực đón khách"
+                decoding="async"
+              />
+            </div>
+            <p class="cuisine-cap-name">Khu vực đón khách</p>
+            <p class="cuisine-cap-desc">
+              Khu tiếp tân với đèn và hoa dọc lối vào sảnh chính
+            </p>
+          </div>
+          <div class="cuisine-item">
+            <div class="cuisine-img-wrap">
+              <img
+                src="./assets/gallery/gem-center/gem-11.jpg"
+                alt="Bảng màu concept"
+                decoding="async"
+              />
+            </div>
+            <p class="cuisine-cap-name">Bảng màu concept</p>
+            <p class="cuisine-cap-desc">
+              Tông màu vàng champagne và trắng kem xuyên suốt bộ ảnh
+            </p>
+          </div>
+          <div class="cuisine-item">
+            <div class="cuisine-img-wrap">
+              <img
+                src="./assets/gallery/gem-center/gem-12.jpg"
+                alt="Cổng vào hội trường"
+                decoding="async"
+              />
+            </div>
+            <p class="cuisine-cap-name">Cổng vào hội trường</p>
+            <p class="cuisine-cap-desc">
+              Cổng hoa lớn tạo điểm nhấn thị giác khi bước vào không gian lễ
+            </p>
+          </div>
+
+          <!-- Row 5: wide kết thúc -->
+          <div class="cuisine-item">
+            <div class="cuisine-img-wrap">
+              <img
+                src="./assets/gallery/gem-center/gem-13.jpg"
+                alt="Grand Hall"
+                decoding="async"
+              />
+            </div>
+            <p class="cuisine-cap-name">Grand Hall</p>
+            <p class="cuisine-cap-desc">
+              Hội trường chính với sức chứa lớn và hệ thống ánh sáng đỉnh cao
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /gem-lb -->
+
+    <!-- ══════════════════════════════════════════
+     GOLDEN SUN LOUNGE LIGHTBOX
+══════════════════════════════════════════ -->
+    <div
+      id="lounge-lb"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Golden Sun Lounge — Velvet Hour"
+    >
+      <button
+        id="lounge-lb-close"
+        aria-label="Đóng gallery"
+        onclick="closeLoungeLightbox()"
+      >
+        <svg
+          width="18"
+          height="18"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.6"
+          viewBox="0 0 24 24"
+        >
+          <path d="M18 6L6 18M6 6l12 12" />
+        </svg>
+      </button>
+      <div
+        id="lounge-lb-scroll"
+        data-lenis-prevent
+        onclick="if (event.target === this) closeLoungeLightbox();"
+      >
+        <div id="lounge-lb-header">
+          <p class="cuisine-eyebrow">
+            04 · Golden Sun Lounge · Concept Photography
+          </p>
+          <h2
+            style="
+              font-family: &quot;Cormorant Garamond&quot;, Georgia, serif;
+              font-size: clamp(26px, 3.5vw, 52px);
+              font-weight: 600;
+              letter-spacing: 0.08em;
+              color: #fff;
+              margin: 0.4rem 0 0.6rem;
+            "
+          >
+            Velvet Hour
+          </h2>
+          <p
+            style="
+              font-family: &quot;Be Vietnam Pro&quot;, system-ui, sans-serif;
+              font-size: clamp(13px, 1.1vw, 15px);
+              color: rgba(255, 255, 255, 0.48);
+              max-width: 520px;
+              margin: 0 auto;
+              line-height: 1.75;
+              letter-spacing: 0;
+            "
+          >
+            Một buổi chiều tĩnh lặng tại Golden Sun Lounge — nơi ánh sáng tháng
+            Tư lọc qua khung cửa, chạm nhẹ lên những bề mặt ướt át và trong
+            suốt. Bộ ảnh khai thác vẻ đẹp của sự chảy trôi, từ giọt nước đọng
+            trên ly đến phản chiếu mờ ảo dưới đáy bàn — tất cả tạo nên một không
+            gian thị giác đầy chiều sâu và cảm xúc.
+          </p>
+        </div>
+
+        <div id="lounge-grid">
+          <div class="cuisine-item">
+            <div class="cuisine-img-wrap">
+              <img
+                src="./assets/gallery/lougne/lougne-1.jpg"
+                alt="Golden Sun Lounge — Velvet Hour I"
+                decoding="async"
+              />
+            </div>
+            <p class="cuisine-cap-name">Tĩnh lặng</p>
+            <p class="cuisine-cap-desc">
+              Ánh sáng buổi chiều lọc qua khung cửa
+            </p>
+          </div>
+          <div class="cuisine-item">
+            <div class="cuisine-img-wrap">
+              <img
+                src="./assets/gallery/lougne/lougne-2.jpg"
+                alt="Golden Sun Lounge — phản chiếu"
+                decoding="async"
+              />
+            </div>
+            <p class="cuisine-cap-name">Phản chiếu</p>
+            <p class="cuisine-cap-desc">Bóng nước và bề mặt trong suốt</p>
+          </div>
+          <div class="cuisine-item">
+            <div class="cuisine-img-wrap">
+              <img
+                src="./assets/gallery/lougne/lougne-3.jpg"
+                alt="Golden Sun Lounge — chảy trôi"
+                decoding="async"
+              />
+            </div>
+            <p class="cuisine-cap-name">Chảy trôi</p>
+            <p class="cuisine-cap-desc">Khoảnh khắc lắng đọng giữa nhịp sống</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /lounge-lb -->
+
+    <!-- ══════════════════════════════════════════
+     GOLDEN SUN MANG DEN LIGHTBOX
+══════════════════════════════════════════ -->
+    <div
+      id="mangden-lb"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Golden Sun Mang Den — Concept Menu"
+    >
+      <button
+        id="mangden-lb-close"
+        aria-label="Close gallery"
+        onclick="closeMangdenLightbox()"
+      >
+        <svg
+          width="18"
+          height="18"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.6"
+          viewBox="0 0 24 24"
+        >
+          <path d="M18 6L6 18M6 6l12 12" />
+        </svg>
+      </button>
+      <div
+        id="mangden-lb-scroll"
+        data-lenis-prevent
+        onclick="if (event.target === this) closeMangdenLightbox();"
+      >
+        <div id="mangden-lb-header">
+          <p class="cuisine-eyebrow">05 · Golden Sun Mang Den · Phase 01</p>
+          <h2
+            style="
+              font-family: &quot;Cormorant Garamond&quot;, Georgia, serif;
+              font-size: clamp(26px, 3.5vw, 52px);
+              font-weight: 600;
+              letter-spacing: 0.08em;
+              color: #fff;
+              margin: 0.4rem 0 0.6rem;
+            "
+          >
+            Concept Menu
+          </h2>
+          <p
+            style="
+              font-family: &quot;Inter&quot;, system-ui, sans-serif;
+              font-size: clamp(13px, 1.1vw, 15px);
+              color: rgba(255, 255, 255, 0.48);
+              max-width: 520px;
+              margin: 0 auto;
+              line-height: 1.75;
+            "
+          >
+            A curated visual exploration of Golden Sun Mang Den's signature menu
+            — captured through light, texture, and the quiet atmosphere of the
+            highlands.
+          </p>
+        </div>
+
+        <div id="mangden-grid">
+          <div class="cuisine-item">
+            <div class="cuisine-img-wrap">
+              <img
+                src="./assets/gallery/golden-sun-mangden/mangden-1.jpg"
+                alt="Concept Menu I"
+                decoding="async"
+              />
+            </div>
+            <p class="cuisine-cap-name">Opening Scene</p>
+          </div>
+          <div class="cuisine-item">
+            <div class="cuisine-img-wrap">
+              <img
+                src="./assets/gallery/golden-sun-mangden/mangden-2.jpg"
+                alt="Concept Menu II"
+                decoding="async"
+              />
+            </div>
+            <p class="cuisine-cap-name">Still Bloom</p>
+          </div>
+          <div class="cuisine-item">
+            <div class="cuisine-img-wrap">
+              <img
+                src="./assets/gallery/golden-sun-mangden/mangden-3.jpg"
+                alt="Concept Menu III"
+                decoding="async"
+              />
+            </div>
+            <p class="cuisine-cap-name">Soft Light</p>
+          </div>
+          <div class="cuisine-item">
+            <div class="cuisine-img-wrap">
+              <img
+                src="./assets/gallery/golden-sun-mangden/mangden-4.jpg"
+                alt="Concept Menu IV"
+                decoding="async"
+              />
+            </div>
+            <p class="cuisine-cap-name">The Pour</p>
+          </div>
+          <div class="cuisine-item">
+            <div class="cuisine-img-wrap">
+              <img
+                src="./assets/gallery/golden-sun-mangden/mangden-5.jpg"
+                alt="Concept Menu V"
+                decoding="async"
+              />
+            </div>
+            <p class="cuisine-cap-name">In Focus</p>
+          </div>
+          <div class="cuisine-item">
+            <div class="cuisine-img-wrap">
+              <img
+                src="./assets/gallery/golden-sun-mangden/mangden-6.jpg"
+                alt="Concept Menu VI"
+                decoding="async"
+              />
+            </div>
+            <p class="cuisine-cap-name">Evening Set</p>
+          </div>
+          <div class="cuisine-item">
+            <div class="cuisine-img-wrap">
+              <img
+                src="./assets/gallery/golden-sun-mangden/mangden-7.jpg"
+                alt="Concept Menu VII"
+                decoding="async"
+              />
+            </div>
+            <p class="cuisine-cap-name">Table Study</p>
+          </div>
+          <div class="cuisine-item">
+            <div class="cuisine-img-wrap">
+              <img
+                src="./assets/gallery/golden-sun-mangden/mangden-8.jpg"
+                alt="Concept Menu VIII"
+                decoding="async"
+              />
+            </div>
+            <p class="cuisine-cap-name">The Detail</p>
+          </div>
+          <div class="cuisine-item">
+            <div class="cuisine-img-wrap">
+              <img
+                src="./assets/gallery/golden-sun-mangden/mangden-9.jpg"
+                alt="Concept Menu IX"
+                decoding="async"
+              />
+            </div>
+            <p class="cuisine-cap-name">Last Light</p>
+          </div>
+          <div class="cuisine-item">
+            <div class="cuisine-img-wrap">
+              <img
+                src="./assets/gallery/golden-sun-mangden/mangden-10.jpg"
+                alt="Concept Menu X"
+                decoding="async"
+              />
+            </div>
+            <p class="cuisine-cap-name">Close Up</p>
+          </div>
+          <div class="cuisine-item">
+            <div class="cuisine-img-wrap">
+              <img
+                src="./assets/gallery/golden-sun-mangden/mangden-11.jpg"
+                alt="Concept Menu XI"
+                decoding="async"
+              />
+            </div>
+            <p class="cuisine-cap-name">Final Frame</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /mangden-lb -->
+
+    <!-- ══════════════════════════════════════════
+     SMOOTH SCROLLING (LENIS)
+══════════════════════════════════════════ -->
+    <script src="https://unpkg.com/lenis@1.1.20/dist/lenis.min.js"></script>
+    <script>
+      (function () {
+        var lenis = new Lenis({
+          autoRaf: true,
+          duration: 1.2,
+          easing: function (t) {
+            return Math.min(1, 1.001 - Math.pow(2, -10 * t));
+          },
+          smoothWheel: true,
+          wheelMultiplier: 1.1,
+        });
+
+        // Tạm dừng cuộn mượt khi mở các modal/lightbox (dựa vào thuộc tính overflow: hidden)
+        var observer = new MutationObserver(function (mutations) {
+          mutations.forEach(function (mutation) {
+            if (mutation.attributeName === "style") {
+              if (document.body.style.overflow === "hidden") {
+                lenis.stop();
+              } else {
+                lenis.start();
+              }
+            }
+          });
+        });
+        observer.observe(document.body, { attributes: true });
+
+        // Cập nhật sự kiện click vào menu điều hướng để cuộn êm đến từng section
+        document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
+          anchor.addEventListener("click", function (e) {
+            var targetId = this.getAttribute("href");
+            if (targetId === "#") return;
+            var targetEl = document.querySelector(targetId);
+            if (targetEl) {
+              e.preventDefault();
+              lenis.scrollTo(targetEl, { offset: 0, duration: 1.2 });
+            }
+          });
+        });
+      })();
+    </script>
+  </body>
+</html>
