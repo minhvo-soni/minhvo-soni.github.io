@@ -2855,8 +2855,7 @@
                   loop
                   muted
                   playsinline
-                  autoplay
-                  preload="auto"
+                  preload="metadata"
                   style="background: #111111"
                 >
                   <source
@@ -2891,8 +2890,7 @@
                   loop
                   muted
                   playsinline
-                  autoplay
-                  preload="auto"
+                  preload="metadata"
                   style="background: #000"
                 ></video>
                 <span class="sms-duration"></span>
@@ -2921,8 +2919,7 @@
                   loop
                   muted
                   playsinline
-                  autoplay
-                  preload="auto"
+                  preload="metadata"
                   style="background: #0a0a0a"
                 >
                   <source
@@ -2955,8 +2952,7 @@
                   loop
                   muted
                   playsinline
-                  autoplay
-                  preload="auto"
+                  preload="metadata"
                   style="background: #0a0a0a"
                 >
                   <source
@@ -3024,8 +3020,7 @@
                   loop
                   muted
                   playsinline
-                  autoplay
-                  preload="auto"
+                  preload="metadata"
                   style="background: #0a0a0a"
                 >
                   <source
@@ -5059,27 +5054,16 @@
       })();
     </script>
 
-    <!-- Social Media Strategy — lazy load + hover (desktop) / tap-to-play (mobile) -->
+    <!-- Social Media Strategy — lazy load + hover-to-play (desktop) / click-to-fullscreen -->
     <script>
       (function () {
         var wraps = document.querySelectorAll(".sms-phone-wrap");
         if (!wraps.length) return;
 
-        var isTouch = "ontouchstart" in window || navigator.maxTouchPoints > 0;
-
-        /* Show tap icons on touch devices */
-        if (isTouch) {
-          document.querySelectorAll(".sms-tap-icon").forEach(function (el) {
-            el.style.display = "flex";
-          });
-        }
-
         function attemptPlay(video, wrap) {
-          video.setAttribute("autoplay", "");
           if (video.readyState >= 1) {
             video.play().catch(function () {});
             wrap.classList.add("is-playing");
-            wrap.classList.remove("sms-tapped");
           } else {
             video.dataset.playOnLoad = "1";
           }
@@ -5087,7 +5071,6 @@
 
         function stopVideo(video, wrap) {
           video.dataset.playOnLoad = "";
-          video.removeAttribute("autoplay");
           video.pause();
           video.load();
           wrap.classList.remove("is-playing");
@@ -5098,60 +5081,37 @@
           var video = wrap.querySelector(".sms-video");
           if (!video) return;
 
-          /* Cards with data-yt-id autoplay on their own — skip hover/tap logic */
+          /* Cards with data-yt-id handled by YouTube modal — skip */
           if (wrap.dataset.ytId) return;
 
-          if (isTouch) {
-            /* ── Tap to play / pause on mobile ── */
-            wrap.addEventListener(
-              "touchend",
-              function (e) {
-                e.preventDefault();
-                if (video.paused) {
-                  attemptPlay(video, wrap);
-                  wrap.classList.add("sms-tapped");
-                } else {
-                  stopVideo(video, wrap);
-                }
-              },
-              { passive: false },
-            );
-
-            /* Auto-pause when card scrolls out of view */
-            video.addEventListener("pause", function () {
-              wrap.classList.remove("is-playing");
-            });
-          } else {
-            /* ── Hover: spotlight + play on desktop ── */
-            wrap.addEventListener("mouseenter", function () {
-              var strip = document.getElementById("filmStrip");
-              if (strip) {
-                strip.classList.add("has-focus");
-                strip
-                  .querySelectorAll(
-                    ".sms-phone-wrap:not(.film-hidden),.brand-ph-card:not(.film-hidden)",
-                  )
-                  .forEach(function (c) {
-                    c.classList.remove("is-active");
-                  });
-                wrap.classList.add("is-active");
-              }
-              attemptPlay(video, wrap);
-            });
-            wrap.addEventListener("mouseleave", function () {
-              stopVideo(video, wrap);
-              /* Remove spotlight entirely — all cards return to full brightness */
-              var strip = document.getElementById("filmStrip");
-              if (strip) {
-                strip.classList.remove("has-focus");
-                strip
-                  .querySelectorAll(".sms-phone-wrap, .brand-ph-card")
-                  .forEach(function (c) {
-                    c.classList.remove("is-active");
-                  });
-              }
-            });
-          }
+          /* ── Hover: spotlight + play on desktop ── */
+          wrap.addEventListener("mouseenter", function () {
+            var strip = document.getElementById("filmStrip");
+            if (strip) {
+              strip.classList.add("has-focus");
+              strip
+                .querySelectorAll(
+                  ".sms-phone-wrap:not(.film-hidden),.brand-ph-card:not(.film-hidden)",
+                )
+                .forEach(function (c) {
+                  c.classList.remove("is-active");
+                });
+              wrap.classList.add("is-active");
+            }
+            attemptPlay(video, wrap);
+          });
+          wrap.addEventListener("mouseleave", function () {
+            stopVideo(video, wrap);
+            var strip = document.getElementById("filmStrip");
+            if (strip) {
+              strip.classList.remove("has-focus");
+              strip
+                .querySelectorAll(".sms-phone-wrap, .brand-ph-card")
+                .forEach(function (c) {
+                  c.classList.remove("is-active");
+                });
+            }
+          });
         });
 
         /* ── Duration badge helper ── */
