@@ -2481,59 +2481,6 @@
       }
 
       /* ── Footer social icon hover — handled inline ── */
-
-      /* ── Hero Service Cards (Glassmorphism) ── */
-      .hero-service-card {
-        background: rgba(255, 255, 255, 0.05);
-        backdrop-filter: blur(15px);
-        -webkit-backdrop-filter: blur(15px);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        border-radius: 10px;
-        padding: 1.5rem 1.75rem;
-        display: flex;
-        flex-direction: column;
-        gap: 0.6rem;
-        transition:
-          border-color 0.3s ease,
-          background 0.3s ease;
-      }
-      .hero-service-card:hover {
-        background: rgba(255, 255, 255, 0.08);
-        border-color: rgba(212, 175, 55, 0.3);
-      }
-      .hero-svc-num {
-        font-family: "Synonym", sans-serif;
-        font-size: 9px;
-        font-weight: 500;
-        letter-spacing: 0.3em;
-        text-transform: uppercase;
-        color: rgba(212, 175, 55, 0.65);
-      }
-      .hero-svc-title {
-        font-family: "Cormorant Garamond", Georgia, serif;
-        font-size: clamp(18px, 2vw, 26px);
-        font-weight: 700;
-        color: #ffffff;
-        letter-spacing: 0.02em;
-        line-height: 1.1;
-      }
-      .hero-svc-desc {
-        font-family: "Be Vietnam Pro", system-ui, sans-serif;
-        font-size: 0.78rem;
-        font-weight: 300;
-        color: rgba(255, 255, 255, 0.4);
-        line-height: 1.75;
-        letter-spacing: 0;
-      }
-      @media (max-width: 767px) {
-        #hero-services {
-          grid-template-columns: 1fr !important;
-          gap: 0.65rem !important;
-        }
-        .hero-service-card {
-          padding: 1rem 1.25rem;
-        }
-      }
     </style>
   </head>
 
@@ -2709,39 +2656,6 @@
           >
             Photographer &amp; Digital Media Strategist
           </p>
-        </div>
-
-        <!-- Service Cards -->
-        <div
-          id="hero-services"
-          style="
-            width: 100%;
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1rem;
-          "
-        >
-          <div class="hero-service-card">
-            <span class="hero-svc-num">01</span>
-            <span class="hero-svc-title">Production</span>
-            <p class="hero-svc-desc">
-              Chụp ảnh thương mại, video quảng cáo &amp; content thực địa.
-            </p>
-          </div>
-          <div class="hero-service-card">
-            <span class="hero-svc-num">02</span>
-            <span class="hero-svc-title">Strategy</span>
-            <p class="hero-svc-desc">
-              Chiến lược nội dung đa nền tảng &amp; định vị thương hiệu dài hạn.
-            </p>
-          </div>
-          <div class="hero-service-card">
-            <span class="hero-svc-num">03</span>
-            <span class="hero-svc-title">Post-Process</span>
-            <p class="hero-svc-desc">
-              Hậu kỳ ảnh, dựng phim &amp; motion graphics chuyên nghiệp.
-            </p>
-          </div>
         </div>
       </div>
     </section>
@@ -6206,27 +6120,15 @@
         ).matches;
         if (reduced) return;
 
-        /* ── Hero load animation (page load, no scroll needed) ── */
-        var heroTl = gsap.timeline({ defaults: { ease: "power3.out" } });
-        heroTl
-          .from("#hero-identity", {
-            y: 24,
-            opacity: 0,
-            duration: 0.8,
-            delay: 0.1,
-            clearProps: "all",
-          })
-          .from(
-            ".hero-service-card",
-            {
-              y: 32,
-              opacity: 0,
-              duration: 0.55,
-              stagger: 0.1,
-              clearProps: "all",
-            },
-            "-=0.35",
-          );
+        /* ── Hero load animation ── */
+        gsap.from("#hero-identity", {
+          y: 24,
+          opacity: 0,
+          duration: 0.8,
+          delay: 0.1,
+          ease: "power3.out",
+          clearProps: "all",
+        });
 
         function fadeUp(targets, trigger, opts) {
           gsap.from(
