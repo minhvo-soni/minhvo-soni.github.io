@@ -89,18 +89,6 @@
         background-color: rgba(255, 255, 255, 0.025);
       }
 
-      /* ── Glassmorphism — service description blocks ── */
-      .service-col {
-        background: rgba(255, 255, 255, 0.038);
-        backdrop-filter: blur(8px);
-        -webkit-backdrop-filter: blur(8px);
-        transition: background 0.3s;
-      }
-
-      .service-col:hover {
-        background: rgba(255, 255, 255, 0.06);
-      }
-
       /* ── Glassmorphism — gallery phase text block ── */
       .gal-phase-name,
       .gal-phase-desc {
@@ -172,58 +160,6 @@
 
       .d4 {
         animation-delay: 0.54s;
-      }
-
-      /* ── Service Grid ── */
-      .service-col {
-        padding: 3rem 3.5rem;
-      }
-
-      .service-num {
-        font-family: "Cormorant Garamond", Georgia, serif;
-        font-size: 11px;
-        font-weight: 600;
-        letter-spacing: 0.3em;
-        text-transform: uppercase;
-        color: rgba(212, 175, 55, 0.55);
-        display: block;
-        margin-bottom: 1.4rem;
-      }
-
-      .service-title {
-        font-family: "Cormorant Garamond", Georgia, serif;
-        font-size: clamp(28px, 3.2vw, 46px);
-        font-weight: 600;
-        font-style: italic;
-        letter-spacing: 0.01em;
-        color: rgba(255, 255, 255, 0.9);
-        line-height: 1.05;
-        margin-bottom: 1.25rem;
-      }
-
-      .service-desc {
-        font-family: "Be Vietnam Pro", system-ui, sans-serif;
-        font-size: 12px;
-        font-weight: 400;
-        line-height: 1.9;
-        color: rgba(255, 255, 255, 0.45);
-        letter-spacing: 0;
-        text-align: left;
-      }
-
-      @media (max-width: 767px) {
-        .service-grid-inner {
-          grid-template-columns: 1fr !important;
-        }
-
-        .service-col {
-          padding: 2.25rem 1.75rem !important;
-        }
-
-        .service-col + .service-col {
-          border-left: none !important;
-          border-top: 0.5px solid rgba(255, 255, 255, 0.1) !important;
-        }
       }
 
       /* ── Floating Island Nav ── */
@@ -3052,61 +2988,6 @@
         </div>
       </div>
     </section>
-
-    <!-- ══════════════════════════════════════════
-     SERVICE GRID
-══════════════════════════════════════════ -->
-    <div
-      class="service-grid-wrap"
-      style="
-        background: #050505;
-        border-top: 0.5px solid rgba(255, 255, 255, 0.08);
-        border-bottom: 0.5px solid rgba(255, 255, 255, 0.08);
-      "
-    >
-      <div
-        class="service-grid-inner"
-        style="
-          max-width: 1280px;
-          margin: 0 auto;
-          display: grid;
-          grid-template-columns: 1fr 1fr 1fr;
-        "
-      >
-        <!-- 01 — PRODUCTION -->
-        <div class="service-col">
-          <span class="service-num">01</span>
-          <h3 class="service-title">Production</h3>
-          <p class="service-desc">
-            Sản xuất hình ảnh chuẩn mực cho không gian nghỉ dưỡng và kiến trúc.
-          </p>
-        </div>
-
-        <!-- 02 — STRATEGY -->
-        <div
-          class="service-col"
-          style="
-            border-left: 0.5px solid rgba(255, 255, 255, 0.1);
-            border-right: 0.5px solid rgba(255, 255, 255, 0.1);
-          "
-        >
-          <span class="service-num">02</span>
-          <h3 class="service-title">Strategy</h3>
-          <p class="service-desc">
-            Định hướng hình ảnh và kế hoạch nội dung đa nền tảng.
-          </p>
-        </div>
-
-        <!-- 03 — POST-PROCESS -->
-        <div class="service-col">
-          <span class="service-num">03</span>
-          <h3 class="service-title">Post-Process</h3>
-          <p class="service-desc">
-            Hậu kỳ chuyên sâu, tạo sắc thái điện ảnh riêng biệt cho từng dự án.
-          </p>
-        </div>
-      </div>
-    </div>
 
     <!-- ══════════════════════════════════════════
      GALLERIES — Campaign Phase Cards
