@@ -203,6 +203,8 @@
         box-shadow:
           0 8px 32px rgba(0, 0, 0, 0.48),
           inset 0 1px 0 rgba(255, 255, 255, 0.04);
+        will-change: transform;
+        transform: translateZ(0);
       }
 
       .float-menu {
@@ -6045,12 +6047,12 @@
 
         var lenis = new Lenis({
           autoRaf: true,
-          duration: 1.2,
+          duration: 0.8,
           easing: function (t) {
             return Math.min(1, 1.001 - Math.pow(2, -10 * t));
           },
           smoothWheel: true,
-          wheelMultiplier: 1.1,
+          wheelMultiplier: 1.0,
         });
 
         // Tạm dừng cuộn mượt khi mở các modal/lightbox (dựa vào thuộc tính overflow: hidden)
@@ -6075,7 +6077,7 @@
             var targetEl = document.querySelector(targetId);
             if (targetEl) {
               e.preventDefault();
-              lenis.scrollTo(targetEl, { offset: 0, duration: 1.2 });
+              lenis.scrollTo(targetEl, { offset: 0, duration: 0.75 });
             }
           });
         });
