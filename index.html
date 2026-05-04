@@ -3101,6 +3101,7 @@
         >
           <div style="display: flex; align-items: baseline; gap: 1.4rem">
             <h2
+              id="work-title"
               style="
                 font-family: &quot;Cormorant Garamond&quot;, Georgia, serif;
                 font-size: clamp(16px, 1.6vw, 22px);
@@ -3138,6 +3139,7 @@
               >Phase 01</span
             >
             <span
+              id="gal-counter"
               style="
                 font-family: &quot;Synonym&quot;, sans-serif;
                 font-size: 11px;
@@ -3167,6 +3169,7 @@
           "
         >
           <span
+            class="gal-dot-label"
             style="
               font-family: &quot;Synonym&quot;, sans-serif;
               font-size: 9px;
@@ -3187,6 +3190,7 @@
             "
           ></div>
           <span
+            class="gal-dot-label"
             style="
               font-family: &quot;Synonym&quot;, sans-serif;
               font-size: 9px;
@@ -3207,6 +3211,7 @@
             "
           ></div>
           <span
+            class="gal-dot-label"
             style="
               font-family: &quot;Synonym&quot;, sans-serif;
               font-size: 9px;
@@ -3227,6 +3232,7 @@
             "
           ></div>
           <span
+            class="gal-dot-label"
             style="
               font-family: &quot;Synonym&quot;, sans-serif;
               font-size: 9px;
@@ -6222,6 +6228,56 @@
           delay: 0.15,
           clearProps: "transform,opacity",
         });
+
+        /* ── Gallery stagger reveal ── */
+        gsap
+          .timeline({
+            scrollTrigger: {
+              trigger: "#work",
+              start: "top 90%",
+              once: true,
+            },
+            defaults: {
+              ease: "power3.out",
+              clearProps: "transform,opacity",
+            },
+          })
+          /* Header bar */
+          .from("#work-title", { y: -12, opacity: 0, duration: 0.32 })
+          .from(
+            "#gal-venue-name",
+            { x: -8, opacity: 0, duration: 0.26 },
+            "<0.05",
+          )
+          .from("#gal-phase-label", { opacity: 0, duration: 0.24 }, "<0.05")
+          .from("#gal-counter", { opacity: 0, duration: 0.24 }, "<0.04")
+          /* First visible card — meta + bottom + arrow */
+          .from(
+            ".gal-card:first-child .gal-meta",
+            { y: -14, opacity: 0, duration: 0.3 },
+            "<-0.08",
+          )
+          .from(
+            ".gal-card:first-child .gal-phase-name",
+            { y: 22, opacity: 0, duration: 0.33 },
+            "<0.04",
+          )
+          .from(
+            ".gal-card:first-child .wp-cover-cta",
+            { y: 10, opacity: 0, duration: 0.26 },
+            "<0.06",
+          )
+          .from(
+            ".gal-card:first-child .gal-arrow",
+            { scale: 0.6, opacity: 0, duration: 0.22 },
+            "<0.05",
+          )
+          /* Dots bar — labels + dots stagger */
+          .from(
+            "#gal-dot-0, .gal-dot-label, #gal-dot-1, #gal-dot-2, #gal-dot-3",
+            { y: 10, opacity: 0, stagger: 0.035, duration: 0.22 },
+            "<-0.05",
+          );
       })();
     </script>
   </body>
