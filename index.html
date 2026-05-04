@@ -2598,53 +2598,73 @@
           gap: 2.5rem;
         "
       >
-        <!-- Identity -->
+        <!-- Identity — Layout B: Centered Display -->
         <div id="hero-identity" style="text-align: center">
+          <!-- Eyebrow -->
           <p
+            id="hero-eyebrow"
             style="
               font-family: &quot;Synonym&quot;, sans-serif;
               font-size: 9px;
               font-weight: 500;
-              letter-spacing: 0.32em;
+              letter-spacing: 0.38em;
               text-transform: uppercase;
-              color: rgba(212, 175, 55, 0.65);
-              margin-bottom: 1.25rem;
+              color: rgba(212, 175, 55, 0.6);
+              margin-bottom: 1.5rem;
+              will-change: filter;
             "
           >
-            Based in Dalat · Vietnam
+            Photographer · Digital Media
           </p>
+
+          <!-- Name — Playfair Display italic, large -->
           <h1
+            id="hero-name"
             style="
-              font-family: &quot;Cormorant Garamond&quot;, Georgia, serif;
-              font-size: clamp(34px, 5.5vw, 76px);
-              font-weight: 700;
-              letter-spacing: 0.12em;
+              font-family: &quot;Playfair Display&quot;, Georgia, serif;
+              font-style: italic;
+              font-size: clamp(42px, 7.5vw, 108px);
+              font-weight: 800;
+              letter-spacing: -0.01em;
               color: #ffffff;
-              text-transform: uppercase;
-              line-height: 1.05;
+              line-height: 1;
+              will-change: filter;
             "
           >
-            VÕ QUANG MINH
+            Võ Quang Minh
           </h1>
+
+          <!-- Gold divider -->
           <div
+            id="hero-divider"
             style="
-              width: 3rem;
+              width: 3.5rem;
               height: 1px;
-              background: rgba(212, 175, 55, 0.4);
-              margin: 1.25rem auto;
+              background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(212, 175, 55, 0.7),
+                transparent
+              );
+              margin: 1.4rem auto;
+              transform-origin: center;
             "
           ></div>
+
+          <!-- Tagline -->
           <p
+            id="hero-tagline"
             style="
-              font-family: &quot;Inter&quot;, system-ui, sans-serif;
-              font-size: clamp(9px, 0.85vw, 12px);
-              font-weight: 400;
-              letter-spacing: 0.24em;
+              font-family: &quot;Be Vietnam Pro&quot;, system-ui, sans-serif;
+              font-size: clamp(10px, 0.9vw, 13px);
+              font-weight: 300;
+              letter-spacing: 0.22em;
               text-transform: uppercase;
-              color: rgba(255, 255, 255, 0.38);
+              color: rgba(255, 255, 255, 0.35);
+              will-change: filter;
             "
           >
-            Photographer &amp; Digital Media Strategist
+            Strategist · Dalat · Vietnam
           </p>
         </div>
 
@@ -6088,22 +6108,56 @@
         ).matches;
         if (reduced) return;
 
-        /* ── Hero load animation — identity fade up, cards stagger slide up ── */
-        var heroTl = gsap.timeline({ defaults: { ease: "power3.out" } });
+        /* ── Hero load animation — blur-in sequence + cards stagger ── */
+        var heroTl = gsap.timeline({ defaults: { ease: "power2.out" } });
         heroTl
-          .from("#hero-identity", {
-            y: 24,
+          .from("#hero-eyebrow", {
+            filter: "blur(10px)",
             opacity: 0,
-            duration: 0.7,
-            delay: 0.1,
+            y: 6,
+            duration: 0.9,
+            delay: 0.15,
             clearProps: "all",
           })
           .from(
-            ".hero-service-card",
+            "#hero-name",
             {
-              y: 40,
+              filter: "blur(24px)",
+              opacity: 0,
+              y: 14,
+              duration: 1.1,
+              clearProps: "all",
+            },
+            "-=0.5",
+          )
+          .from(
+            "#hero-divider",
+            {
+              scaleX: 0,
               opacity: 0,
               duration: 0.6,
+              ease: "power3.inOut",
+              clearProps: "all",
+            },
+            "-=0.5",
+          )
+          .from(
+            "#hero-tagline",
+            {
+              filter: "blur(8px)",
+              opacity: 0,
+              duration: 0.8,
+              clearProps: "all",
+            },
+            "-=0.4",
+          )
+          .from(
+            ".hero-service-card",
+            {
+              filter: "blur(6px)",
+              opacity: 0,
+              y: 36,
+              duration: 0.65,
               stagger: 0.2,
               clearProps: "all",
             },
