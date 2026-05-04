@@ -60,6 +60,24 @@
         padding: 0;
       }
 
+      /* Xóa 300ms tap delay trên iOS/Android */
+      a,
+      button,
+      input,
+      select,
+      textarea,
+      label,
+      [role="button"],
+      [onclick],
+      .sms-phone-wrap,
+      .gal-card,
+      .gal-nav-btn,
+      .brand-nav-btn,
+      .contact-card,
+      .ham-btn {
+        touch-action: manipulation;
+      }
+
       html {
         /* scroll-behavior: smooth; -- Tạm tắt để tránh xung đột với Lenis */
         -webkit-text-size-adjust: 100%; /* iOS tắt auto-zoom font khi xoay ngang */
