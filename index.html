@@ -761,6 +761,7 @@
         flex-shrink: 0;
         width: 300px;
         scroll-snap-align: center;
+        scroll-snap-stop: always;
       }
 
       .sms-vid-wrap {
@@ -966,6 +967,7 @@
         margin-left: -1.5rem;
         margin-right: -1.5rem;
         position: relative;
+        transform: translateZ(0);
       }
 
       .film-strip {
@@ -977,6 +979,8 @@
         padding: 0 1.5rem 1.5rem;
         scrollbar-width: none;
         align-items: center;
+        will-change: transform;
+        transform: translateZ(0);
       }
 
       .film-strip::-webkit-scrollbar {
@@ -2766,7 +2770,8 @@
                   loop
                   muted
                   playsinline
-                  preload="metadata"
+                  autoplay
+                  preload="auto"
                   style="background: #111111"
                 >
                   <source
@@ -2801,7 +2806,8 @@
                   loop
                   muted
                   playsinline
-                  preload="metadata"
+                  autoplay
+                  preload="auto"
                   style="background: #000"
                 ></video>
                 <span class="sms-duration"></span>
@@ -2830,7 +2836,8 @@
                   loop
                   muted
                   playsinline
-                  preload="metadata"
+                  autoplay
+                  preload="auto"
                   style="background: #0a0a0a"
                 >
                   <source
@@ -2863,7 +2870,8 @@
                   loop
                   muted
                   playsinline
-                  preload="metadata"
+                  autoplay
+                  preload="auto"
                   style="background: #0a0a0a"
                 >
                   <source
@@ -2931,7 +2939,8 @@
                   loop
                   muted
                   playsinline
-                  preload="metadata"
+                  autoplay
+                  preload="auto"
                   style="background: #0a0a0a"
                 >
                   <source
@@ -4981,6 +4990,7 @@
         }
 
         function attemptPlay(video, wrap) {
+          video.setAttribute("autoplay", "");
           if (video.readyState >= 1) {
             video.play().catch(function () {});
             wrap.classList.add("is-playing");
@@ -4992,6 +5002,7 @@
 
         function stopVideo(video, wrap) {
           video.dataset.playOnLoad = "";
+          video.removeAttribute("autoplay");
           video.pause();
           video.load();
           wrap.classList.remove("is-playing");
