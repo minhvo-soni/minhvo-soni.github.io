@@ -1,0 +1,66 @@
+/*
+ * theme.css — SONI Portfolio
+ * Visual design overrides: colors, typography, components, effects
+ * Loaded after index.html <style> block — rules here take priority
+ * ----------------------------------------------------------------
+ * Sections:
+ *   1. Design Tokens (CSS variables)
+ *   2. Typography
+ *   3. Components — Glass cards
+ *   4. Components — Buttons
+ *   5. Components — Nav
+ *   6. Section — Hero
+ *   7. Section — Work / Gallery
+ *   8. Section — Social
+ *   9. Section — About
+ *  10. Section — Skills
+ *  11. Section — Contact
+ *  12. Footer
+ * ----------------------------------------------------------------
+ */
+
+
+/* ── 1. Design Tokens ─────────────────────────────────────────── */
+/*
+:root {
+  --bg:       #050505;
+  --gold:     #D4AF37;
+  --white:    #ffffff;
+  --serif:    'Cormorant Garamond', Georgia, serif;
+  --body:     'Be Vietnam Pro', system-ui, sans-serif;
+  --display:  'Amulya', Georgia, serif;
+}
+*/
+
+
+/* ── 2. Typography ────────────────────────────────────────────── */
+
+
+/* ── 3. Components — Glass cards ──────────────────────────────── */
+
+
+/* ── 4. Components — Buttons ──────────────────────────────────── */
+
+
+/* ── 5. Components — Nav ──────────────────────────────────────── */
+
+
+/* ── 6. Section — Hero ────────────────────────────────────────── */
+
+
+/* ── 7. Section — Work / Gallery ─────────────────────────────── */
+
+
+/* ── 8. Section — Social ──────────────────────────────────────── */
+
+
+/* ── 9. Section — About ───────────────────────────────────────── */
+
+
+/* ── 10. Section — Skills ─────────────────────────────────────── */
+
+
+/* ── 11. Section — Contact ────────────────────────────────────── */
+
+
+/* ── 12. Footer ───────────────────────────────────────────────── */
