@@ -1614,35 +1614,6 @@
         transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
       }
 
-      @media (hover: hover) {
-        /* Hiệu ứng Spotlight: CHỈ khi đang chỉ vào một hình cụ thể, các hình còn lại mới mờ đi */
-        #cuisine-grid:has(.cuisine-item:hover) .cuisine-item,
-        #gem-grid:has(.cuisine-item:hover) .cuisine-item,
-        #lounge-grid:has(.cuisine-item:hover) .cuisine-item,
-        #mangden-grid:has(.cuisine-item:hover) .cuisine-item,
-        #gs-hotel-grid:has(.cuisine-item:hover) .cuisine-item {
-          opacity: 0.45;
-          filter: grayscale(50%) brightness(0.6);
-        }
-
-        /* Hình đang được di chuột vào sẽ sáng rõ và nổi bật lên */
-        #cuisine-grid .cuisine-item:hover,
-        #gem-grid .cuisine-item:hover,
-        #lounge-grid .cuisine-item:hover,
-        #mangden-grid .cuisine-item:hover,
-        #gs-hotel-grid .cuisine-item:hover {
-          opacity: 1 !important;
-          filter: grayscale(0%) brightness(1.2) !important;
-          transform: scale(1.1);
-          position: relative;
-          z-index: 20;
-          box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.8);
-        }
-
-        .cuisine-item:hover .cuisine-img-wrap img {
-          transform: scale(1.15);
-        }
-      }
 
       .cuisine-cap-name {
         font-family: "Be Vietnam Pro", system-ui, sans-serif;
