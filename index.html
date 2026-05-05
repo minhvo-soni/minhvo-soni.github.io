@@ -1619,7 +1619,8 @@
         #cuisine-grid:has(.cuisine-item:hover) .cuisine-item,
         #gem-grid:has(.cuisine-item:hover) .cuisine-item,
         #lounge-grid:has(.cuisine-item:hover) .cuisine-item,
-        #mangden-grid:has(.cuisine-item:hover) .cuisine-item {
+        #mangden-grid:has(.cuisine-item:hover) .cuisine-item,
+        #gs-hotel-grid:has(.cuisine-item:hover) .cuisine-item {
           opacity: 0.45;
           filter: grayscale(50%) brightness(0.6);
         }
@@ -1628,7 +1629,8 @@
         #cuisine-grid .cuisine-item:hover,
         #gem-grid .cuisine-item:hover,
         #lounge-grid .cuisine-item:hover,
-        #mangden-grid .cuisine-item:hover {
+        #mangden-grid .cuisine-item:hover,
+        #gs-hotel-grid .cuisine-item:hover {
           opacity: 1 !important;
           filter: grayscale(0%) brightness(1.2) !important;
           transform: scale(1.1);
@@ -5774,7 +5776,7 @@
         aria-label="Đóng gallery"
         onclick="closeGoldenSunHotelLightbox()"
       >
-        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24">
           <path d="M18 6L6 18M6 6l12 12" />
         </svg>
       </button>
@@ -5785,9 +5787,30 @@
       >
         <div id="gs-hotel-lb-header">
           <p class="cuisine-eyebrow">03 · Golden Sun Hotel · Hotel Atmosphere</p>
-          <h2 class="cuisine-title">Golden Sun Hotel</h2>
-          <p class="cuisine-subtitle">
-            Không gian khách sạn — ánh sáng, nội thất và bầu không khí đặc trưng
+          <h2
+            style="
+              font-family: &quot;Cormorant Garamond&quot;, Georgia, serif;
+              font-size: clamp(26px, 3.5vw, 52px);
+              font-weight: 600;
+              letter-spacing: 0.08em;
+              color: #fff;
+              margin: 0.4rem 0 0.6rem;
+            "
+          >
+            Hotel Atmosphere
+          </h2>
+          <p
+            style="
+              font-family: &quot;Be Vietnam Pro&quot;, system-ui, sans-serif;
+              font-size: clamp(13px, 1.1vw, 15px);
+              color: rgba(255, 255, 255, 0.48);
+              max-width: 520px;
+              margin: 0 auto;
+              line-height: 1.75;
+              letter-spacing: 0;
+            "
+          >
+            Không gian khách sạn — ánh sáng, nội thất và bầu không khí đặc trưng của Golden Sun Hotel.
           </p>
         </div>
         <div id="gs-hotel-grid">
