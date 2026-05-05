@@ -1,0 +1,16 @@
+// ─── Colors ─────────────────────────────────────────────────────
+$bg:           #050505;
+$accent-gold:  #D4AF37;
+$text-primary: rgba(255, 255, 255, 0.88);
+$text-muted:   rgba(255, 255, 255, 0.38);
+$border-faint: rgba(255, 255, 255, 0.07);
+$border-light: rgba(255, 255, 255, 0.12);
+
+// ─── Typography ─────────────────────────────────────────────────
+$font-serif:   'Cormorant Garamond', Georgia, serif;
+$font-body:    'Synonym', system-ui, sans-serif;
+$font-viet:    'Be Vietnam Pro', system-ui, sans-serif;  // Vietnamese text always uses this
+
+// ─── Breakpoints ────────────────────────────────────────────────
+$mobile:  767px;
+$desktop: 768px;

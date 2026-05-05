@@ -1,0 +1,8 @@
+// ─── Entry Point ────────────────────────────────────────────────
+// Compile: sass src/scss/main.scss assets/css/main.css --style=compressed
+// Or paste compiled output into <style> block of index.html
+
+@use 'variables' as *;
+@use 'components/film-strip';
+@use 'components/gallery';
+@use 'components/modals';
