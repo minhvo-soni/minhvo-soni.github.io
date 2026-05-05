@@ -1781,6 +1781,94 @@
         }
       }
 
+      /* ── Golden Sun Hotel Lightbox ── */
+      #gs-hotel-lb {
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        background: rgba(0, 0, 0, 0.96);
+        backdrop-filter: blur(22px);
+        -webkit-backdrop-filter: blur(22px);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+        overflow: hidden;
+      }
+      #gs-hotel-lb.is-open {
+        opacity: 1;
+        pointer-events: all;
+      }
+      #gs-hotel-lb-close {
+        position: fixed;
+        top: max(1rem, env(safe-area-inset-top, 1rem));
+        right: max(1rem, env(safe-area-inset-right, 1rem));
+        z-index: 10001;
+        width: 48px;
+        height: 48px;
+        border: 0.5px solid rgba(255, 255, 255, 0.22);
+        background: rgba(0, 0, 0, 0.55);
+        color: rgba(255, 255, 255, 0.85);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        border-radius: 50%;
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        transition: border-color 0.22s, background 0.22s, color 0.22s;
+        touch-action: manipulation;
+      }
+      #gs-hotel-lb-close:hover {
+        border-color: rgba(212, 175, 55, 0.5);
+        background: rgba(212, 175, 55, 0.08);
+        color: #fff;
+      }
+      #gs-hotel-lb-scroll {
+        height: 100%;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        padding: 5rem 1.25rem 4rem;
+        scrollbar-width: thin;
+        scrollbar-color: rgba(212, 175, 55, 0.18) transparent;
+      }
+      #gs-hotel-lb-scroll::-webkit-scrollbar { width: 4px; }
+      #gs-hotel-lb-scroll::-webkit-scrollbar-track { background: transparent; }
+      #gs-hotel-lb-scroll::-webkit-scrollbar-thumb {
+        background: rgba(212, 175, 55, 0.18);
+        border-radius: 2px;
+      }
+      #gs-hotel-lb-header {
+        text-align: center;
+        margin-bottom: 2rem;
+      }
+      #gs-hotel-grid {
+        columns: 2;
+        column-gap: 0.75rem;
+        max-width: 1100px;
+        margin: 0 auto;
+      }
+      #gs-hotel-grid .cuisine-item {
+        break-inside: avoid;
+        margin-bottom: 0.75rem;
+      }
+      #gs-hotel-grid .cuisine-img-wrap {
+        aspect-ratio: unset;
+        height: auto;
+      }
+      #gs-hotel-grid .cuisine-img-wrap img {
+        width: 100%;
+        height: auto;
+        object-fit: unset;
+      }
+      @media (min-width: 600px) {
+        #gs-hotel-grid { columns: 3; column-gap: 0.75rem; }
+        #gs-hotel-lb-scroll { padding: 5.5rem 2rem 4rem; }
+      }
+      @media (min-width: 1024px) {
+        #gs-hotel-grid { columns: 4; column-gap: 1rem; }
+        #gs-hotel-lb-scroll { padding: 6rem 3rem 4rem; }
+      }
+
       /* ── Golden Sun Lounge Lightbox ── */
       #lounge-lb {
         position: fixed;
@@ -2859,6 +2947,27 @@
               transition: all 0.4s;
             "
           ></div>
+          <span
+            class="gal-dot-label"
+            style="
+              font-family: &quot;Synonym&quot;, sans-serif;
+              font-size: 9px;
+              letter-spacing: 0.2em;
+              text-transform: uppercase;
+              color: rgba(255, 255, 255, 0.18);
+            "
+            >05</span
+          >
+          <div
+            id="gal-dot-4"
+            style="
+              width: 6px;
+              height: 6px;
+              border-radius: 50%;
+              background: rgba(255, 255, 255, 0.12);
+              transition: all 0.4s;
+            "
+          ></div>
         </div>
 
         <!-- Gallery prev / next buttons -->
@@ -2943,28 +3052,28 @@
             </div>
           </div>
 
-          <!-- ───────────────────── VENUE 03 · Gem Center ─────────────────────── -->
+          <!-- ───────────────────── VENUE 03 · Golden Sun Hotel ─────────────────────── -->
 
           <div
             class="gal-card wp-cover"
             data-venue="2"
             data-phase="0"
-            onclick="openGemLightbox()"
+            onclick="openGoldenSunHotelLightbox()"
           >
             <div class="gal-meta">
-              <span class="gal-venue-tag">03 · Gem Center</span>
+              <span class="gal-venue-tag">03 · Golden Sun Hotel</span>
               <span class="gal-phase-num">Phase 01</span>
             </div>
             <div class="gal-img-wrap">
               <img
-                src="./assets/gallery/gem-center/gem-2.jpg"
-                alt="Gem Center"
+                src="./assets/gallery/golden-sun/1/Poster.jpg"
+                alt="Golden Sun Hotel"
                 loading="lazy"
                 decoding="async"
               />
             </div>
             <div class="gal-bottom">
-              <h3 class="gal-phase-name">Gem Center Weddings</h3>
+              <h3 class="gal-phase-name">Hotel Atmosphere</h3>
               <p class="wp-cover-cta">Click to explore</p>
             </div>
             <div class="gal-arrow">
@@ -3056,10 +3165,48 @@
               </svg>
             </div>
           </div>
+
+          <!-- ───────────────────── VENUE 06 · Gem Center ─────────────────────── -->
+
+          <div
+            class="gal-card wp-cover"
+            data-venue="5"
+            data-phase="0"
+            onclick="openGemLightbox()"
+          >
+            <div class="gal-meta">
+              <span class="gal-venue-tag">06 · Gem Center</span>
+              <span class="gal-phase-num">Phase 01</span>
+            </div>
+            <div class="gal-img-wrap">
+              <img
+                src="./assets/gallery/gem-center/gem-2.jpg"
+                alt="Gem Center"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+            <div class="gal-bottom">
+              <h3 class="gal-phase-name">Gem Center Weddings</h3>
+              <p class="wp-cover-cta">Click to explore</p>
+            </div>
+            <div class="gal-arrow">
+              <svg
+                width="12"
+                height="12"
+                fill="none"
+                stroke="rgba(255,255,255,.38)"
+                stroke-width="1.5"
+                viewBox="0 0 24 24"
+              >
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </div>
+          </div>
         </div>
         <!-- /track -->
 
-        <!-- Segmented progress bar — 3 venues -->
+        <!-- Segmented progress bar — 5 venues -->
         <div
           style="
             position: absolute;
@@ -3132,6 +3279,23 @@
           >
             <div
               id="gal-fill-3"
+              style="
+                position: absolute;
+                inset: 0;
+                background: #d4af37;
+                width: 0%;
+              "
+            ></div>
+          </div>
+          <div
+            style="
+              flex: 1;
+              background: rgba(255, 255, 255, 0.04);
+              position: relative;
+            "
+          >
+            <div
+              id="gal-fill-4"
               style="
                 position: absolute;
                 inset: 0;
@@ -4645,6 +4809,7 @@
         if (e.key === "Escape") {
           ["m1", "m2", "m3"].forEach(closeModal);
           closeCuisineGallery();
+          closeGoldenSunHotelLightbox();
           closeGemLightbox();
           closeLoungeLightbox();
           closeMangdenLightbox();
@@ -4660,6 +4825,20 @@
       }
       function closeCuisineGallery() {
         var lb = document.getElementById("cuisine-lb");
+        if (!lb) return;
+        lb.classList.remove("is-open");
+        document.body.style.overflow = "";
+      }
+
+      function openGoldenSunHotelLightbox() {
+        var lb = document.getElementById("gs-hotel-lb");
+        if (!lb) return;
+        lb.classList.add("is-open");
+        document.body.style.overflow = "hidden";
+        lb.querySelector("#gs-hotel-lb-scroll").scrollTop = 0;
+      }
+      function closeGoldenSunHotelLightbox() {
+        var lb = document.getElementById("gs-hotel-lb");
         if (!lb) return;
         lb.classList.remove("is-open");
         document.body.style.overflow = "";
@@ -4832,6 +5011,7 @@
           "gal-fill-1",
           "gal-fill-2",
           "gal-fill-3",
+          "gal-fill-4",
         ].map(function (id) {
           return document.getElementById(id);
         });
@@ -4840,6 +5020,7 @@
           ["gal-dot-1"],
           ["gal-dot-2"],
           ["gal-dot-3"],
+          ["gal-dot-4"],
         ].map(function (g) {
           return g.map(function (id) {
             return document.getElementById(id);
@@ -4848,9 +5029,10 @@
 
         var VENUES = [
           "White Palace",
-          "Gem Center",
+          "Golden Sun Hotel",
           "Golden Sun Lounge",
           "Golden Sun Mang Den",
+          "Gem Center",
         ];
         var PHASES = ["Phase 01"];
         var PER_VENUE = 1;
@@ -5580,6 +5762,89 @@
     </div>
     <!-- /cuisine-lb -->
 
+    <!-- ── Golden Sun Hotel Gallery Lightbox ── -->
+    <div
+      id="gs-hotel-lb"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Golden Sun Hotel — Hotel Atmosphere"
+    >
+      <button
+        id="gs-hotel-lb-close"
+        aria-label="Đóng gallery"
+        onclick="closeGoldenSunHotelLightbox()"
+      >
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+          <path d="M18 6L6 18M6 6l12 12" />
+        </svg>
+      </button>
+      <div
+        id="gs-hotel-lb-scroll"
+        data-lenis-prevent
+        onclick="if (event.target === this) closeGoldenSunHotelLightbox();"
+      >
+        <div id="gs-hotel-lb-header">
+          <p class="cuisine-eyebrow">03 · Golden Sun Hotel · Hotel Atmosphere</p>
+          <h2 class="cuisine-title">Golden Sun Hotel</h2>
+          <p class="cuisine-subtitle">
+            Không gian khách sạn — ánh sáng, nội thất và bầu không khí đặc trưng
+          </p>
+        </div>
+        <div id="gs-hotel-grid">
+          <div class="cuisine-item">
+            <div class="cuisine-img-wrap">
+              <img src="./assets/gallery/golden-sun/1/DSCF4532.jpg" alt="Không gian sảnh" loading="lazy" decoding="async" />
+            </div>
+            <p class="cuisine-cap-name">Không gian sảnh</p>
+            <p class="cuisine-cap-desc">Toàn cảnh sảnh chính với ánh sáng đặc trưng của khách sạn</p>
+          </div>
+          <div class="cuisine-item">
+            <div class="cuisine-img-wrap">
+              <img src="./assets/gallery/golden-sun/1/DSC06519.jpg" alt="Khu vực tiệc" loading="lazy" decoding="async" />
+            </div>
+            <p class="cuisine-cap-name">Khu vực tiệc</p>
+            <p class="cuisine-cap-desc">Bố cục bàn tiệc và dàn dựng không gian sự kiện</p>
+          </div>
+          <div class="cuisine-item">
+            <div class="cuisine-img-wrap">
+              <img src="./assets/gallery/golden-sun/1/DSC06580.jpg" alt="Chi tiết nội thất" loading="lazy" decoding="async" />
+            </div>
+            <p class="cuisine-cap-name">Chi tiết nội thất</p>
+            <p class="cuisine-cap-desc">Góc chi tiết trang trí và vật liệu hoàn thiện</p>
+          </div>
+          <div class="cuisine-item">
+            <div class="cuisine-img-wrap">
+              <img src="./assets/gallery/golden-sun/1/DSC06388.jpg" alt="Ánh sáng không gian" loading="lazy" decoding="async" />
+            </div>
+            <p class="cuisine-cap-name">Ánh sáng không gian</p>
+            <p class="cuisine-cap-desc">Hiệu ứng ánh sáng vàng đặc trưng của thương hiệu Golden Sun</p>
+          </div>
+          <div class="cuisine-item">
+            <div class="cuisine-img-wrap">
+              <img src="./assets/gallery/golden-sun/1/DSC06422.jpg" alt="Góc rộng hội trường" loading="lazy" decoding="async" />
+            </div>
+            <p class="cuisine-cap-name">Góc rộng hội trường</p>
+            <p class="cuisine-cap-desc">Toàn cảnh hội trường từ góc nhìn tổng quan</p>
+          </div>
+          <div class="cuisine-item">
+            <div class="cuisine-img-wrap">
+              <img src="./assets/gallery/golden-sun/1/DSC06471.jpg" alt="Dàn dựng bàn tiệc" loading="lazy" decoding="async" />
+            </div>
+            <p class="cuisine-cap-name">Dàn dựng bàn tiệc</p>
+            <p class="cuisine-cap-desc">Cách sắp xếp và trình bày bàn tiệc theo phong cách khách sạn</p>
+          </div>
+          <div class="cuisine-item">
+            <div class="cuisine-img-wrap">
+              <img src="./assets/gallery/golden-sun/1/DSC06501.jpg" alt="Khoảnh khắc không gian" loading="lazy" decoding="async" />
+            </div>
+            <p class="cuisine-cap-name">Khoảnh khắc không gian</p>
+            <p class="cuisine-cap-desc">Ghi lại bầu không khí và cảm xúc đặc trưng của sự kiện</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /gs-hotel-lb -->
+
     <!-- ── Gem Center Wedding Gallery Lightbox ── -->
     <div
       id="gem-lb"
@@ -5609,7 +5874,7 @@
         onclick="if (event.target === this) closeGemLightbox();"
       >
         <div id="gem-lb-header">
-          <p class="cuisine-eyebrow">03 · Gem Center · Wedding Concept</p>
+          <p class="cuisine-eyebrow">06 · Gem Center · Wedding Concept</p>
           <h2 class="cuisine-title">Gem Center Weddings</h2>
           <p class="cuisine-subtitle">
             13 tác phẩm concept tiệc cưới — ánh sáng, không gian và cảm xúc
@@ -6307,7 +6572,7 @@
           )
           /* Dots bar — labels + dots stagger */
           .from(
-            "#gal-dot-0, .gal-dot-label, #gal-dot-1, #gal-dot-2, #gal-dot-3",
+            "#gal-dot-0, .gal-dot-label, #gal-dot-1, #gal-dot-2, #gal-dot-3, #gal-dot-4",
             { y: 10, opacity: 0, stagger: 0.035, duration: 0.22 },
             "<-0.05",
           );
