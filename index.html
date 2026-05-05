@@ -1614,6 +1614,37 @@
         transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
       }
 
+      @media (hover: hover) {
+        /* Ảnh còn lại tối đi khi hover */
+        #cuisine-grid:has(.cuisine-item:hover) .cuisine-item,
+        #gem-grid:has(.cuisine-item:hover) .cuisine-item,
+        #lounge-grid:has(.cuisine-item:hover) .cuisine-item,
+        #mangden-grid:has(.cuisine-item:hover) .cuisine-item,
+        #gs-hotel-grid:has(.cuisine-item:hover) .cuisine-item {
+          opacity: 0.4;
+          filter: brightness(0.5);
+          transition: opacity 0.3s, filter 0.3s;
+        }
+        /* Ảnh đang hover: to lên, không đổi độ sáng */
+        #cuisine-grid .cuisine-item:hover,
+        #gem-grid .cuisine-item:hover,
+        #lounge-grid .cuisine-item:hover,
+        #mangden-grid .cuisine-item:hover,
+        #gs-hotel-grid .cuisine-item:hover {
+          opacity: 1 !important;
+          filter: none !important;
+          position: relative;
+          z-index: 20;
+        }
+        #cuisine-grid .cuisine-item:hover .cuisine-img-wrap img,
+        #gem-grid .cuisine-item:hover .cuisine-img-wrap img,
+        #lounge-grid .cuisine-item:hover .cuisine-img-wrap img,
+        #mangden-grid .cuisine-item:hover .cuisine-img-wrap img,
+        #gs-hotel-grid .cuisine-item:hover .cuisine-img-wrap img {
+          transform: scale(1.08);
+        }
+      }
+
 
       .cuisine-cap-name {
         font-family: "Be Vietnam Pro", system-ui, sans-serif;
