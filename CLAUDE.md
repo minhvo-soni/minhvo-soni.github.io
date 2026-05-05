@@ -6,7 +6,38 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 Single-file Vietnamese media portfolio for Võ Quang Minh (Soni) — a photographer and digital media strategist based in Đà Lạt. **The entire site lives in one file: `index.html`.** There is no build step, no framework, no package.json.
 
-The `src/` and `public/` directories are scaffolding folders that exist but contain no code. All media assets are in `public/assets/`.
+All media assets are in `assets/` (root-level). The `public/assets/` symlink exists but is unused.
+
+## src/ — Modular Source Structure
+
+`src/` holds the modular source of truth, organized for SCSS + vanilla ES Modules. Nothing here is compiled automatically — changes must be manually reflected in `index.html` until a build step is added.
+
+```
+src/
+  scss/
+    main.scss              # Entry: @use all partials
+    _variables.scss        # Design tokens (colors, fonts, breakpoints)
+    components/
+      _film-strip.scss     # Social section CSS
+      _gallery.scss        # Work/gallery section CSS
+      _modals.scss         # Overlays & lightboxes
+  js/
+    app.js                 # Entry: imports all modules
+    modules/
+      film-strip.js        # Lazy-load, hover-play, brand nav, arrows
+      gallery.js           # Carousel goTo(), HUD, touch swipe
+      lightbox.js          # vid-lightbox + yt-modal
+    transitions/
+      page-transitions.js  # GSAP entrance & scroll animations
+```
+
+### Auto-save workflow rule
+
+When writing any code (GSAP animation, CSS component, JS logic):
+1. Identify the correct `src/` file based on the table above.
+2. Write the code directly into that file.
+3. If a new component is needed, create `src/scss/components/_<name>.scss` or `src/js/modules/<name>.js` and add the import to the entry file.
+4. Mirror critical changes into `index.html` so the live site stays in sync.
 
 ## Running locally
 

@@ -1,0 +1,14 @@
+User-agent: *
+Allow: /
+
+# Không index thư mục nội bộ
+Disallow: /src/
+Disallow: /public/
+
+# Ưu tiên crawl ảnh portfolio
+User-agent: Googlebot-Image
+Allow: /assets/gallery/
+Allow: /assets/about/
+Allow: /assets/projects/
+
+Sitemap: https://minhvo-soni.github.io/sitemap.xml

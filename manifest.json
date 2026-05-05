@@ -1,0 +1,40 @@
+{
+  "name": "SONI — Nhiếp Ảnh & Media",
+  "short_name": "SONI",
+  "description": "Portfolio của Võ Quang Minh — nhiếp ảnh gia & chiến lược gia truyền thông số tại Đà Lạt.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#050505",
+  "theme_color": "#050505",
+  "orientation": "any",
+  "lang": "vi",
+  "categories": ["photography", "portfolio", "media"],
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/assets/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/assets/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/figma-preview.png",
+      "type": "image/png",
+      "label": "SONI Portfolio — Trang Chủ"
+    }
+  ]
+}
