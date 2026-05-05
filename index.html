@@ -4303,62 +4303,59 @@
     <!-- ══════════════════════════════════════════
      CONTACT
 ══════════════════════════════════════════ -->
-    <section id="contact" class="py-24 lg:py-36 border-t div-line">
-      <div class="max-w-6xl mx-auto px-6 lg:px-14 flex flex-col gap-5">
+    <section id="contact" class="border-t div-line" style="height:100vh;height:100svh;position:relative;overflow:hidden">
 
-        <!-- Eyebrow -->
-        <p class="flex items-center mb-2"
-           style="font-family:'Be Vietnam Pro',system-ui,sans-serif;font-size:10px;font-weight:500;letter-spacing:.28em;text-transform:uppercase;color:rgba(212,175,55,.75)">
-          <span class="acc"></span>Kết Nối
-        </p>
+      <!-- Eyebrow -->
+      <div style="position:absolute;top:max(2rem,env(safe-area-inset-top,2rem));left:max(1.75rem,env(safe-area-inset-left,1.75rem));display:flex;align-items:center;gap:.75rem;z-index:10">
+        <span class="acc"></span>
+        <p style="font-family:'Be Vietnam Pro',system-ui,sans-serif;font-size:10px;font-weight:500;letter-spacing:.28em;text-transform:uppercase;color:rgba(212,175,55,.75)">Kết Nối</p>
+      </div>
 
-        <!-- ── Hero: Icon Mosaic + Brand Lockup ── -->
-        <div class="c-glass" style="padding:3rem 2.5rem;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2.5rem">
-          <div style="display:flex;flex-direction:column;align-items:center;gap:2rem">
+      <!-- Centered content -->
+      <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:5rem max(1.75rem,env(safe-area-inset-right,1.75rem)) max(3.5rem,env(safe-area-inset-bottom,3.5rem)) max(1.75rem,env(safe-area-inset-left,1.75rem));gap:1.75rem;overflow-y:auto">
 
-            <!-- Rotating mosaic -->
-            <div style="position:relative;width:220px;height:220px;flex-shrink:0">
-              <!-- Border ring (rotates) -->
-              <div class="c-ring" style="position:absolute;inset:0;border-radius:50%;border:1px solid rgba(255,255,255,.06)"></div>
+        <!-- Icon mosaic + Brand lockup -->
+        <div style="display:flex;flex-direction:column;align-items:center;gap:1.25rem">
 
-              <!-- Outer ring — 8 icons -->
-              <div class="c-icon" style="left:88.6%;top:50%"><i data-lucide="camera" style="width:22px;height:22px"></i></div>
-              <div class="c-icon" style="left:77.3%;top:77.3%"><i data-lucide="video" style="width:22px;height:22px"></i></div>
-              <div class="c-icon" style="left:50%;top:88.6%"><i data-lucide="film" style="width:20px;height:20px"></i></div>
-              <div class="c-icon" style="left:22.7%;top:77.3%"><i data-lucide="aperture" style="width:20px;height:20px"></i></div>
-              <div class="c-icon" style="left:11.4%;top:50%"><i data-lucide="eye" style="width:20px;height:20px"></i></div>
-              <div class="c-icon" style="left:22.7%;top:22.7%"><i data-lucide="mountain" style="width:20px;height:20px"></i></div>
-              <div class="c-icon" style="left:50%;top:11.4%"><i data-lucide="play" style="width:22px;height:22px"></i></div>
-              <div class="c-icon" style="left:77.3%;top:22.7%"><i data-lucide="focus" style="width:22px;height:22px"></i></div>
+          <!-- Rotating mosaic 175px -->
+          <div style="position:relative;width:175px;height:175px;flex-shrink:0">
+            <div class="c-ring" style="position:absolute;inset:0;border-radius:50%;border:1px solid rgba(255,255,255,.06)"></div>
 
-              <!-- Inner ring — 8 icons -->
-              <div class="c-icon c-icon-sm" style="left:73.2%;top:59.4%"><i data-lucide="zap" style="width:14px;height:14px"></i></div>
-              <div class="c-icon c-icon-sm" style="left:59.8%;top:73%"><i data-lucide="sun" style="width:14px;height:14px"></i></div>
-              <div class="c-icon c-icon-sm" style="left:40.6%;top:73.2%"><i data-lucide="compass" style="width:14px;height:14px"></i></div>
-              <div class="c-icon c-icon-sm" style="left:27%;top:59.8%"><i data-lucide="search" style="width:14px;height:14px"></i></div>
-              <div class="c-icon c-icon-sm" style="left:26.8%;top:40.6%"><i data-lucide="layers" style="width:14px;height:14px"></i></div>
-              <div class="c-icon c-icon-sm" style="left:40.2%;top:27%"><i data-lucide="infinity" style="width:14px;height:14px"></i></div>
-              <div class="c-icon c-icon-sm" style="left:59.4%;top:26.8%"><i data-lucide="target" style="width:14px;height:14px"></i></div>
-              <div class="c-icon c-icon-sm" style="left:73%;top:40.2%"><i data-lucide="star" style="width:12px;height:12px"></i></div>
+            <!-- Outer ring — 8 icons -->
+            <div class="c-icon" style="left:88.6%;top:50%"><i data-lucide="camera" style="width:18px;height:18px"></i></div>
+            <div class="c-icon" style="left:77.3%;top:77.3%"><i data-lucide="video" style="width:18px;height:18px"></i></div>
+            <div class="c-icon" style="left:50%;top:88.6%"><i data-lucide="film" style="width:17px;height:17px"></i></div>
+            <div class="c-icon" style="left:22.7%;top:77.3%"><i data-lucide="aperture" style="width:17px;height:17px"></i></div>
+            <div class="c-icon" style="left:11.4%;top:50%"><i data-lucide="eye" style="width:17px;height:17px"></i></div>
+            <div class="c-icon" style="left:22.7%;top:22.7%"><i data-lucide="mountain" style="width:17px;height:17px"></i></div>
+            <div class="c-icon" style="left:50%;top:11.4%"><i data-lucide="play" style="width:18px;height:18px"></i></div>
+            <div class="c-icon" style="left:77.3%;top:22.7%"><i data-lucide="focus" style="width:18px;height:18px"></i></div>
 
-              <!-- Center number -->
-              <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none">
-                <span style="font-family:'Amulya',Georgia,serif;font-size:62px;font-weight:700;line-height:1;color:#fff">7</span>
-              </div>
+            <!-- Inner ring — 8 icons -->
+            <div class="c-icon c-icon-sm" style="left:73.2%;top:59.4%"><i data-lucide="zap" style="width:13px;height:13px"></i></div>
+            <div class="c-icon c-icon-sm" style="left:59.8%;top:73%"><i data-lucide="sun" style="width:13px;height:13px"></i></div>
+            <div class="c-icon c-icon-sm" style="left:40.6%;top:73.2%"><i data-lucide="compass" style="width:13px;height:13px"></i></div>
+            <div class="c-icon c-icon-sm" style="left:27%;top:59.8%"><i data-lucide="search" style="width:13px;height:13px"></i></div>
+            <div class="c-icon c-icon-sm" style="left:26.8%;top:40.6%"><i data-lucide="layers" style="width:13px;height:13px"></i></div>
+            <div class="c-icon c-icon-sm" style="left:40.2%;top:27%"><i data-lucide="infinity" style="width:13px;height:13px"></i></div>
+            <div class="c-icon c-icon-sm" style="left:59.4%;top:26.8%"><i data-lucide="target" style="width:13px;height:13px"></i></div>
+            <div class="c-icon c-icon-sm" style="left:73%;top:40.2%"><i data-lucide="star" style="width:11px;height:11px"></i></div>
+
+            <!-- Center number -->
+            <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none">
+              <span style="font-family:'Amulya',Georgia,serif;font-size:50px;font-weight:700;line-height:1;color:#fff">7</span>
             </div>
+          </div>
 
-            <!-- Brand text -->
-            <div style="text-align:center">
-              <p style="font-family:'Amulya',Georgia,serif;font-size:clamp(72px,14vw,108px);font-weight:700;line-height:1;letter-spacing:-.02em;color:#fff">Soni</p>
-              <p style="font-family:'Inter',sans-serif;font-size:8px;letter-spacing:.42em;text-transform:uppercase;color:rgba(255,255,255,.22);margin-top:8px">
-                Visual Storyteller
-              </p>
-            </div>
+          <!-- Brand text -->
+          <div style="text-align:center">
+            <p style="font-family:'Amulya',Georgia,serif;font-size:clamp(56px,10vw,84px);font-weight:700;line-height:1;letter-spacing:-.02em;color:#fff">Soni</p>
+            <p style="font-family:'Inter',sans-serif;font-size:8px;letter-spacing:.42em;text-transform:uppercase;color:rgba(255,255,255,.22);margin-top:6px">Visual Storyteller</p>
           </div>
         </div>
 
-        <!-- ── Contact Links ── -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <!-- Contact links 2×2 -->
+        <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:.75rem;width:100%;max-width:580px">
           <a href="mailto:voquangminh771@gmail.com" class="c-glass c-link-card">
             <div class="min-w-0">
               <p class="c-link-label">Email</p>
@@ -4390,7 +4387,7 @@
         </div>
 
         <!-- Address -->
-        <div style="display:flex;align-items:center;justify-content:center;gap:.75rem;padding-top:.5rem">
+        <div style="display:flex;align-items:center;justify-content:center;gap:.75rem">
           <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" style="color:rgba(212,175,55,.55);flex-shrink:0">
             <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
             <circle cx="12" cy="10" r="3"/>
