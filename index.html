@@ -2535,64 +2535,115 @@
         }
       }
 
-      /* ── Contact cards v2 ── */
-      .contact-card {
+      /* ── Contact Glass Cards (redesign) ── */
+      .c-glass {
+        background: rgba(255,255,255,.02);
+        border: 1px solid rgba(255,255,255,.05);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-radius: 1.5rem;
+        transition: background .4s cubic-bezier(.4,0,.2,1),
+                    border-color .4s cubic-bezier(.4,0,.2,1),
+                    transform .4s cubic-bezier(.4,0,.2,1);
+      }
+      .c-glass:is(a,button):hover, .c-glass.c-hoverable:hover {
+        background: rgba(255,255,255,.04);
+        border-color: rgba(255,255,255,.10);
+        transform: translateY(-2px);
+      }
+      @keyframes c-ring-spin {
+        from { transform: rotate(0deg); }
+        to   { transform: rotate(360deg); }
+      }
+      .c-ring { animation: c-ring-spin 40s linear infinite; }
+
+      .c-icon {
+        position: absolute;
+        transform: translate(-50%,-50%);
+        color: rgba(255,255,255,.38);
+        transition: color .3s;
+        line-height: 0;
+      }
+      .c-icon:hover { color: rgba(255,255,255,.85); }
+      .c-icon-sm { color: rgba(255,255,255,.18); }
+
+      .c-ai-card {
+        padding: 1.75rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1.25rem;
+        min-height: 248px;
+      }
+      .c-card-label {
+        font-family: "Inter", sans-serif;
+        font-size: 10px;
+        letter-spacing: .2em;
+        text-transform: uppercase;
+        color: rgba(255,255,255,.38);
+        font-weight: 700;
         display: flex;
         align-items: center;
-        justify-content: space-between;
-        gap: 1rem;
-        padding: 1.75rem 1.5rem;
-        border: 0.5px solid rgba(255, 255, 255, 0.08);
-        background: rgba(255, 255, 255, 0.02);
-        transition:
-          border-color 0.3s ease,
-          background 0.3s ease,
-          box-shadow 0.3s ease;
+        gap: .5rem;
+        margin-bottom: .75rem;
       }
-
-      .contact-card:hover {
-        border-color: rgba(212, 175, 55, 0.5);
-        background: rgba(212, 175, 55, 0.025);
-        box-shadow: 0 0 22px rgba(212, 175, 55, 0.07);
+      .c-lucide-icon { width: 14px; height: 14px; flex-shrink: 0; }
+      .c-card-body {
+        font-family: "Inter", sans-serif;
+        font-size: 12px;
+        color: rgba(255,255,255,.52);
+        line-height: 1.78;
+        font-weight: 300;
+        min-height: 80px;
       }
-
-      .contact-card-label {
-        font-family: "Be Vietnam Pro", system-ui, sans-serif;
-        font-size: 9.5px;
-        letter-spacing: 0.22em;
-        text-transform: uppercase;
-        color: rgba(255, 255, 255, 0.36);
-        margin-bottom: 0.4rem;
-      }
-
-      .contact-card-value {
-        font-family: "Be Vietnam Pro", system-ui, sans-serif;
-        font-size: 0.95rem;
-        font-weight: 500;
-        color: #ffffff;
-        letter-spacing: 0;
-        line-height: 1.35;
-        transition: color 0.3s ease;
-        word-break: break-word;
-      }
-
-      .contact-card:hover .contact-card-value {
-        color: #d4af37;
-      }
-
-      .contact-arrow {
-        color: rgba(255, 255, 255, 0.22);
+      .ai-btn-white {
+        width: 100%; background: #fff; color: #000;
+        padding: .7rem 1rem; border-radius: .75rem;
+        font-size: 10px; font-weight: 700; letter-spacing: .15em;
+        text-transform: uppercase; border: none; cursor: pointer;
+        display: flex; align-items: center; justify-content: center;
+        transition: background .2s; touch-action: manipulation;
         flex-shrink: 0;
-        transition:
-          color 0.3s ease,
-          transform 0.3s ease;
-        transform: translateX(0);
       }
+      .ai-btn-white:hover { background: #e2e8f0; }
+      .ai-btn-white:disabled { opacity: .5; cursor: not-allowed; }
+      .ai-btn-outline {
+        width: 100%; background: transparent; color: rgba(255,255,255,.62);
+        padding: .7rem 1rem; border-radius: .75rem;
+        font-size: 10px; font-weight: 700; letter-spacing: .15em;
+        text-transform: uppercase; border: 1px solid rgba(255,255,255,.10);
+        cursor: pointer; display: flex; align-items: center; justify-content: center;
+        transition: background .2s, border-color .2s; touch-action: manipulation;
+        flex-shrink: 0;
+      }
+      .ai-btn-outline:hover { background: rgba(255,255,255,.05); border-color: rgba(255,255,255,.2); }
+      .ai-btn-outline:disabled { opacity: .5; cursor: not-allowed; }
 
-      .contact-card:hover .contact-arrow {
-        color: #d4af37;
-        transform: translateX(5px);
+      /* Contact link cards */
+      .c-link-card {
+        display: flex; align-items: center;
+        justify-content: space-between;
+        padding: 1.5rem 1.75rem;
+        text-decoration: none; min-width: 0;
       }
+      .c-link-label {
+        font-family: "Be Vietnam Pro", system-ui, sans-serif;
+        font-size: 9.5px; letter-spacing: .22em;
+        text-transform: uppercase; color: rgba(255,255,255,.35);
+        margin-bottom: .38rem;
+      }
+      .c-link-value {
+        font-family: "Be Vietnam Pro", system-ui, sans-serif;
+        font-size: .95rem; font-weight: 500; color: #fff;
+        letter-spacing: 0; overflow: hidden;
+        text-overflow: ellipsis; white-space: nowrap;
+        transition: color .3s;
+      }
+      .c-link-arrow {
+        color: rgba(255,255,255,.22); flex-shrink: 0; margin-left: 1rem;
+        transition: color .25s, transform .25s;
+      }
+      .c-link-card:hover .c-link-arrow  { color: #d4af37; transform: translateX(5px); }
+      .c-link-card:hover .c-link-value  { color: #d4af37; }
 
       /* ── Footer social icon hover — CSS transition thay vì inline JS ── */
       .footer-social-link {
@@ -4481,168 +4532,143 @@
     </section>
 
     <!-- ══════════════════════════════════════════
-     CONTACT — GET IN TOUCH
+     CONTACT
 ══════════════════════════════════════════ -->
     <section id="contact" class="py-24 lg:py-36 border-t div-line">
-      <div class="max-w-7xl mx-auto px-6 lg:px-14">
-        <!-- Eyebrow + Heading -->
-        <div class="mb-12 lg:mb-16">
-          <p
-            class="flex items-center mb-5"
-            style="
-              font-family: &quot;Be Vietnam Pro&quot;, system-ui, sans-serif;
-              font-size: 10px;
-              font-weight: 500;
-              letter-spacing: 0.28em;
-              text-transform: uppercase;
-              color: rgba(212, 175, 55, 0.75);
-            "
-          >
-            <span class="acc"></span>Kết Nối
-          </p>
-          <h2
-            class="font-display h-shadow"
-            style="
-              font-size: clamp(38px, 8vw, 110px);
-              font-weight: 900;
-              letter-spacing: -0.02em;
-              line-height: 0.92;
-            "
-          >
-            <span class="text-cream">GET IN</span><br />
-            <span
-              style="
-                color: rgba(255, 255, 255, 0.08);
-                -webkit-text-stroke: 1px rgba(255, 255, 255, 0.2);
-              "
-              >TOUCH</span
-            >
-          </h2>
-        </div>
+      <div class="max-w-6xl mx-auto px-6 lg:px-14 flex flex-col gap-5">
 
-        <!-- Contact cards — 2×2 grid -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-10">
-          <!-- Email -->
-          <a href="mailto:voquangminh771@gmail.com" class="contact-card">
-            <div class="min-w-0">
-              <p class="contact-card-label">Email</p>
-              <p class="contact-card-value">voquangminh771@gmail.com</p>
+        <!-- Eyebrow -->
+        <p class="flex items-center mb-2"
+           style="font-family:'Be Vietnam Pro',system-ui,sans-serif;font-size:10px;font-weight:500;letter-spacing:.28em;text-transform:uppercase;color:rgba(212,175,55,.75)">
+          <span class="acc"></span>Kết Nối
+        </p>
+
+        <!-- ── Hero: Icon Mosaic + Brand Lockup ── -->
+        <div class="c-glass" style="padding:3rem 2.5rem;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2.5rem">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:2rem">
+
+            <!-- Rotating mosaic -->
+            <div style="position:relative;width:220px;height:220px;flex-shrink:0">
+              <!-- Border ring (rotates) -->
+              <div class="c-ring" style="position:absolute;inset:0;border-radius:50%;border:1px solid rgba(255,255,255,.06)"></div>
+
+              <!-- Outer ring — 8 icons -->
+              <div class="c-icon" style="left:88.6%;top:50%"><i data-lucide="camera" style="width:22px;height:22px"></i></div>
+              <div class="c-icon" style="left:77.3%;top:77.3%"><i data-lucide="video" style="width:22px;height:22px"></i></div>
+              <div class="c-icon" style="left:50%;top:88.6%"><i data-lucide="film" style="width:20px;height:20px"></i></div>
+              <div class="c-icon" style="left:22.7%;top:77.3%"><i data-lucide="aperture" style="width:20px;height:20px"></i></div>
+              <div class="c-icon" style="left:11.4%;top:50%"><i data-lucide="eye" style="width:20px;height:20px"></i></div>
+              <div class="c-icon" style="left:22.7%;top:22.7%"><i data-lucide="mountain" style="width:20px;height:20px"></i></div>
+              <div class="c-icon" style="left:50%;top:11.4%"><i data-lucide="play" style="width:22px;height:22px"></i></div>
+              <div class="c-icon" style="left:77.3%;top:22.7%"><i data-lucide="focus" style="width:22px;height:22px"></i></div>
+
+              <!-- Inner ring — 8 icons -->
+              <div class="c-icon c-icon-sm" style="left:73.2%;top:59.4%"><i data-lucide="zap" style="width:14px;height:14px"></i></div>
+              <div class="c-icon c-icon-sm" style="left:59.8%;top:73%"><i data-lucide="sun" style="width:14px;height:14px"></i></div>
+              <div class="c-icon c-icon-sm" style="left:40.6%;top:73.2%"><i data-lucide="compass" style="width:14px;height:14px"></i></div>
+              <div class="c-icon c-icon-sm" style="left:27%;top:59.8%"><i data-lucide="search" style="width:14px;height:14px"></i></div>
+              <div class="c-icon c-icon-sm" style="left:26.8%;top:40.6%"><i data-lucide="layers" style="width:14px;height:14px"></i></div>
+              <div class="c-icon c-icon-sm" style="left:40.2%;top:27%"><i data-lucide="infinity" style="width:14px;height:14px"></i></div>
+              <div class="c-icon c-icon-sm" style="left:59.4%;top:26.8%"><i data-lucide="target" style="width:14px;height:14px"></i></div>
+              <div class="c-icon c-icon-sm" style="left:73%;top:40.2%"><i data-lucide="star" style="width:12px;height:12px"></i></div>
+
+              <!-- Center number -->
+              <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none">
+                <span style="font-family:'Amulya',Georgia,serif;font-size:62px;font-weight:700;line-height:1;color:#fff">7</span>
+              </div>
             </div>
-            <svg
-              class="contact-arrow"
-              width="14"
-              height="14"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.5"
-              viewBox="0 0 24 24"
-            >
-              <path d="M5 12h14M12 5l7 7-7 7" />
-            </svg>
-          </a>
 
-          <!-- Phone -->
-          <a href="tel:0384316771" class="contact-card">
-            <div class="min-w-0">
-              <p
-                class="contact-card-label"
-                style="
-                  font-family:
-                    &quot;Be Vietnam Pro&quot;, system-ui, sans-serif;
-                "
-              >
-                Điện Thoại
+            <!-- Brand text -->
+            <div style="text-align:center">
+              <p style="font-family:'Amulya',Georgia,serif;font-size:clamp(72px,14vw,108px);font-weight:700;line-height:1;letter-spacing:-.02em;color:#fff">Soni</p>
+              <p style="font-family:'Inter',sans-serif;font-size:8px;letter-spacing:.42em;text-transform:uppercase;color:rgba(255,255,255,.22);margin-top:8px">
+                Visual Storyteller
               </p>
-              <p class="contact-card-value">038 4316 771</p>
             </div>
-            <svg
-              class="contact-arrow"
-              width="14"
-              height="14"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.5"
-              viewBox="0 0 24 24"
-            >
-              <path d="M5 12h14M12 5l7 7-7 7" />
-            </svg>
-          </a>
+          </div>
+        </div>
 
-          <!-- Instagram -->
-          <a
-            href="https://instagram.com/soni.photoo"
-            target="_blank"
-            rel="noopener"
-            class="contact-card"
-          >
-            <div class="min-w-0">
-              <p class="contact-card-label">Instagram</p>
-              <p class="contact-card-value">@Soni.photoo</p>
-            </div>
-            <svg
-              class="contact-arrow"
-              width="14"
-              height="14"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.5"
-              viewBox="0 0 24 24"
-            >
-              <path d="M5 12h14M12 5l7 7-7 7" />
-            </svg>
-          </a>
+        <!-- ── AI Cards ── -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
 
-          <!-- Behance -->
-          <a
-            href="https://www.behance.net/quangminhvo"
-            target="_blank"
-            rel="noopener"
-            class="contact-card"
-          >
-            <div class="min-w-0">
-              <p class="contact-card-label">Behance</p>
-              <p class="contact-card-value">quangminhvo</p>
+          <!-- Creative Assistant -->
+          <div class="c-glass c-ai-card">
+            <div style="flex:1">
+              <p class="c-card-label"><i data-lucide="sparkles" class="c-lucide-icon"></i>Trợ lý sáng tạo</p>
+              <div id="ai-prompt-out" class="c-card-body">Nhấn để nhận ý tưởng kể chuyện bằng hình ảnh tối giản...</div>
             </div>
-            <svg
-              class="contact-arrow"
-              width="14"
-              height="14"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.5"
-              viewBox="0 0 24 24"
-            >
-              <path d="M5 12h14M12 5l7 7-7 7" />
-            </svg>
+            <button class="ai-btn-white" onclick="aiGeneratePrompt(this)">Gợi ý Concept</button>
+          </div>
+
+          <!-- Visual Audit -->
+          <div class="c-glass c-ai-card">
+            <p class="c-card-label"><i data-lucide="eye" class="c-lucide-icon"></i>Thẩm định Vibe</p>
+            <div style="display:flex;gap:.75rem;height:88px">
+              <label for="ai-img-input" style="flex:1;border:1px solid rgba(255,255,255,.08);border-radius:.75rem;overflow:hidden;cursor:pointer;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.01);position:relative">
+                <img id="ai-img-preview" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:none" alt="">
+                <i id="ai-upload-icon" data-lucide="upload" style="width:18px;height:18px;color:rgba(255,255,255,.22)"></i>
+                <input type="file" id="ai-img-input" accept="image/*" style="display:none" onchange="aiHandleUpload(event)">
+              </label>
+              <button onclick="aiAnalyzeVibe(this)" style="width:88px;flex-shrink:0;border:1px solid rgba(255,255,255,.08);border-radius:.75rem;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;background:transparent;color:rgba(255,255,255,.52);transition:background .2s,color .2s;touch-action:manipulation">
+                Chấm<br>điểm
+              </button>
+            </div>
+            <div id="ai-vibe-out" style="display:none;font-size:11px;color:rgba(255,255,255,.45);line-height:1.65;background:rgba(0,0,0,.4);padding:.75rem;border-radius:.75rem;border:1px solid rgba(255,255,255,.05)"></div>
+          </div>
+
+          <!-- Target Insights -->
+          <div class="c-glass c-ai-card">
+            <div style="flex:1">
+              <p class="c-card-label"><i data-lucide="users" class="c-lucide-icon"></i>Chân dung khách hàng</p>
+              <div id="ai-persona-out" class="c-card-body">AI phân tích insight khách hàng cao cấp...</div>
+            </div>
+            <button class="ai-btn-outline" onclick="aiAnalyzePersona(this)">Phân tích Insight</button>
+          </div>
+        </div>
+
+        <!-- ── Contact Links ── -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <a href="mailto:voquangminh771@gmail.com" class="c-glass c-link-card">
+            <div class="min-w-0">
+              <p class="c-link-label">Email</p>
+              <p class="c-link-value">voquangminh771@gmail.com</p>
+            </div>
+            <svg class="c-link-arrow" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+          <a href="tel:0384316771" class="c-glass c-link-card">
+            <div class="min-w-0">
+              <p class="c-link-label" style="font-family:'Be Vietnam Pro',system-ui,sans-serif">Điện Thoại</p>
+              <p class="c-link-value">038 4316 771</p>
+            </div>
+            <svg class="c-link-arrow" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+          <a href="https://instagram.com/soni.photoo" target="_blank" rel="noopener" class="c-glass c-link-card">
+            <div class="min-w-0">
+              <p class="c-link-label">Instagram</p>
+              <p class="c-link-value">@Soni.photoo</p>
+            </div>
+            <svg class="c-link-arrow" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+          <a href="https://www.behance.net/quangminhvo" target="_blank" rel="noopener" class="c-glass c-link-card">
+            <div class="min-w-0">
+              <p class="c-link-label">Behance</p>
+              <p class="c-link-value">quangminhvo</p>
+            </div>
+            <svg class="c-link-arrow" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           </a>
         </div>
 
-        <!-- Address — centered -->
-        <div class="flex items-center justify-center gap-3">
-          <svg
-            width="13"
-            height="13"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="1.5"
-            viewBox="0 0 24 24"
-            style="color: rgba(212, 175, 55, 0.55); flex-shrink: 0"
-          >
-            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" />
-            <circle cx="12" cy="10" r="3" />
+        <!-- Address -->
+        <div style="display:flex;align-items:center;justify-content:center;gap:.75rem;padding-top:.5rem">
+          <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" style="color:rgba(212,175,55,.55);flex-shrink:0">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
+            <circle cx="12" cy="10" r="3"/>
           </svg>
-          <p
-            style="
-              font-family: &quot;Be Vietnam Pro&quot;, system-ui, sans-serif;
-              font-size: 0.8rem;
-              font-weight: 300;
-              color: rgba(255, 255, 255, 0.36);
-              letter-spacing: 0;
-            "
-          >
+          <p style="font-family:'Be Vietnam Pro',system-ui,sans-serif;font-size:.8rem;font-weight:300;color:rgba(255,255,255,.36);letter-spacing:0">
             6A/2 Hồ Xuân Hương, Lâm Viên – Đà Lạt, Lâm Đồng
           </p>
         </div>
+
       </div>
     </section>
 
@@ -6774,15 +6800,13 @@
         });
 
         /* ── Contact ── */
-        fadeUp("#contact h2", "#contact h2");
-        gsap.from(".contact-card", {
-          scrollTrigger: { trigger: "#contact", start: "top 80%", once: true },
-          y: 28,
+        gsap.from("#contact .c-glass", {
+          scrollTrigger: { trigger: "#contact", start: "top 82%", once: true },
+          y: 32,
           opacity: 0,
-          duration: 0.5,
-          stagger: 0.09,
+          duration: 0.55,
+          stagger: 0.1,
           ease: "power3.out",
-          delay: 0.15,
           clearProps: "transform,opacity",
         });
 
@@ -6835,6 +6859,75 @@
             { y: 10, opacity: 0, stagger: 0.035, duration: 0.22 },
             "<-0.05",
           );
+      })();
+    </script>
+    <!-- Lucide icons (cho contact section) -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    <script>
+      if (window.lucide) lucide.createIcons();
+    </script>
+
+    <!-- AI Contact Features -->
+    <script>
+      ;(function () {
+        var _KEY = ""; /* Điền Gemini API key để kích hoạt */
+        var _b64 = null;
+
+        async function _call(prompt, img) {
+          if (!_KEY) return "⚠️ Tính năng AI chưa được kích hoạt.";
+          var body = img
+            ? { contents: [{ role: "user", parts: [{ text: prompt }, { inlineData: { mimeType: "image/jpeg", data: img.split(",")[1] } }] }] }
+            : { contents: [{ parts: [{ text: prompt }] }], systemInstruction: { parts: [{ text: "Bạn là AI chuyên gia hình ảnh cho thương hiệu Soni. Trả lời ngắn gọn bằng tiếng Việt." }] } };
+          try {
+            var r = await fetch("https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=" + _KEY, {
+              method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body),
+            });
+            var j = await r.json();
+            return j.candidates?.[0]?.content?.parts?.[0]?.text || "Không có phản hồi.";
+          } catch (e) { return "Lỗi kết nối. Vui lòng thử lại."; }
+        }
+
+        function _busy(btn, on, label) {
+          btn.disabled = on;
+          btn.textContent = on ? "..." : label;
+        }
+
+        window.aiGeneratePrompt = async function (btn) {
+          _busy(btn, true, "Gợi ý Concept");
+          document.getElementById("ai-prompt-out").textContent =
+            await _call("Gợi ý concept chụp ảnh/quay phim theo hướng Visual Storytelling tối giản, sử dụng ánh sáng để kể chuyện. Ngắn gọn, 3-4 câu.");
+          _busy(btn, false, "Gợi ý Concept");
+        };
+
+        window.aiAnalyzeVibe = async function (btn) {
+          if (!_b64) return;
+          _busy(btn, true, "Chấm\nđiểm");
+          var out = document.getElementById("ai-vibe-out");
+          out.style.display = "block";
+          out.textContent = await _call("Bức ảnh này có truyền tải được tinh thần của một Visual Storyteller không? Chấm điểm /10 và nhận xét ngắn.", _b64);
+          _busy(btn, false, "Chấm\nđiểm");
+        };
+
+        window.aiAnalyzePersona = async function (btn) {
+          _busy(btn, true, "Phân tích Insight");
+          document.getElementById("ai-persona-out").textContent =
+            await _call("Mô tả chân dung khách hàng tìm kiếm một Visual Storyteller chuyên nghiệp có gu thẩm mỹ sâu sắc. Ngắn gọn, 3-4 câu.");
+          _busy(btn, false, "Phân tích Insight");
+        };
+
+        window.aiHandleUpload = function (e) {
+          var f = e.target.files[0];
+          if (!f) return;
+          var reader = new FileReader();
+          reader.onloadend = function () {
+            _b64 = reader.result;
+            var img = document.getElementById("ai-img-preview");
+            var ico = document.getElementById("ai-upload-icon");
+            if (img) { img.src = reader.result; img.style.display = "block"; }
+            if (ico) ico.style.display = "none";
+          };
+          reader.readAsDataURL(f);
+        };
       })();
     </script>
   </body>
