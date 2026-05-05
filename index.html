@@ -674,10 +674,9 @@
         animation: shimmer 3.2s ease-in-out infinite;
       }
 
-      /* ── About BTS Scatter ── */
+      /* ── About BTS Scatter — full-screen ── */
       .bts-scatter {
         position: relative;
-        height: 500px;
         overflow: visible;
       }
       .bts-card {
@@ -720,24 +719,10 @@
         font-family: "Inter", sans-serif; font-size: 8px;
         letter-spacing: .12em; color: rgba(255,255,255,.25);
       }
-      /* Mobile: horizontal scroll */
+      /* Mobile: nhỏ hơn nhưng vẫn scatter */
       @media (max-width: 767px) {
-        .bts-scatter {
-          height: auto; display: flex; gap: .6rem;
-          overflow-x: auto; padding-bottom: .5rem;
-          scroll-snap-type: x mandatory;
-          -webkit-overflow-scrolling: touch;
-        }
-        .bts-card {
-          position: relative !important; left: auto !important;
-          top: auto !important; transform: none !important;
-          flex-shrink: 0; width: 130px; height: 175px;
-          opacity: 1; filter: none; scroll-snap-align: start;
-        }
+        #about .bts-card { min-width: 100px; }
         .bts-scatter:has(.bts-card:hover) .bts-card { opacity:1; filter:none; }
-        .bts-scatter:has(.bts-card:hover) .bts-card:hover {
-          transform: scale(1.04) !important;
-        }
       }
 
       .timeline-item {
@@ -4026,31 +4011,22 @@
     <!-- ══════════════════════════════════════════
      VỀ TÔI
 ══════════════════════════════════════════ -->
-    <section id="about" class="py-28 lg:py-44 border-t div-line">
-      <div class="max-w-7xl mx-auto px-6 lg:px-14">
-        <!-- Eyebrow -->
-        <div class="flex items-center gap-3 mb-16 lg:mb-20">
-          <span class="acc"></span>
-          <span
-            style="
-              font-family: &quot;Inter&quot;, sans-serif;
-              font-size: 10px;
-              letter-spacing: 0.28em;
-              text-transform: uppercase;
-              color: rgba(212, 175, 55, 0.75);
-            "
-            >Về Tôi</span
-          >
-        </div>
+    <!-- ══════════════════════════════════════════
+     VỀ TÔI — Full-screen scatter
+══════════════════════════════════════════ -->
+    <section id="about" class="border-t div-line" style="height:100vh;height:100svh;position:relative;overflow:hidden">
 
-        <!-- 6:4 editorial grid -->
-        <div class="about-grid">
-          <!-- ─── LEFT: BTS Scatter ─── -->
-          <div>
-            <div class="bts-scatter">
+      <!-- Eyebrow -->
+      <div style="position:absolute;top:max(2rem,env(safe-area-inset-top,2rem));left:max(1.75rem,env(safe-area-inset-left,1.75rem));display:flex;align-items:center;gap:.75rem;z-index:10">
+        <span class="acc"></span>
+        <span style="font-family:'Inter',sans-serif;font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:rgba(212,175,55,.75)">Về Tôi</span>
+      </div>
+
+      <!-- Full-screen scatter -->
+      <div class="bts-scatter" style="position:absolute;inset:0;width:100%;height:100%">
 
               <!-- 01 · Portrait chính -->
-              <div class="bts-card" style="left:0;top:15px;width:155px;height:212px;transform:rotate(-2.5deg);z-index:3">
+              <div class="bts-card" style="left:2%;top:15%;width:clamp(120px,11vw,158px);height:clamp(160px,14.7vw,212px);transform:rotate(-2.5deg);z-index:3">
                 <div class="bts-ph">
                   <svg width="22" height="22" fill="none" stroke="rgba(255,255,255,.14)" stroke-width="1.2" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
                   <div style="font-family:'Inter',sans-serif;font-size:8px;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.15)">Portrait</div>
@@ -4060,7 +4036,7 @@
               </div>
 
               <!-- 02 · BTS landscape -->
-              <div class="bts-card" style="left:148px;top:228px;width:202px;height:138px;transform:rotate(2deg);z-index:2">
+              <div class="bts-card" style="left:14%;top:50%;width:clamp(140px,15vw,202px);height:clamp(96px,10vw,138px);transform:rotate(2deg);z-index:2">
                 <div class="bts-ph">
                   <svg width="18" height="18" fill="none" stroke="rgba(255,255,255,.12)" stroke-width="1.2" viewBox="0 0 24 24"><path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z"/><circle cx="12" cy="13" r="4"/></svg>
                 </div>
@@ -4069,7 +4045,7 @@
               </div>
 
               <!-- 03 · BTS portrait -->
-              <div class="bts-card" style="left:282px;top:6px;width:145px;height:198px;transform:rotate(3.5deg);z-index:2">
+              <div class="bts-card" style="left:27%;top:6%;width:clamp(100px,10.5vw,145px);height:clamp(137px,14.4vw,198px);transform:rotate(3.5deg);z-index:2">
                 <div class="bts-ph">
                   <svg width="18" height="18" fill="none" stroke="rgba(255,255,255,.12)" stroke-width="1.2" viewBox="0 0 24 24"><path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z"/><circle cx="12" cy="13" r="4"/></svg>
                 </div>
@@ -4077,8 +4053,8 @@
                 <div class="bts-lbl">Behind the Scene</div>
               </div>
 
-              <!-- 04 · BTS landscape -->
-              <div class="bts-card" style="left:348px;top:212px;width:188px;height:130px;transform:rotate(-2deg);z-index:1">
+              <!-- 04 · BTS landscape video -->
+              <div class="bts-card" style="left:38%;top:44%;width:clamp(130px,13.5vw,188px);height:clamp(90px,9.3vw,130px);transform:rotate(-2deg);z-index:1">
                 <div class="bts-ph">
                   <svg width="18" height="18" fill="none" stroke="rgba(255,255,255,.12)" stroke-width="1.2" viewBox="0 0 24 24"><path d="M15 10l4.553-2.069A1 1 0 0121 8.845V15.155a1 1 0 01-1.447.894L15 14M3 8h12v8H3z"/></svg>
                 </div>
@@ -4087,7 +4063,7 @@
               </div>
 
               <!-- 05 · BTS portrait -->
-              <div class="bts-card" style="left:486px;top:22px;width:148px;height:205px;transform:rotate(-4.5deg);z-index:2">
+              <div class="bts-card" style="left:49%;top:7%;width:clamp(100px,10.5vw,148px);height:clamp(138px,14.6vw,205px);transform:rotate(-4.5deg);z-index:2">
                 <div class="bts-ph">
                   <svg width="18" height="18" fill="none" stroke="rgba(255,255,255,.12)" stroke-width="1.2" viewBox="0 0 24 24"><path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z"/><circle cx="12" cy="13" r="4"/></svg>
                 </div>
@@ -4095,8 +4071,8 @@
                 <div class="bts-lbl">Behind the Scene</div>
               </div>
 
-              <!-- 06 · BTS landscape -->
-              <div class="bts-card" style="left:496px;top:244px;width:182px;height:128px;transform:rotate(3deg);z-index:1">
+              <!-- 06 · BTS landscape video -->
+              <div class="bts-card" style="left:61%;top:47%;width:clamp(128px,13vw,182px);height:clamp(90px,9.1vw,128px);transform:rotate(3deg);z-index:1">
                 <div class="bts-ph">
                   <svg width="18" height="18" fill="none" stroke="rgba(255,255,255,.12)" stroke-width="1.2" viewBox="0 0 24 24"><path d="M15 10l4.553-2.069A1 1 0 0121 8.845V15.155a1 1 0 01-1.447.894L15 14M3 8h12v8H3z"/></svg>
                 </div>
@@ -4105,7 +4081,7 @@
               </div>
 
               <!-- 07 · BTS portrait small -->
-              <div class="bts-card" style="left:106px;top:298px;width:132px;height:180px;transform:rotate(1.5deg);z-index:3">
+              <div class="bts-card" style="left:71%;top:14%;width:clamp(95px,9.5vw,132px);height:clamp(128px,12.9vw,180px);transform:rotate(1.5deg);z-index:3">
                 <div class="bts-ph">
                   <svg width="18" height="18" fill="none" stroke="rgba(255,255,255,.12)" stroke-width="1.2" viewBox="0 0 24 24"><path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z"/><circle cx="12" cy="13" r="4"/></svg>
                 </div>
@@ -4114,7 +4090,7 @@
               </div>
 
               <!-- 08 · BTS landscape -->
-              <div class="bts-card" style="left:252px;top:352px;width:196px;height:134px;transform:rotate(-3deg);z-index:2">
+              <div class="bts-card" style="left:77%;top:41%;width:clamp(137px,14vw,196px);height:clamp(94px,9.6vw,134px);transform:rotate(-3deg);z-index:2">
                 <div class="bts-ph">
                   <svg width="18" height="18" fill="none" stroke="rgba(255,255,255,.12)" stroke-width="1.2" viewBox="0 0 24 24"><path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z"/><circle cx="12" cy="13" r="4"/></svg>
                 </div>
@@ -4124,204 +4100,17 @@
 
             </div>
 
-            <!-- Hint -->
-            <div style="margin-top:.85rem;font-family:'Inter',sans-serif;font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.2);display:flex;align-items:center;gap:.5rem">
-              <svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
-              Hover để xem từng khoảnh khắc
-            </div>
-          </div>
-
-          <!-- ─── RIGHT: Typography ─── -->
-          <div>
-            <!-- Heading — Cormorant Garamond Italic, letter-spacing:0 for clean Vietnamese rendering -->
-            <h2
-              style="
-                font-family: &quot;Cormorant Garamond&quot;, Georgia, serif;
-                font-style: italic;
-                font-size: clamp(40px, 4.6vw, 68px);
-                font-weight: 700;
-                color: #ffffff;
-                line-height: 1.06;
-                letter-spacing: 0;
-                margin-bottom: 1.75rem;
-              "
-            >
-              Ánh Sáng,<br />
-              <span style="color: #d4af37">Màu Sắc</span><br />
-              &amp;&nbsp;Câu Chuyện
-            </h2>
-
-            <!-- Bio — Inter for full Vietnamese support -->
-            <p
-              style="
-                font-family: &quot;Inter&quot;, sans-serif;
-                font-size: 0.875rem;
-                font-weight: 300;
-                color: rgba(255, 255, 255, 0.6);
-                line-height: 1.95;
-                margin-bottom: 1rem;
-              "
-            >
-              Tôi là
-              <strong style="color: #ffffff; font-weight: 500"
-                >Võ Quang Minh (Soni)</strong
-              >
-              — nhiếp ảnh gia và digital media strategist với hơn 2 năm kinh
-              nghiệm chuyên sâu về F&amp;B, hospitality và content creation.
-            </p>
-            <!-- BIO: thêm mô tả bản thân vào đây -->
-
-            <!-- Timeline — 0.5px hairline dividers -->
-            <div style="margin-bottom: 2.25rem">
-              <div class="timeline-item">
-                <p
-                  style="
-                    font-family: &quot;Inter&quot;, sans-serif;
-                    font-size: 9px;
-                    letter-spacing: 0.22em;
-                    text-transform: uppercase;
-                    color: rgba(212, 175, 55, 0.65);
-                    margin-bottom: 0.35rem;
-                  "
-                >
-                  Hiện Tại
-                </p>
-                <p
-                  style="
-                    font-family: &quot;Inter&quot;, sans-serif;
-                    font-weight: 500;
-                    font-size: 0.975rem;
-                    color: #ffffff;
-                    letter-spacing: 0;
-                    margin-bottom: 0.2rem;
-                  "
-                >
-                  Media Specialist
-                </p>
-                <p
-                  style="
-                    font-family: &quot;Inter&quot;, sans-serif;
-                    font-size: 0.8rem;
-                    font-weight: 300;
-                    color: rgba(255, 255, 255, 0.42);
-                  "
-                >
-                  Golden Sun Hotel Đà Lạt — 3 venues
-                </p>
-              </div>
-
-              <div class="timeline-item">
-                <p
-                  style="
-                    font-family: &quot;Inter&quot;, sans-serif;
-                    font-size: 9px;
-                    letter-spacing: 0.22em;
-                    text-transform: uppercase;
-                    color: rgba(255, 255, 255, 0.28);
-                    margin-bottom: 0.35rem;
-                  "
-                >
-                  2024 – 2025
-                </p>
-                <p
-                  style="
-                    font-family: &quot;Inter&quot;, sans-serif;
-                    font-weight: 500;
-                    font-size: 0.975rem;
-                    color: #ffffff;
-                    letter-spacing: 0;
-                    margin-bottom: 0.2rem;
-                  "
-                >
-                  Nhiếp ảnh gia tự do
-                </p>
-                <p
-                  style="
-                    font-family: &quot;Inter&quot;, sans-serif;
-                    font-size: 0.8rem;
-                    font-weight: 300;
-                    color: rgba(255, 255, 255, 0.42);
-                  "
-                >
-                  MV "Em Xinh" &amp; "Open Your Eye" — MONO
-                </p>
-              </div>
-
-              <div class="timeline-item">
-                <p
-                  style="
-                    font-family: &quot;Inter&quot;, sans-serif;
-                    font-size: 9px;
-                    letter-spacing: 0.22em;
-                    text-transform: uppercase;
-                    color: rgba(255, 255, 255, 0.28);
-                    margin-bottom: 0.35rem;
-                  "
-                >
-                  2022 – 2023
-                </p>
-                <p
-                  style="
-                    font-family: &quot;Inter&quot;, sans-serif;
-                    font-weight: 500;
-                    font-size: 0.975rem;
-                    color: #ffffff;
-                    letter-spacing: 0;
-                    margin-bottom: 0.2rem;
-                  "
-                >
-                  Photographer
-                </p>
-                <p
-                  style="
-                    font-family: &quot;Inter&quot;, sans-serif;
-                    font-size: 0.8rem;
-                    font-weight: 300;
-                    color: rgba(255, 255, 255, 0.42);
-                  "
-                >
-                  In Holding Vietnam — White Palace, Gem Center
-                </p>
-              </div>
-            </div>
-
-            <!-- Quote -->
-            <div
-              style="
-                padding: 1.4rem 1.6rem;
-                border-left: 1.5px solid rgba(212, 175, 55, 0.32);
-                background: rgba(212, 175, 55, 0.03);
-              "
-            >
-              <p
-                style="
-                  font-family: &quot;Cormorant Garamond&quot;, Georgia, serif;
-                  font-style: italic;
-                  font-size: 1rem;
-                  color: rgba(255, 255, 255, 0.7);
-                  line-height: 1.78;
-                  letter-spacing: 0;
-                  margin-bottom: 0.65rem;
-                "
-              >
-                "Mỗi khung hình là một câu chuyện —<br />tôi tìm ánh sáng, tôi
-                tìm cảm xúc."
-              </p>
-              <p
-                style="
-                  font-family: &quot;Inter&quot;, sans-serif;
-                  font-size: 9px;
-                  letter-spacing: 0.2em;
-                  text-transform: uppercase;
-                  color: rgba(255, 255, 255, 0.28);
-                "
-              >
-                — Võ Quang Minh / Soni
-              </p>
-            </div>
-          </div>
-        </div>
       </div>
+
+      <!-- Bottom bar -->
+      <div style="position:absolute;bottom:max(1.75rem,env(safe-area-inset-bottom,1.75rem));left:max(1.75rem,env(safe-area-inset-left,1.75rem));right:max(1.75rem,env(safe-area-inset-right,1.75rem));display:flex;align-items:center;justify-content:space-between;z-index:10;pointer-events:none">
+        <div style="display:flex;align-items:center;gap:.45rem;font-family:'Inter',sans-serif;font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.2)">
+          <svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+          Hover để khám phá
+        </div>
+        <div style="font-family:'Inter',sans-serif;font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.18)">Võ Quang Minh · Soni</div>
+      </div>
+
     </section>
 
     <!-- ══════════════════════════════════════════
