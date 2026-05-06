@@ -5156,8 +5156,7 @@
                 /* Inject src on first enter */
                 if (src && !src.src) {
                   src.src = src.dataset.src;
-                  video.preload = "auto"; /* Buffer sẵn khi vào viewport */
-                  video.load();
+                  video.load(); /* Chỉ load metadata, KHÔNG preload="auto" */
                   video.addEventListener("loadedmetadata", function onReady() {
                     video.removeEventListener("loadedmetadata", onReady);
                     showDuration(video, wrap);
@@ -5185,6 +5184,32 @@
 
         wraps.forEach(function (wrap) {
           observer.observe(wrap);
+        });
+
+        /* ── Preload video active only ── */
+        /* Chỉ preload video đang được focus (.is-active), các video khác giữ preload="metadata" */
+        var activeObserver = new IntersectionObserver(
+          function (entries) {
+            entries.forEach(function (entry) {
+              var wrap = entry.target;
+              var video = wrap.querySelector(".sms-video");
+              if (!video) return;
+
+              if (wrap.classList.contains("is-active")) {
+                video.preload = "auto"; /* Preload video active */
+              } else {
+                video.preload = "metadata"; /* Chỉ preload metadata cho video khác */
+              }
+            });
+          },
+          {
+            rootMargin: "0px",
+            threshold: 0.5,
+          },
+        );
+
+        wraps.forEach(function (wrap) {
+          activeObserver.observe(wrap);
         });
       })();
     </script>
