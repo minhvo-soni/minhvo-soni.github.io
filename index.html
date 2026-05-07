@@ -5032,20 +5032,28 @@
           var zoom = document.getElementById("photo-zoom");
           if (!zoom || !zoom.classList.contains("is-open")) return;
           zoom.classList.remove("is-open");
-          document.body.style.overflow = "";
+
+          // Chỉ khôi phục overflow nếu không còn lightbox nào đang mở
+          // (tránh Lenis start sớm khi lightbox vẫn còn hiện)
+          var stillOpen = document.querySelector(
+            '[id$="-lb"].is-open, #vid-lightbox.is-open',
+          );
+          if (!stillOpen) {
+            document.body.style.overflow = "";
+
+            // GSAP ScrollTrigger tính lại vị trí sau khi đóng
+            if (window.ScrollTrigger) {
+              setTimeout(function () {
+                window.ScrollTrigger.refresh();
+              }, 50);
+            }
+          }
 
           // Khôi phục background
           document.querySelectorAll(BG_SELECTORS).forEach(function (el) {
             el.removeAttribute("aria-hidden");
             el.style.pointerEvents = "";
           });
-
-          // GSAP ScrollTrigger tính lại vị trí sau khi đóng
-          if (window.ScrollTrigger) {
-            setTimeout(function () {
-              window.ScrollTrigger.refresh();
-            }, 50);
-          }
 
           setTimeout(function () {
             var img = document.getElementById("photo-zoom-img");
