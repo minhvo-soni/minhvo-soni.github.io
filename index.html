@@ -154,6 +154,21 @@
         -webkit-backface-visibility: hidden;
         image-rendering: -webkit-optimize-contrast;
         transform: translateZ(0);
+        contain: layout;
+      }
+
+      /* ── Perf: tôn trọng prefers-reduced-motion — tắt animation nặng ── */
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+        }
+        .s-blob {
+          animation: none !important;
+        }
       }
 
       /* ── Animations ── */
@@ -2252,6 +2267,8 @@
         border-radius: 50%;
         filter: blur(90px);
         will-change: transform;
+        transform: translateZ(0);
+        isolation: isolate;
       }
 
       .s-b1 {
@@ -2362,6 +2379,24 @@
       footer {
         position: relative;
         z-index: 1;
+      }
+
+      /* ── Perf: giới hạn repaint theo từng section — không lan ra toàn trang ── */
+      #social,
+      #about,
+      #skills,
+      #contact,
+      footer {
+        contain: layout paint;
+      }
+
+      /* ── Perf: skip render cho section off-screen — browser không paint nếu chưa cuộn tới ── */
+      #about,
+      #skills,
+      #contact,
+      footer {
+        content-visibility: auto;
+        contain-intrinsic-size: 0 600px;
       }
 
       /* ── Hairline section dividers — 0.5px luxury ── */
@@ -3164,6 +3199,7 @@
             display: flex;
             height: 100%;
             will-change: transform;
+            contain: layout;
             align-items: stretch;
           "
         >
