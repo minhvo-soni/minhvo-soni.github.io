@@ -1,5 +1,118 @@
 // ─── Modals & Overlays ───────────────────────────────────────────
 // Source of truth for #yt-modal, #vid-lightbox, #cuisine-lb, #gem-lb
+// #photo-zoom (full-screen single image viewer)
+//
+// Live file: styles.css — mirror changes here AND in styles.css
 
-// Populated on demand — extract from index.html <style> block
-// when refactoring or when transition animations are added here.
+// ── Photo Zoom Overlay ─────────────────────────────────────────
+#photo-zoom {
+  position: fixed;
+  inset: 0;
+  z-index: 19999;
+  background: #000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.22s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: zoom-out;
+
+  &.is-open {
+    opacity: 1;
+    pointer-events: all;
+  }
+}
+
+#photo-zoom-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  user-select: none;
+  -webkit-user-drag: none;
+  transition: opacity 0.12s ease;
+}
+
+#photo-zoom-close {
+  position: fixed;
+  top: max(1rem, env(safe-area-inset-top, 1rem));
+  right: max(1rem, env(safe-area-inset-right, 1rem));
+  z-index: 20000;
+  width: 44px;
+  height: 44px;
+  border: 0.5px solid rgba(255, 255, 255, 0.22);
+  background: rgba(0, 0, 0, 0.6);
+  color: rgba(255, 255, 255, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 50%;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition:
+    background 0.2s,
+    border-color 0.2s;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.4);
+  }
+}
+
+#photo-zoom-prev,
+#photo-zoom-next {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 20000;
+  width: 44px;
+  height: 44px;
+  border: 0.5px solid rgba(255, 255, 255, 0.22);
+  background: rgba(0, 0, 0, 0.6);
+  color: rgba(255, 255, 255, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 50%;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition:
+    background 0.2s,
+    border-color 0.2s,
+    opacity 0.2s;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.4);
+  }
+}
+
+#photo-zoom-prev {
+  left: max(1rem, env(safe-area-inset-left, 1rem));
+}
+
+#photo-zoom-next {
+  right: max(1rem, env(safe-area-inset-right, 1rem));
+}
+
+#photo-zoom-counter {
+  position: fixed;
+  bottom: max(1.5rem, env(safe-area-inset-bottom, 1.5rem));
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 20000;
+  font-family: "Synonym", system-ui, sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.3);
+  pointer-events: none;
+}
+
+// ── Cuisine img wrap: cursor hint ─────────────────────────────
+.cuisine-img-wrap {
+  cursor: zoom-in;
+}
