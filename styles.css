@@ -1,0 +1,2826 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Xóa 300ms tap delay trên iOS/Android */
+a,
+button,
+input,
+select,
+textarea,
+label,
+[role="button"],
+[onclick],
+.sms-phone-wrap,
+.gal-card,
+.gal-nav-btn,
+.brand-nav-btn,
+.contact-card,
+.ham-btn {
+  touch-action: manipulation;
+}
+
+html {
+  /* scroll-behavior: smooth; -- Tạm tắt để tránh xung đột với Lenis */
+  -webkit-text-size-adjust: 100%; /* iOS tắt auto-zoom font khi xoay ngang */
+}
+
+body {
+  background: #050505;
+  color: #ffffff;
+  font-family: "Synonym", system-ui, sans-serif;
+  -webkit-tap-highlight-color: transparent; /* Xóa flash xanh khi tap trên Android */
+  overscroll-behavior-y: none; /* Tắt pull-to-refresh không mong muốn */
+}
+
+::selection {
+  background: #d4af37;
+  color: #050505;
+}
+
+::-webkit-scrollbar {
+  width: 2px;
+}
+
+::-webkit-scrollbar-track {
+  background: #050505;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #d4af37;
+}
+
+/* ── Section brightness tint — consistency with hero ── */
+section:not(#hero) {
+  background-color: rgba(255, 255, 255, 0.025);
+}
+
+/* ── Glassmorphism — gallery phase text block ── */
+.gal-phase-name,
+.gal-phase-desc {
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.45);
+}
+
+/* ── Video GPU acceleration ── */
+video {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  image-rendering: -webkit-optimize-contrast;
+  transform: translateZ(0);
+  contain: layout;
+}
+
+/* ── Perf: tôn trọng prefers-reduced-motion — tắt animation nặng ── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .s-blob {
+    animation: none !important;
+  }
+}
+
+/* ── Animations ── */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* ── Floating Island Nav ── */
+.float-island {
+  max-width: 880px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 52px;
+  padding: 0 1.5rem;
+  background: rgba(5, 5, 5, 0.72);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  border: 0.5px solid rgba(255, 255, 255, 0.09);
+  border-radius: 9999px;
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.48),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+.float-menu {
+  max-width: 880px;
+  margin: 0.5rem auto 0;
+  border-radius: 1.35rem;
+  padding: 0.75rem 1.5rem 1rem;
+  background: rgba(5, 5, 5, 0.88);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 0.5px solid rgba(255, 255, 255, 0.07);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.48);
+}
+
+/* ── Nav link underline ── */
+.nav-link {
+  position: relative;
+  font-family: "Be Vietnam Pro", system-ui, sans-serif;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.52);
+  transition: color 0.25s;
+}
+
+.nav-link:hover {
+  color: #ffffff;
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: #d4af37;
+  transition: width 0.3s ease;
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+/* ── CONTACT button ── */
+.contact-btn {
+  font-family: "Be Vietnam Pro", system-ui, sans-serif;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #d4af37;
+  border: 0.5px solid rgba(212, 175, 55, 0.45);
+  padding: 0.42rem 1.1rem;
+  border-radius: 9999px;
+  transition:
+    border-color 0.28s ease,
+    color 0.28s ease,
+    background 0.28s ease;
+  white-space: nowrap;
+}
+
+.contact-btn:hover {
+  border-color: #d4af37;
+  color: #ffffff;
+  background: rgba(212, 175, 55, 0.1);
+}
+
+/* ── Mobile menu links ── */
+.mMenu-link {
+  font-family: "Be Vietnam Pro", system-ui, sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.52);
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0.5rem 0;
+  border-bottom: 0.5px solid rgba(255, 255, 255, 0.05);
+  transition: color 0.22s;
+}
+
+.mMenu-link:last-of-type {
+  border-bottom: none;
+}
+
+.mMenu-link:hover {
+  color: #ffffff;
+}
+
+/* ── Project card ── */
+.card {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.card-img {
+  transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.card:hover .card-img {
+  transform: scale(1.05);
+}
+
+.card-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    160deg,
+    rgba(212, 175, 55, 0.15) 0%,
+    rgba(0, 0, 0, 0.75) 100%
+  );
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.card:hover .card-overlay {
+  opacity: 1;
+}
+
+/* ── Card tech-specs panel (slides up on hover) ── */
+.card-specs {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 0.8rem 1.1rem;
+  background: linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.92) 0%,
+    rgba(0, 0, 0, 0.3) 80%,
+    transparent 100%
+  );
+  transform: translateY(102%);
+  transition: transform 0.42s cubic-bezier(0.22, 1, 0.36, 1);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  pointer-events: none;
+}
+
+.card:hover .card-specs {
+  transform: translateY(0);
+}
+
+.card-specs span {
+  font-family: "Synonym", sans-serif;
+  font-size: 9.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.78);
+  background: rgba(212, 175, 55, 0.08);
+  border: 0.5px solid rgba(212, 175, 55, 0.28);
+  padding: 0.18rem 0.5rem;
+}
+
+/* ── GALLERIES — campaign phase cards ── */
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.gal-card {
+  flex-shrink: 0;
+  width: 100vw;
+  height: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 5.5rem 3.5rem 3rem;
+  cursor: pointer;
+  overflow: hidden;
+  border-right: 0.5px solid rgba(255, 255, 255, 0.045);
+  transition: background 0.4s ease;
+}
+
+.gal-card:hover {
+  background: rgba(255, 255, 255, 0.01);
+}
+
+/* ── Gallery prev / next nav buttons ── */
+.gal-nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 20;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(5, 5, 5, 0.55);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 0.5px solid rgba(255, 255, 255, 0.13);
+  color: rgba(255, 255, 255, 0.65);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0.22;
+  transition:
+    opacity 0.28s,
+    background 0.25s,
+    border-color 0.25s,
+    color 0.25s;
+  pointer-events: auto;
+}
+
+#galleries-sticky:hover .gal-nav-btn {
+  opacity: 1;
+}
+
+.gal-nav-btn:hover {
+  background: rgba(212, 175, 55, 0.12);
+  border-color: rgba(212, 175, 55, 0.45);
+  color: #d4af37;
+}
+
+.gal-nav-btn:active {
+  transform: translateY(-50%) scale(0.92);
+}
+
+.gal-nav-prev {
+  left: 1.25rem;
+}
+
+.gal-nav-next {
+  right: 1.25rem;
+}
+
+@media (max-width: 767px) {
+  .gal-nav-btn {
+    display: none;
+  }
+}
+
+.gal-tint {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.gal-img-wrap {
+  position: relative;
+  flex: 1;
+  overflow: hidden;
+  background: #0b0b0b;
+  margin-bottom: 1.75rem;
+  z-index: 1;
+}
+
+.gal-img-wrap::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.022) 50%,
+    transparent 100%
+  );
+  animation: shimmer 2.8s ease-in-out infinite;
+}
+
+.gal-img-inner {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.gal-img-icon {
+  color: rgba(255, 255, 255, 0.07);
+  margin-bottom: 0.2rem;
+}
+
+.gal-img-size {
+  font-family: "Synonym", sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.13);
+}
+
+.gal-img-ratio {
+  font-family: "Synonym", sans-serif;
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  color: rgba(255, 255, 255, 0.07);
+}
+
+.gal-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  z-index: 1;
+  position: relative;
+}
+
+.gal-venue-tag {
+  font-family: "Synonym", sans-serif;
+  font-size: 9.5px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.26);
+}
+
+.gal-phase-num {
+  font-family: "Synonym", sans-serif;
+  font-size: 9.5px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(212, 175, 55, 0.55);
+}
+
+.gal-bottom {
+  z-index: 1;
+  position: relative;
+}
+
+.gal-phase-name {
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(22px, 2.2vw, 36px);
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  color: #ffffff;
+  line-height: 1.1;
+  margin-bottom: 0.6rem;
+}
+
+.gal-phase-desc {
+  font-family: "Be Vietnam Pro", system-ui, sans-serif;
+  font-size: 0.8rem;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.4);
+  line-height: 1.9;
+  letter-spacing: 0;
+  max-width: 34rem;
+}
+
+.gal-arrow {
+  position: absolute;
+  bottom: 3rem;
+  right: 3.5rem;
+  z-index: 1;
+  width: 40px;
+  height: 40px;
+  border: 0.5px solid rgba(255, 255, 255, 0.13);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    border-color 0.3s,
+    background 0.3s;
+}
+
+.gal-card:hover .gal-arrow {
+  border-color: rgba(212, 175, 55, 0.4);
+  background: rgba(212, 175, 55, 0.04);
+}
+
+/* Mobile: JS-driven transform carousel — cuộn dọc tự do */
+@media (max-width: 767px) {
+  .gal-card {
+    width: 100vw !important;
+    height: 100vh !important;
+    flex-shrink: 0;
+    padding: 4.5rem 1.5rem 4rem;
+    border-right: 0.5px solid rgba(255, 255, 255, 0.04);
+    border-bottom: none;
+  }
+
+  .gal-img-wrap {
+    min-height: 42vw;
+  }
+
+  .gal-arrow {
+    bottom: 1.75rem;
+    right: 1.5rem;
+  }
+}
+
+/* ── About — editorial 6:4 grid ── */
+.about-grid {
+  display: grid;
+  grid-template-columns: 6fr 4fr;
+  gap: 5rem;
+  align-items: start;
+}
+
+@media (max-width: 1023px) {
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+}
+
+/* Force Be Vietnam Pro for all about-section body text (overrides Inter inline styles) */
+#about p,
+#about span {
+  font-family: "Be Vietnam Pro", system-ui, sans-serif !important;
+  letter-spacing: 0;
+}
+
+.about-portrait {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3/4;
+  max-height: 580px;
+  background: #0b0b0b;
+  overflow: hidden;
+}
+
+.about-portrait::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.018) 50%,
+    transparent 100%
+  );
+  animation: shimmer 3.2s ease-in-out infinite;
+}
+
+/* ── About BTS Scatter — full-screen ── */
+.bts-scatter {
+  position: relative;
+  overflow: visible;
+}
+.bts-card {
+  position: absolute;
+  border-radius: 6px;
+  overflow: hidden;
+  cursor: pointer;
+  opacity: 0.58;
+  transition:
+    transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+    opacity 0.28s ease,
+    filter 0.28s ease;
+  z-index: 1;
+  box-shadow:
+    0 8px 28px rgba(0, 0, 0, 0.65),
+    0 2px 8px rgba(0, 0, 0, 0.4);
+}
+.bts-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.bts-scatter:has(.bts-card:hover) .bts-card {
+  opacity: 0.22;
+  filter: brightness(0.4);
+}
+.bts-scatter:has(.bts-card:hover) .bts-card:hover {
+  opacity: 1 !important;
+  filter: none !important;
+  transform: rotate(0deg) scale(1.08) !important;
+  z-index: 20;
+}
+.bts-ph {
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.025);
+  border: 0.5px solid rgba(255, 255, 255, 0.07);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+}
+.bts-lbl {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 0.5rem 0.65rem;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.72) 0%, transparent 100%);
+  font-family: "Inter", sans-serif;
+  font-size: 8px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.42);
+}
+.bts-num {
+  position: absolute;
+  top: 0.55rem;
+  left: 0.65rem;
+  font-family: "Inter", sans-serif;
+  font-size: 8px;
+  letter-spacing: 0.12em;
+  color: rgba(255, 255, 255, 0.25);
+}
+/* Mobile: nhỏ hơn nhưng vẫn scatter */
+@media (max-width: 767px) {
+  #about .bts-card {
+    min-width: 100px;
+  }
+  .bts-scatter:has(.bts-card:hover) .bts-card {
+    opacity: 1;
+    filter: none;
+  }
+}
+
+.timeline-item {
+  padding: 1.15rem 0;
+  border-top: 0.5px solid rgba(255, 255, 255, 0.065);
+}
+
+.timeline-item:last-child {
+  border-bottom: 0.5px solid rgba(255, 255, 255, 0.065);
+}
+
+/* ── Skill cards v2 — gold hairline + hover brighten ── */
+.skill-card {
+  padding: 1.75rem;
+  border: 0.5px solid rgba(212, 175, 55, 0.1);
+  background: rgba(255, 255, 255, 0.02);
+  transition:
+    border-color 0.35s ease,
+    background 0.35s ease;
+}
+
+.skill-card:hover {
+  border-color: rgba(212, 175, 55, 0.38);
+  background: rgba(212, 175, 55, 0.022);
+}
+
+.skill-icon {
+  width: 2.25rem;
+  height: 2.25rem;
+  border: 0.5px solid rgba(212, 175, 55, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+  color: rgba(212, 175, 55, 0.65);
+  transition:
+    border-color 0.35s,
+    color 0.35s,
+    box-shadow 0.35s;
+}
+
+.skill-card:hover .skill-icon {
+  border-color: rgba(212, 175, 55, 0.65);
+  color: #d4af37;
+  box-shadow: 0 0 14px rgba(212, 175, 55, 0.1);
+}
+
+.skill-name {
+  font-family: "Be Vietnam Pro", system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 1.05rem;
+  color: rgba(255, 255, 255, 0.8);
+  letter-spacing: 0;
+  margin-bottom: 0.45rem;
+  transition: color 0.35s;
+}
+
+.skill-card:hover .skill-name {
+  color: #ffffff;
+}
+
+.skill-desc {
+  font-family: "Be Vietnam Pro", system-ui, sans-serif;
+  font-size: 0.775rem;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.4);
+  letter-spacing: 0;
+  line-height: 1.85;
+  margin-bottom: 1.25rem;
+}
+
+/* ── Social Media Strategy ── */
+.sms-phone-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  cursor: pointer;
+  flex-shrink: 0;
+  width: 300px;
+  scroll-snap-align: center;
+  scroll-snap-stop: always;
+}
+
+.sms-vid-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 9 / 16;
+  border-radius: 6px;
+  overflow: hidden;
+  background: #0b0b0b;
+  border: 0.5px solid rgba(255, 255, 255, 0.05);
+  transition:
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+.sms-phone-wrap:hover .sms-vid-wrap {
+  border-color: rgba(212, 175, 55, 0.35);
+  box-shadow: 0 0 32px rgba(212, 175, 55, 0.06);
+}
+
+.sms-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  image-rendering: -webkit-optimize-contrast;
+}
+
+.sms-placeholder {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+}
+
+.sms-ph-icon {
+  color: rgba(255, 255, 255, 0.06);
+}
+
+.sms-ph-ratio {
+  font-family: "Synonym", sans-serif;
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.1);
+}
+
+.sms-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.9) 0%,
+    rgba(0, 0, 0, 0.32) 55%,
+    transparent 100%
+  );
+  opacity: 0;
+  transition: opacity 0.38s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 1.15rem 0.95rem 1.4rem;
+  pointer-events: none;
+}
+
+.sms-phone-wrap:hover .sms-overlay {
+  opacity: 1;
+}
+
+.sms-platform-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.28rem;
+  font-family: "Be Vietnam Pro", system-ui, sans-serif;
+  font-size: 8px;
+  font-weight: 500;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: rgba(212, 175, 55, 0.88);
+  background: rgba(212, 175, 55, 0.07);
+  border: 0.5px solid rgba(212, 175, 55, 0.22);
+  padding: 0.2rem 0.5rem;
+  margin-bottom: 0.6rem;
+  width: fit-content;
+}
+
+.sms-campaign-label {
+  font-family: "Synonym", sans-serif;
+  font-size: 8.5px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.38);
+  margin-bottom: 0.18rem;
+}
+
+.sms-campaign-name {
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.2;
+  margin-bottom: 0.6rem;
+}
+
+.sms-metrics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.28rem;
+}
+
+.sms-metric {
+  font-family: "Be Vietnam Pro", system-ui, sans-serif;
+  font-size: 8px;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  color: rgba(255, 255, 255, 0.58);
+  background: rgba(255, 255, 255, 0.07);
+  border: 0.5px solid rgba(255, 255, 255, 0.1);
+  padding: 0.18rem 0.45rem;
+}
+
+.sms-cap-num {
+  font-family: "Synonym", sans-serif;
+  font-size: 9px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(212, 175, 55, 0.4);
+  margin-bottom: 0.15rem;
+  text-align: center;
+}
+
+.sms-cap-title {
+  font-family: "Be Vietnam Pro", system-ui, sans-serif;
+  font-size: 0.72rem;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.35);
+  letter-spacing: 0;
+  text-align: center;
+}
+
+@media (max-width: 767px) {
+  .film-strip .sms-phone-wrap,
+  .film-strip .brand-ph-card {
+    width: 80vw !important;
+    min-width: 80vw !important;
+    max-width: 80vw !important;
+  }
+
+  /* On mobile: overlay on tap */
+  .sms-overlay {
+    opacity: 0;
+    transition: opacity 0.25s ease;
+  }
+
+  .sms-phone-wrap.is-playing .sms-overlay {
+    opacity: 0;
+  }
+
+  .sms-phone-wrap.sms-tapped .sms-overlay {
+    opacity: 1;
+  }
+
+  /* Tap-to-play hint icon */
+  .sms-tap-icon {
+    display: flex;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 3;
+    width: 44px;
+    height: 44px;
+    background: rgba(212, 175, 55, 0.18);
+    border: 0.5px solid rgba(212, 175, 55, 0.35);
+    border-radius: 50%;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255, 255, 255, 0.8);
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+
+  .sms-phone-wrap.is-playing .sms-tap-icon {
+    opacity: 0;
+  }
+}
+
+/* ── Single Row Film Strip ── */
+.film-strip-wrap {
+  margin-left: -1.5rem;
+  margin-right: -1.5rem;
+  position: relative;
+  transform: translateZ(0);
+}
+
+.film-strip {
+  display: flex;
+  overflow-x: auto;
+  gap: 0.75rem;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
+  touch-action: pan-x;
+  padding: 0 1.5rem 1.5rem;
+  scrollbar-width: none;
+  align-items: center;
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+.film-strip::-webkit-scrollbar {
+  display: none;
+}
+
+/* Active focus — spotlight effect on scroll */
+.film-strip .sms-phone-wrap,
+.film-strip .brand-ph-card {
+  transition:
+    transform 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.45s ease,
+    filter 0.45s ease;
+  will-change: transform, opacity, filter;
+}
+
+.film-strip.has-focus .sms-phone-wrap,
+.film-strip.has-focus .brand-ph-card {
+  transform: scale(0.96);
+  opacity: 0.35;
+  filter: grayscale(40%) brightness(0.5);
+}
+
+.film-strip .sms-phone-wrap.is-active,
+.film-strip .brand-ph-card.is-active {
+  transform: scale(1.02) !important;
+  opacity: 1 !important;
+  filter: grayscale(0%) brightness(1) !important;
+}
+
+/* Filtered hidden */
+.film-strip .sms-phone-wrap.film-hidden,
+.film-strip .brand-ph-card.film-hidden {
+  display: none;
+}
+
+/* Placeholder card */
+.brand-ph-card {
+  flex-shrink: 0;
+  width: 300px;
+  scroll-snap-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  cursor: default;
+}
+
+.brand-ph-wrap {
+  width: 100%;
+  aspect-ratio: 9 / 16;
+  border-radius: 6px;
+  background: #111111;
+  border: 1px dashed rgba(255, 255, 255, 0.2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+}
+
+.brand-ph-label {
+  font-family: "Be Vietnam Pro", system-ui, sans-serif;
+  font-size: 9px;
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.22);
+}
+
+/* ── Brand Navigation Tabs ── */
+.brand-nav-bar {
+  display: flex;
+  gap: 0;
+  margin-bottom: 2rem;
+  border-bottom: 0.5px solid rgba(255, 255, 255, 0.07);
+}
+
+.brand-nav-btn {
+  font-family: "Be Vietnam Pro", system-ui, sans-serif;
+  font-size: 9.5px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.3);
+  background: transparent;
+  border: none;
+  padding: 0.7rem 1.5rem 0.7rem 0;
+  margin-right: 1.75rem;
+  cursor: pointer;
+  position: relative;
+  transition: color 0.22s;
+}
+
+.brand-nav-btn::after {
+  content: "";
+  position: absolute;
+  bottom: -0.5px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: #d4af37;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.brand-nav-btn:hover {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.brand-nav-btn.is-active {
+  color: #d4af37;
+}
+
+.brand-nav-btn.is-active::after {
+  transform: scaleX(1);
+}
+
+/* ── Film Edge Arrows ── */
+.film-edge-btn {
+  position: absolute;
+  top: 38%;
+  transform: translateY(-50%);
+  z-index: 10;
+  width: 32px;
+  height: 32px;
+  background: transparent;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.35);
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.film-edge-btn:hover {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.film-edge-prev {
+  left: 1rem;
+}
+
+.film-edge-next {
+  right: 1rem;
+}
+
+@media (max-width: 767px) {
+  .film-edge-btn {
+    display: none;
+  }
+}
+
+/* ── Social: Modal play-hint icon ── */
+.sms-yt-hint {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+  width: 48px;
+  height: 48px;
+  background: rgba(0, 0, 0, 0.42);
+  border: 0.5px solid rgba(255, 255, 255, 0.22);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.55;
+  transition:
+    opacity 0.3s ease,
+    background 0.3s ease,
+    border-color 0.3s ease;
+  pointer-events: none;
+}
+
+.sms-phone-wrap:hover .sms-yt-hint {
+  opacity: 1;
+  background: rgba(212, 175, 55, 0.18);
+  border-color: rgba(212, 175, 55, 0.55);
+}
+
+/* ── Video duration badge ── */
+.sms-duration {
+  position: absolute;
+  bottom: 0.5rem;
+  right: 0.5rem;
+  z-index: 4;
+  font-family: "Synonym", sans-serif;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: rgba(255, 255, 255, 0.9);
+  background: rgba(0, 0, 0, 0.58);
+  padding: 0.17rem 0.4rem;
+  border-radius: 3px;
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+}
+
+.sms-duration.loaded {
+  opacity: 1;
+}
+
+/* ── YouTube Modal ── */
+#yt-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.88);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+#yt-modal.is-open {
+  display: flex;
+}
+
+#yt-modal-inner {
+  position: relative;
+  height: 85vh;
+  aspect-ratio: 9 / 16;
+  max-width: calc(85vh * 9 / 16);
+  background: #000;
+  border: 0.5px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 32px 80px rgba(0, 0, 0, 0.8);
+}
+
+#yt-modal-inner iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+}
+
+#yt-modal-close {
+  position: absolute;
+  top: -2.8rem;
+  right: 0;
+  width: 36px;
+  height: 36px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 0.5px solid rgba(255, 255, 255, 0.16);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.7);
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+#yt-modal-close:hover {
+  background: rgba(212, 175, 55, 0.15);
+  color: #d4af37;
+  border-color: rgba(212, 175, 55, 0.45);
+}
+
+@media (max-width: 767px) {
+  #yt-modal-inner {
+    height: auto;
+    width: 92vw;
+    max-width: 92vw;
+    aspect-ratio: 9 / 16;
+  }
+
+  #yt-modal-close {
+    top: -2.5rem;
+  }
+}
+
+/* ── Video Lightbox ── */
+#vid-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.92);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.32s ease;
+}
+
+#vid-lightbox.is-open {
+  opacity: 1;
+  pointer-events: all;
+}
+
+#vid-lb-inner {
+  position: relative;
+  height: 88vh;
+  aspect-ratio: 9 / 16;
+  max-width: calc(88vh * 9 / 16);
+  border-radius: 8px;
+  overflow: hidden;
+  background: #000;
+  transform: scale(0.94) translateZ(0);
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+}
+
+#vid-lightbox.is-open #vid-lb-inner {
+  transform: scale(1) translateZ(0);
+}
+
+#vid-lb-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  image-rendering: -webkit-optimize-contrast;
+}
+
+#vid-lb-close {
+  position: fixed;
+  top: 1.25rem;
+  right: 1.25rem;
+  z-index: 9999;
+  width: 40px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.07);
+  border: 0.5px solid rgba(255, 255, 255, 0.18);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.8);
+  cursor: pointer;
+  transition:
+    background 0.2s,
+    color 0.2s,
+    transform 0.25s;
+}
+
+#vid-lb-close:hover {
+  background: rgba(212, 175, 55, 0.15);
+  color: #d4af37;
+  border-color: rgba(212, 175, 55, 0.4);
+  transform: rotate(90deg);
+}
+
+@media (max-width: 767px) {
+  #vid-lb-inner {
+    height: auto;
+    width: 92vw;
+    max-width: 92vw;
+    aspect-ratio: 9 / 16;
+  }
+}
+
+/* ── WP Cover Card ── */
+.gal-card.wp-cover {
+  overflow: hidden;
+  cursor: pointer;
+  aspect-ratio: unset;
+  height: 100% !important;
+  width: 100vw;
+  position: relative;
+}
+
+.gal-card.wp-cover .gal-tint {
+  display: none;
+}
+
+/* Image fills the 3:2 container absolutely */
+.gal-card.wp-cover .gal-img-wrap {
+  position: absolute;
+  inset: 0;
+  flex: none;
+  margin: 0;
+  z-index: 0;
+}
+
+.gal-card.wp-cover .gal-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Gradient dark at bottom → text readable at bottom-left */
+.gal-card.wp-cover .gal-img-wrap::after {
+  animation: none;
+  background: linear-gradient(
+    to top,
+    rgba(5, 5, 5, 0.9) 0%,
+    rgba(5, 5, 5, 0.5) 28%,
+    rgba(5, 5, 5, 0.05) 58%,
+    rgba(5, 5, 5, 0.42) 100%
+  );
+  z-index: 1;
+}
+
+/* Meta (venue + phase) at top via card padding, above image */
+.gal-card.wp-cover .gal-meta {
+  position: relative;
+  z-index: 3;
+}
+
+/* Heading styled uppercase for the cover card */
+.gal-card.wp-cover .gal-phase-name {
+  font-size: clamp(16px, 1.6vw, 26px);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  line-height: 1.15;
+}
+
+/* Text block pinned bottom-LEFT */
+.gal-card.wp-cover .gal-bottom {
+  position: absolute;
+  bottom: 2rem;
+  left: 2.5rem;
+  right: auto;
+  max-width: 380px;
+  z-index: 3;
+  margin: 0;
+}
+
+.gal-card.wp-cover .gal-arrow {
+  z-index: 3;
+}
+
+.wp-cover-cta {
+  font-family: "Be Vietnam Pro", system-ui, sans-serif;
+  font-size: 10px;
+  font-weight: 300;
+  color: rgba(212, 175, 55, 0.65);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  margin-top: 0.55rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: color 0.2s;
+}
+
+.wp-cover-cta::after {
+  content: "→";
+  transition: transform 0.22s;
+}
+
+.gal-card.wp-cover:hover .wp-cover-cta {
+  color: rgba(212, 175, 55, 0.95);
+}
+
+.gal-card.wp-cover:hover .wp-cover-cta::after {
+  transform: translateX(5px);
+}
+
+/* Mobile: 3:2 với khoảng hở hai bên + gradient mượt hơn */
+@media (max-width: 767px) {
+  .gal-card.wp-cover {
+    width: 100vw !important;
+    height: 100vh !important;
+    aspect-ratio: unset;
+    margin: 0 !important;
+    padding: 1rem 1.1rem;
+    flex-shrink: 0;
+  }
+
+  .gal-card.wp-cover .gal-img-wrap::after {
+    background: linear-gradient(
+      to top,
+      rgba(5, 5, 5, 0.95) 0%,
+      rgba(5, 5, 5, 0.65) 35%,
+      rgba(5, 5, 5, 0.08) 62%,
+      rgba(5, 5, 5, 0.38) 100%
+    );
+  }
+
+  .gal-card.wp-cover .gal-bottom {
+    bottom: 0.85rem;
+    left: 1.1rem;
+  }
+
+  .gal-card.wp-cover .gal-phase-name {
+    font-size: 1.5rem;
+  }
+
+  .gal-card.wp-cover .gal-arrow {
+    bottom: 0.85rem;
+    right: 1.1rem;
+  }
+}
+
+/* ── Cuisine Gallery Lightbox ── */
+#cuisine-lb {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(0, 0, 0, 0.96);
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  overflow: hidden;
+}
+
+#cuisine-lb.is-open {
+  opacity: 1;
+  pointer-events: all;
+}
+
+#cuisine-lb-close {
+  position: fixed;
+  top: max(1rem, env(safe-area-inset-top, 1rem));
+  right: max(1rem, env(safe-area-inset-right, 1rem));
+  z-index: 10001;
+  width: 48px;
+  height: 48px;
+  min-width: 44px;
+  min-height: 44px;
+  border: 0.5px solid rgba(255, 255, 255, 0.22);
+  background: rgba(0, 0, 0, 0.55);
+  color: rgba(255, 255, 255, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 50%;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition:
+    border-color 0.22s,
+    background 0.22s,
+    color 0.22s;
+  touch-action: manipulation;
+}
+
+#cuisine-lb-close:hover {
+  border-color: rgba(212, 175, 55, 0.5);
+  background: rgba(212, 175, 55, 0.08);
+  color: #fff;
+}
+
+#cuisine-lb-scroll {
+  height: 100%;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 5rem 1.25rem 4rem;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(212, 175, 55, 0.18) transparent;
+}
+
+#cuisine-lb-scroll::-webkit-scrollbar {
+  width: 4px;
+}
+
+#cuisine-lb-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+#cuisine-lb-scroll::-webkit-scrollbar-thumb {
+  background: rgba(212, 175, 55, 0.18);
+  border-radius: 2px;
+}
+
+#cuisine-lb-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.cuisine-eyebrow {
+  font-family: "Synonym", sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: rgba(212, 175, 55, 0.55);
+  margin-bottom: 0.55rem;
+}
+
+.cuisine-title {
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(26px, 5vw, 46px);
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.05;
+  margin-bottom: 0.5rem;
+}
+
+.cuisine-subtitle {
+  font-family: "Be Vietnam Pro", system-ui, sans-serif;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.28);
+  letter-spacing: 0;
+  font-weight: 300;
+}
+
+/* Mobile: 1 cột full-width để dễ xem chi tiết món ăn */
+#cuisine-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+@media (min-width: 480px) {
+  #cuisine-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.6rem;
+  }
+}
+
+@media (min-width: 600px) {
+  #cuisine-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
+  }
+
+  #cuisine-lb-scroll {
+    padding: 5.5rem 2rem 4rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  #cuisine-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+  }
+
+  #cuisine-lb-scroll {
+    padding: 6rem 3rem 4rem;
+  }
+}
+
+.cuisine-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  transition:
+    opacity 0.45s ease,
+    filter 0.45s ease,
+    transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.cuisine-img-wrap {
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  border-radius: 3px;
+  background: #111;
+  border: 0.5px solid rgba(255, 255, 255, 0.05);
+}
+
+.cuisine-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@media (hover: hover) {
+  /* Ảnh còn lại tối đi khi hover */
+  #cuisine-grid:has(.cuisine-item:hover) .cuisine-item,
+  #gem-grid:has(.cuisine-item:hover) .cuisine-item,
+  #lounge-grid:has(.cuisine-item:hover) .cuisine-item,
+  #mangden-grid:has(.cuisine-item:hover) .cuisine-item,
+  #gs-hotel-grid:has(.cuisine-item:hover) .cuisine-item,
+  #cham-hoa-grid:has(.cuisine-item:hover) .cuisine-item {
+    opacity: 0.4;
+    filter: brightness(0.5);
+    transition:
+      opacity 0.3s,
+      filter 0.3s;
+  }
+  /* Ảnh đang hover: to lên, không đổi độ sáng */
+  #cuisine-grid .cuisine-item:hover,
+  #gem-grid .cuisine-item:hover,
+  #lounge-grid .cuisine-item:hover,
+  #mangden-grid .cuisine-item:hover,
+  #gs-hotel-grid .cuisine-item:hover,
+  #cham-hoa-grid .cuisine-item:hover {
+    opacity: 1 !important;
+    filter: none !important;
+    position: relative;
+    z-index: 20;
+  }
+  #cuisine-grid .cuisine-item:hover .cuisine-img-wrap img,
+  #gem-grid .cuisine-item:hover .cuisine-img-wrap img,
+  #lounge-grid .cuisine-item:hover .cuisine-img-wrap img,
+  #mangden-grid .cuisine-item:hover .cuisine-img-wrap img,
+  #gs-hotel-grid .cuisine-item:hover .cuisine-img-wrap img,
+  #cham-hoa-grid .cuisine-item:hover .cuisine-img-wrap img {
+    transform: scale(1.08);
+  }
+}
+
+.cuisine-cap-name {
+  font-family: "Be Vietnam Pro", system-ui, sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.65);
+  letter-spacing: 0;
+  line-height: 1.3;
+}
+
+.cuisine-cap-desc {
+  font-family: "Be Vietnam Pro", system-ui, sans-serif;
+  font-size: 9.5px;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.28);
+  letter-spacing: 0;
+  line-height: 1.6;
+}
+
+/* ── Gem Center Lightbox ── */
+#gem-lb {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(0, 0, 0, 0.96);
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  overflow: hidden;
+}
+
+#gem-lb.is-open {
+  opacity: 1;
+  pointer-events: all;
+}
+
+#gem-lb-close {
+  position: fixed;
+  top: max(1rem, env(safe-area-inset-top, 1rem));
+  right: max(1rem, env(safe-area-inset-right, 1rem));
+  z-index: 10001;
+  width: 48px;
+  height: 48px;
+  border: 0.5px solid rgba(255, 255, 255, 0.22);
+  background: rgba(0, 0, 0, 0.55);
+  color: rgba(255, 255, 255, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 50%;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition:
+    border-color 0.22s,
+    background 0.22s,
+    color 0.22s;
+  touch-action: manipulation;
+}
+
+#gem-lb-close:hover {
+  border-color: rgba(212, 175, 55, 0.5);
+  background: rgba(212, 175, 55, 0.08);
+  color: #fff;
+}
+
+#gem-lb-scroll {
+  height: 100%;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 5rem 1.25rem 4rem;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(212, 175, 55, 0.18) transparent;
+}
+
+#gem-lb-scroll::-webkit-scrollbar {
+  width: 4px;
+}
+
+#gem-lb-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+#gem-lb-scroll::-webkit-scrollbar-thumb {
+  background: rgba(212, 175, 55, 0.18);
+  border-radius: 2px;
+}
+
+#gem-lb-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+#gem-grid {
+  columns: 2;
+  column-gap: 0.75rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+#gem-grid .cuisine-item {
+  break-inside: avoid;
+  margin-bottom: 0.75rem;
+}
+
+#gem-grid .cuisine-img-wrap {
+  aspect-ratio: unset;
+  height: auto;
+}
+
+#gem-grid .cuisine-img-wrap img {
+  width: 100%;
+  height: auto;
+  object-fit: unset;
+}
+
+@media (min-width: 600px) {
+  #gem-grid {
+    columns: 3;
+    column-gap: 0.75rem;
+  }
+
+  #gem-lb-scroll {
+    padding: 5.5rem 2rem 4rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  #gem-grid {
+    columns: 4;
+    column-gap: 1rem;
+  }
+
+  #gem-lb-scroll {
+    padding: 6rem 3rem 4rem;
+  }
+}
+
+/* ── Chăm Hoa MV Lightbox ── */
+#cham-hoa-lb {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(0, 0, 0, 0.96);
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  overflow: hidden;
+}
+#cham-hoa-lb.is-open {
+  opacity: 1;
+  pointer-events: all;
+}
+#cham-hoa-lb-close {
+  position: fixed;
+  top: max(1rem, env(safe-area-inset-top, 1rem));
+  right: max(1rem, env(safe-area-inset-right, 1rem));
+  z-index: 10001;
+  width: 48px;
+  height: 48px;
+  border: 0.5px solid rgba(255, 255, 255, 0.22);
+  background: rgba(0, 0, 0, 0.55);
+  color: rgba(255, 255, 255, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 50%;
+  backdrop-filter: blur(8px);
+  transition:
+    border-color 0.22s,
+    background 0.22s,
+    color 0.22s;
+  touch-action: manipulation;
+}
+#cham-hoa-lb-close:hover {
+  border-color: rgba(212, 175, 55, 0.5);
+  background: rgba(212, 175, 55, 0.08);
+  color: #fff;
+}
+#cham-hoa-lb-scroll {
+  height: 100%;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 5rem 1.25rem 4rem;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(212, 175, 55, 0.18) transparent;
+}
+#cham-hoa-lb-scroll::-webkit-scrollbar {
+  width: 4px;
+}
+#cham-hoa-lb-scroll::-webkit-scrollbar-thumb {
+  background: rgba(212, 175, 55, 0.18);
+  border-radius: 2px;
+}
+#cham-hoa-lb-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+#cham-hoa-grid {
+  columns: 2;
+  column-gap: 0.75rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+#cham-hoa-grid .cuisine-item {
+  break-inside: avoid;
+  margin-bottom: 0.75rem;
+}
+#cham-hoa-grid .cuisine-img-wrap {
+  aspect-ratio: unset;
+  height: auto;
+}
+#cham-hoa-grid .cuisine-img-wrap img {
+  width: 100%;
+  height: auto;
+  object-fit: unset;
+}
+@media (min-width: 600px) {
+  #cham-hoa-grid {
+    columns: 3;
+  }
+  #cham-hoa-lb-scroll {
+    padding: 5.5rem 2rem 4rem;
+  }
+}
+@media (min-width: 1024px) {
+  #cham-hoa-grid {
+    columns: 4;
+  }
+  #cham-hoa-lb-scroll {
+    padding: 6rem 3rem 4rem;
+  }
+}
+
+/* ── Golden Sun Hotel Lightbox ── */
+#gs-hotel-lb {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(0, 0, 0, 0.96);
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  overflow: hidden;
+}
+#gs-hotel-lb.is-open {
+  opacity: 1;
+  pointer-events: all;
+}
+#gs-hotel-lb-close {
+  position: fixed;
+  top: max(1rem, env(safe-area-inset-top, 1rem));
+  right: max(1rem, env(safe-area-inset-right, 1rem));
+  z-index: 10001;
+  width: 48px;
+  height: 48px;
+  border: 0.5px solid rgba(255, 255, 255, 0.22);
+  background: rgba(0, 0, 0, 0.55);
+  color: rgba(255, 255, 255, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 50%;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition:
+    border-color 0.22s,
+    background 0.22s,
+    color 0.22s;
+  touch-action: manipulation;
+}
+#gs-hotel-lb-close:hover {
+  border-color: rgba(212, 175, 55, 0.5);
+  background: rgba(212, 175, 55, 0.08);
+  color: #fff;
+}
+#gs-hotel-lb-scroll {
+  height: 100%;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 5rem 1.25rem 4rem;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(212, 175, 55, 0.18) transparent;
+}
+#gs-hotel-lb-scroll::-webkit-scrollbar {
+  width: 4px;
+}
+#gs-hotel-lb-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+#gs-hotel-lb-scroll::-webkit-scrollbar-thumb {
+  background: rgba(212, 175, 55, 0.18);
+  border-radius: 2px;
+}
+#gs-hotel-lb-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+#gs-hotel-grid {
+  columns: 2;
+  column-gap: 0.75rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+#gs-hotel-grid .cuisine-item {
+  break-inside: avoid;
+  margin-bottom: 0.75rem;
+}
+#gs-hotel-grid .cuisine-img-wrap {
+  aspect-ratio: unset;
+  height: auto;
+}
+#gs-hotel-grid .cuisine-img-wrap img {
+  width: 100%;
+  height: auto;
+  object-fit: unset;
+}
+@media (min-width: 600px) {
+  #gs-hotel-grid {
+    columns: 3;
+    column-gap: 0.75rem;
+  }
+  #gs-hotel-lb-scroll {
+    padding: 5.5rem 2rem 4rem;
+  }
+}
+@media (min-width: 1024px) {
+  #gs-hotel-grid {
+    columns: 4;
+    column-gap: 1rem;
+  }
+  #gs-hotel-lb-scroll {
+    padding: 6rem 3rem 4rem;
+  }
+}
+
+/* ── Golden Sun Lounge Lightbox ── */
+#lounge-lb {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(0, 0, 0, 0.96);
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  overflow: hidden;
+}
+
+#lounge-lb.is-open {
+  opacity: 1;
+  pointer-events: all;
+}
+
+#lounge-lb-close {
+  position: fixed;
+  top: max(1rem, env(safe-area-inset-top, 1rem));
+  right: max(1rem, env(safe-area-inset-right, 1rem));
+  z-index: 10001;
+  width: 48px;
+  height: 48px;
+  border: 0.5px solid rgba(255, 255, 255, 0.22);
+  background: rgba(0, 0, 0, 0.55);
+  color: rgba(255, 255, 255, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 50%;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition:
+    border-color 0.22s,
+    background 0.22s,
+    color 0.22s;
+  touch-action: manipulation;
+}
+
+#lounge-lb-close:hover {
+  border-color: rgba(212, 175, 55, 0.5);
+  background: rgba(212, 175, 55, 0.08);
+  color: #fff;
+}
+
+#lounge-lb-scroll {
+  height: 100%;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 5rem 1.25rem 4rem;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(212, 175, 55, 0.18) transparent;
+}
+
+#lounge-lb-scroll::-webkit-scrollbar {
+  width: 4px;
+}
+
+#lounge-lb-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+#lounge-lb-scroll::-webkit-scrollbar-thumb {
+  background: rgba(212, 175, 55, 0.18);
+  border-radius: 2px;
+}
+
+#lounge-lb-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+#lounge-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+@media (min-width: 480px) {
+  #lounge-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.6rem;
+  }
+
+  #lounge-lb-scroll {
+    padding: 5.5rem 2rem 4rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  #lounge-grid {
+    gap: 1rem;
+  }
+
+  #lounge-lb-scroll {
+    padding: 6rem 3rem 4rem;
+  }
+}
+
+/* ── Golden Sun Mang Den Lightbox ── */
+#mangden-lb {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(0, 0, 0, 0.96);
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  overflow: hidden;
+}
+
+#mangden-lb.is-open {
+  opacity: 1;
+  pointer-events: all;
+}
+
+#mangden-lb-close {
+  position: fixed;
+  top: max(1rem, env(safe-area-inset-top, 1rem));
+  right: max(1rem, env(safe-area-inset-right, 1rem));
+  z-index: 10001;
+  width: 48px;
+  height: 48px;
+  border: 0.5px solid rgba(255, 255, 255, 0.22);
+  background: rgba(0, 0, 0, 0.55);
+  color: rgba(255, 255, 255, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 50%;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition:
+    border-color 0.22s,
+    background 0.22s,
+    color 0.22s;
+  touch-action: manipulation;
+}
+
+#mangden-lb-close:hover {
+  border-color: rgba(212, 175, 55, 0.5);
+  background: rgba(212, 175, 55, 0.08);
+  color: #fff;
+}
+
+#mangden-lb-scroll {
+  height: 100%;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 5rem 1.25rem 4rem;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(212, 175, 55, 0.18) transparent;
+}
+
+#mangden-lb-scroll::-webkit-scrollbar {
+  width: 4px;
+}
+
+#mangden-lb-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+#mangden-lb-scroll::-webkit-scrollbar-thumb {
+  background: rgba(212, 175, 55, 0.18);
+  border-radius: 2px;
+}
+
+#mangden-lb-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+#mangden-grid {
+  columns: 2;
+  column-gap: 0.75rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+#mangden-grid .cuisine-item {
+  break-inside: avoid;
+  margin-bottom: 0.75rem;
+}
+
+#mangden-grid .cuisine-img-wrap {
+  aspect-ratio: unset;
+  height: auto;
+}
+
+#mangden-grid .cuisine-img-wrap img {
+  width: 100%;
+  height: auto;
+  object-fit: unset;
+}
+
+@media (min-width: 480px) {
+  #mangden-lb-scroll {
+    padding: 5.5rem 2rem 4rem;
+  }
+}
+
+@media (min-width: 768px) {
+  #mangden-grid {
+    columns: 3;
+    column-gap: 0.75rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  #mangden-grid {
+    columns: 4;
+    column-gap: 1rem;
+  }
+
+  #mangden-lb-scroll {
+    padding: 6rem 3rem 4rem;
+  }
+}
+
+/* ── #social — compact full-viewport fit ── */
+#social {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+#social .film-strip {
+  align-items: flex-start;
+  flex-wrap: nowrap;
+  gap: 1.5rem;
+  width: 100%;
+}
+
+#social .sms-phone-wrap {
+  flex: 0 0 300px;
+  width: 300px !important;
+  min-width: 300px;
+  height: auto;
+}
+
+#social .sms-vid-wrap {
+  aspect-ratio: 9 / 16;
+  width: 100%;
+  height: auto;
+}
+
+@media (max-width: 767px) {
+  #social {
+    padding-top: 1.25rem;
+  }
+
+  #social .sms-phone-wrap {
+    flex: 0 0 72vw !important;
+    width: 72vw !important;
+    min-width: 72vw !important;
+    height: auto;
+  }
+}
+
+/* ── Accent bar ── */
+.acc {
+  display: inline-block;
+  width: 36px;
+  height: 2px;
+  background: #d4af37;
+  vertical-align: middle;
+  margin-right: 10px;
+  border-radius: 1px;
+}
+
+/* ── Divider ── */
+.div-line {
+  border-color: rgba(255, 255, 255, 0.05);
+}
+
+/* ── Skill row ── */
+.skill-track {
+  height: 0.5px;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+/* ── Studio background — Subtle Moving Grainy Gradient ── */
+#studio-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background: #050505;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.s-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  will-change: transform;
+  transform: translateZ(0);
+  isolation: isolate;
+}
+
+.s-b1 {
+  width: 70vw;
+  height: 70vw;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(24, 24, 24, 1) 0%,
+    transparent 70%
+  );
+  top: -20%;
+  left: -20%;
+  animation: sBlob1 22s ease-in-out infinite;
+}
+
+.s-b2 {
+  width: 65vw;
+  height: 65vw;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(18, 18, 18, 1) 0%,
+    transparent 70%
+  );
+  top: 30%;
+  right: -22%;
+  animation: sBlob2 28s ease-in-out infinite;
+}
+
+.s-b3 {
+  width: 60vw;
+  height: 60vw;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(20, 20, 20, 1) 0%,
+    transparent 70%
+  );
+  bottom: -18%;
+  left: 18%;
+  animation: sBlob3 34s ease-in-out infinite;
+}
+
+@keyframes sBlob1 {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  25% {
+    transform: translate(4vw, 2vh) scale(1.04);
+  }
+  50% {
+    transform: translate(-2vw, 5vh) scale(0.97);
+  }
+  75% {
+    transform: translate(3vw, -3vh) scale(1.02);
+  }
+}
+
+@keyframes sBlob2 {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    transform: translate(-5vw, -3vh) scale(1.05);
+  }
+  66% {
+    transform: translate(2vw, 4vh) scale(0.95);
+  }
+}
+
+@keyframes sBlob3 {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  40% {
+    transform: translate(3vw, -4vh) scale(1.06);
+  }
+  80% {
+    transform: translate(-4vw, 2vh) scale(0.97);
+  }
+}
+
+#grain {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.04;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+}
+
+/* ── Page content layers above gradient ── */
+#hero,
+#work,
+#social,
+#about,
+#skills,
+#contact,
+.service-grid-wrap,
+footer {
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Perf: giới hạn repaint theo từng section — không lan ra toàn trang ── */
+#social,
+#about,
+#skills,
+#contact,
+footer {
+  contain: layout paint;
+}
+
+/* ── Perf: skip render cho section off-screen — browser không paint nếu chưa cuộn tới ── */
+#about,
+#skills,
+#contact,
+footer {
+  content-visibility: auto;
+  contain-intrinsic-size: 0 600px;
+}
+
+/* ── Hairline section dividers — 0.5px luxury ── */
+#work,
+#social,
+#about,
+#skills,
+#contact,
+footer {
+  border-top-width: 0.5px;
+}
+
+/* ── Scroll offset — clears floating island nav (~68px) + breathing room ── */
+#contact {
+  scroll-margin-top: 90px;
+}
+
+/* ── Heading shadow — crisp dark halo, max contrast, no text blur ── */
+.h-shadow {
+  text-shadow: 0 2px 16px rgba(0, 0, 0, 0.7);
+}
+
+/* ── Sub-headline 80% white ── */
+.sub-text {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.skill-fill {
+  height: 1px;
+  background: #d4af37;
+}
+
+/* ── Animated hamburger ── */
+.ham-btn {
+  display: flex;
+  flex-direction: column;
+  gap: 5.5px;
+  padding: 10px 6px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  min-width: 44px;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+}
+
+.ham-line {
+  display: block;
+  width: 22px;
+  height: 1.5px;
+  background: #ffffff;
+  transition:
+    transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.22s ease,
+    width 0.3s ease;
+  transform-origin: center;
+}
+
+.ham-btn.is-open .ham-line:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.ham-btn.is-open .ham-line:nth-child(2) {
+  opacity: 0;
+  width: 0;
+}
+
+.ham-btn.is-open .ham-line:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* ── Mobile menu overlay ── */
+#mMenu {
+  transition:
+    max-height 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.28s ease;
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  display: block !important;
+}
+
+#mMenu.is-open {
+  max-height: 600px;
+  opacity: 1;
+}
+
+/* ══════════════════════════════════════
+   MOBILE — COMPREHENSIVE (≤ 767px)
+══════════════════════════════════════ */
+@media (max-width: 767px) {
+  /* ── Section padding ── */
+  #about,
+  #skills,
+  #social {
+    padding-top: 5rem !important;
+    padding-bottom: 5rem !important;
+  }
+
+  /* ── About: portrait compact + heading scale ── */
+  .about-portrait {
+    height: 70vw !important;
+    max-height: none !important;
+    aspect-ratio: unset !important;
+  }
+
+  #about h2 {
+    font-size: clamp(30px, 8vw, 42px) !important;
+    margin-bottom: 1.25rem !important;
+  }
+
+  /* Be Vietnam Pro for all Vietnamese timeline text */
+  .timeline-item p {
+    font-family: "Be Vietnam Pro", system-ui, sans-serif !important;
+    letter-spacing: 0 !important;
+  }
+
+  /* ── Social stats — stack 1 column ── */
+  .sms-stats-row {
+    grid-template-columns: 1fr !important;
+    gap: 1.5rem !important;
+  }
+
+  /* ── Touch targets: all tappable elements ≥ 44px ── */
+  .nav-link,
+  #mMenu a {
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+  }
+
+  #mMenu a {
+    font-size: 12px !important;
+    letter-spacing: 0.2em !important;
+    padding: 0.6rem 0;
+    border-bottom: 0.5px solid rgba(255, 255, 255, 0.04);
+  }
+
+  #mMenu a:last-child {
+    border-bottom: none;
+    min-height: 48px;
+    justify-content: flex-start;
+    margin-top: 0.5rem;
+    padding: 0.65rem 1.25rem;
+  }
+
+  /* touch targets for buttons */
+  button {
+    min-height: 44px;
+  }
+
+  /* ── Skills: 1 column on phone ── */
+  #skills .grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* ── Be Vietnam Pro + open line-height on mobile ── */
+  .skill-name,
+  .skill-desc {
+    letter-spacing: 0 !important;
+  }
+
+  .sms-cap-title,
+  .sms-campaign-name {
+    font-family: "Be Vietnam Pro", system-ui, sans-serif !important;
+    letter-spacing: 0 !important;
+  }
+
+  #about p,
+  #about span {
+    letter-spacing: 0 !important;
+  }
+
+  .gal-phase-desc {
+    line-height: 2 !important;
+  }
+
+  .service-desc {
+    line-height: 2 !important;
+  }
+
+  /* ── Hero heading reduce letter-spacing on very small screens ── */
+  @media (max-width: 400px) {
+    #hero h1 {
+      letter-spacing: -0.04em !important;
+    }
+  }
+}
+
+/* ── Contact Glass Cards (redesign) ── */
+.c-glass {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 1.5rem;
+  transition:
+    background 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+    border-color 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.c-glass:is(a, button):hover,
+.c-glass.c-hoverable:hover {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
+}
+@keyframes c-ring-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+.c-ring {
+  animation: c-ring-spin 40s linear infinite;
+}
+
+.c-icon {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  color: rgba(255, 255, 255, 0.38);
+  transition: color 0.3s;
+  line-height: 0;
+}
+.c-icon:hover {
+  color: rgba(255, 255, 255, 0.85);
+}
+.c-icon-sm {
+  color: rgba(255, 255, 255, 0.18);
+}
+
+.c-ai-card {
+  padding: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  min-height: 248px;
+}
+.c-card-label {
+  font-family: "Inter", sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.38);
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+.c-lucide-icon {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+}
+.c-card-body {
+  font-family: "Inter", sans-serif;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.52);
+  line-height: 1.78;
+  font-weight: 300;
+  min-height: 80px;
+}
+.ai-btn-white {
+  width: 100%;
+  background: #fff;
+  color: #000;
+  padding: 0.7rem 1rem;
+  border-radius: 0.75rem;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+  touch-action: manipulation;
+  flex-shrink: 0;
+}
+.ai-btn-white:hover {
+  background: #e2e8f0;
+}
+.ai-btn-white:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.ai-btn-outline {
+  width: 100%;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.62);
+  padding: 0.7rem 1rem;
+  border-radius: 0.75rem;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    background 0.2s,
+    border-color 0.2s;
+  touch-action: manipulation;
+  flex-shrink: 0;
+}
+.ai-btn-outline:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+.ai-btn-outline:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Contact link cards */
+.c-link-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem 1.75rem;
+  text-decoration: none;
+  min-width: 0;
+}
+.c-link-label {
+  font-family: "Be Vietnam Pro", system-ui, sans-serif;
+  font-size: 9.5px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.35);
+  margin-bottom: 0.38rem;
+}
+.c-link-value {
+  font-family: "Be Vietnam Pro", system-ui, sans-serif;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #fff;
+  letter-spacing: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  transition: color 0.3s;
+}
+.c-link-arrow {
+  color: rgba(255, 255, 255, 0.22);
+  flex-shrink: 0;
+  margin-left: 1rem;
+  transition:
+    color 0.25s,
+    transform 0.25s;
+}
+.c-link-card:hover .c-link-arrow {
+  color: #d4af37;
+  transform: translateX(5px);
+}
+.c-link-card:hover .c-link-value {
+  color: #d4af37;
+}
+
+/* ── Footer social icon hover — CSS transition thay vì inline JS ── */
+.footer-social-link {
+  color: rgba(255, 255, 255, 0.3);
+  transition: color 0.25s;
+}
+.footer-social-link:hover,
+.footer-social-link:focus-visible {
+  color: #d4af37;
+}
+
+/* ── Mobile: tắt flash xanh khi tap các phần tử tương tác ── */
+a,
+button,
+[role="button"],
+.sms-phone-wrap,
+.gal-card,
+.contact-card {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* ── Lightbox scroll containers — chặn scroll lan ra ngoài (iOS) ── */
+[data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+/* ── Mobile viewport safety ── */
+@supports (padding: env(safe-area-inset-bottom)) {
+  footer {
+    padding-bottom: max(2rem, env(safe-area-inset-bottom));
+  }
+}
