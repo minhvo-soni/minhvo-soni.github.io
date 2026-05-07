@@ -1400,8 +1400,8 @@
 
               <!-- 03 · BTS portrait video -->
               <div class="bts-card" style="left:27%;top:6%;width:clamp(100px,10.5vw,145px);height:clamp(137px,14.4vw,198px);transform:rotate(3.5deg);z-index:2">
-                <video muted loop playsinline preload="none">
-                  <source src="./assets/about/bts/3.mp4" type="video/mp4">
+                <video class="lazy-video" muted loop playsinline preload="none">
+                  <source data-src="./assets/about/bts/3.mp4" type="video/mp4">
                 </video>
                 <div class="bts-num">03</div>
                 <div class="bts-lbl">Behind the Scene</div>
@@ -1409,8 +1409,8 @@
 
               <!-- 04 · BTS landscape video -->
               <div class="bts-card" style="left:38%;top:44%;width:clamp(130px,13.5vw,188px);height:clamp(90px,9.3vw,130px);transform:rotate(-2deg);z-index:1">
-                <video muted loop playsinline preload="none">
-                  <source src="./assets/about/bts/2.mp4" type="video/mp4">
+                <video class="lazy-video" muted loop playsinline preload="none">
+                  <source data-src="./assets/about/bts/2.mp4" type="video/mp4">
                 </video>
                 <div class="bts-num">04</div>
                 <div class="bts-lbl">Video BTS</div>
@@ -1418,8 +1418,8 @@
 
               <!-- 05 · BTS portrait video -->
               <div class="bts-card" style="left:49%;top:7%;width:clamp(100px,10.5vw,148px);height:clamp(138px,14.6vw,205px);transform:rotate(-4.5deg);z-index:2">
-                <video muted loop playsinline preload="none">
-                  <source src="./assets/about/bts/1.mp4" type="video/mp4">
+                <video class="lazy-video" muted loop playsinline preload="none">
+                  <source data-src="./assets/about/bts/1.mp4" type="video/mp4">
                 </video>
                 <div class="bts-num">05</div>
                 <div class="bts-lbl">Behind the Scene</div>
@@ -4167,9 +4167,32 @@
       })();
     </script>
 
-    <!-- BTS video hover-play -->
+    <!-- BTS video lazy-load + hover-play -->
     <script>
       (function () {
+        // ── Lazy-load: swap data-src → src khi About section vào viewport ──
+        if ('IntersectionObserver' in window) {
+          var videoObserver = new IntersectionObserver(function (entries, observer) {
+            entries.forEach(function (entry) {
+              if (!entry.isIntersecting) return;
+              var vid = entry.target;
+              Array.from(vid.children).forEach(function (child) {
+                if (child.tagName === 'SOURCE' && child.dataset.src) {
+                  child.src = child.dataset.src;
+                }
+              });
+              vid.load();
+              vid.classList.remove('lazy-video');
+              observer.unobserve(vid);
+            });
+          }, { rootMargin: '200px' }); // bắt đầu load trước 200px
+
+          document.querySelectorAll('video.lazy-video').forEach(function (vid) {
+            videoObserver.observe(vid);
+          });
+        }
+
+        // ── Hover-play ──
         document.querySelectorAll('.bts-card').forEach(function (card) {
           var vid = card.querySelector('video');
           if (!vid) return;
