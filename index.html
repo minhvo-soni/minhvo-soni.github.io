@@ -3977,5 +3977,76 @@
     <!-- Features & UX enhancements -->
     <script src="/features.js" defer></script>
 
+    <!-- ── Photo Zoom Overlay ── -->
+    <div
+      id="photo-zoom"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Xem ảnh"
+      onclick="if(event.target===this)closePhotoZoom()"
+    >
+      <button
+        id="photo-zoom-close"
+        aria-label="Đóng"
+        onclick="closePhotoZoom()"
+      >
+        <svg
+          width="16"
+          height="16"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          viewBox="0 0 24 24"
+        >
+          <path d="M18 6L6 18M6 6l12 12" />
+        </svg>
+      </button>
+      <img id="photo-zoom-img" src="" alt="" />
+    </div>
+
+    <script>
+      (function () {
+        function openPhotoZoom(src, alt) {
+          var zoom = document.getElementById("photo-zoom");
+          var img = document.getElementById("photo-zoom-img");
+          if (!zoom || !img) return;
+          img.src = src;
+          img.alt = alt || "";
+          zoom.classList.add("is-open");
+          document.body.style.overflow = "hidden";
+        }
+        function closePhotoZoom() {
+          var zoom = document.getElementById("photo-zoom");
+          if (!zoom) return;
+          zoom.classList.remove("is-open");
+          document.body.style.overflow = "";
+          setTimeout(function () {
+            var img = document.getElementById("photo-zoom-img");
+            if (
+              img &&
+              !document.getElementById("photo-zoom").classList.contains("is-open")
+            ) {
+              img.src = "";
+            }
+          }, 250);
+        }
+        window.openPhotoZoom = openPhotoZoom;
+        window.closePhotoZoom = closePhotoZoom;
+
+        // Escape để đóng
+        document.addEventListener("keydown", function (e) {
+          if (e.key === "Escape") closePhotoZoom();
+        });
+
+        // Delegate: click bất kỳ .cuisine-img-wrap → zoom ảnh đó
+        document.addEventListener("click", function (e) {
+          var wrap = e.target.closest(".cuisine-img-wrap");
+          if (!wrap) return;
+          var img = wrap.querySelector("img");
+          if (img && img.src) openPhotoZoom(img.src, img.alt);
+        });
+      })();
+    </script>
+
   </body>
 </html>
