@@ -642,10 +642,31 @@ video {
   letter-spacing: 0.12em;
   color: rgba(255, 255, 255, 0.25);
 }
-/* Mobile: nhỏ hơn nhưng vẫn scatter */
+/* Mobile: stack dọc — scatter trên, info dưới */
 @media (max-width: 767px) {
+  #about {
+    height: auto !important;
+    min-height: 100svh;
+  }
+  #about .bts-scatter {
+    position: relative !important;
+    width: 100% !important;
+    height: 72vw !important;
+    min-height: 240px;
+    overflow: hidden !important;
+  }
+  #about-vdivider,
+  #about-bottombar {
+    display: none;
+  }
+  #about-info {
+    position: relative !important;
+    width: 100% !important;
+    height: auto !important;
+    padding: 2.25rem 1.5rem 3.5rem !important;
+  }
   #about .bts-card {
-    min-width: 100px;
+    min-width: 90px;
   }
   .bts-scatter:has(.bts-card:hover) .bts-card {
     opacity: 1;
