@@ -1400,7 +1400,7 @@
 
               <!-- 03 · BTS portrait video -->
               <div class="bts-card" style="left:27%;top:6%;width:clamp(100px,10.5vw,145px);height:clamp(137px,14.4vw,198px);transform:rotate(3.5deg);z-index:2">
-                <video autoplay muted loop playsinline preload="metadata">
+                <video muted loop playsinline preload="none">
                   <source src="./assets/about/bts/3.mp4" type="video/mp4">
                 </video>
                 <div class="bts-num">03</div>
@@ -1409,7 +1409,7 @@
 
               <!-- 04 · BTS landscape video -->
               <div class="bts-card" style="left:38%;top:44%;width:clamp(130px,13.5vw,188px);height:clamp(90px,9.3vw,130px);transform:rotate(-2deg);z-index:1">
-                <video autoplay muted loop playsinline preload="metadata">
+                <video muted loop playsinline preload="none">
                   <source src="./assets/about/bts/2.mp4" type="video/mp4">
                 </video>
                 <div class="bts-num">04</div>
@@ -1418,7 +1418,7 @@
 
               <!-- 05 · BTS portrait video -->
               <div class="bts-card" style="left:49%;top:7%;width:clamp(100px,10.5vw,148px);height:clamp(138px,14.6vw,205px);transform:rotate(-4.5deg);z-index:2">
-                <video autoplay muted loop playsinline preload="metadata">
+                <video muted loop playsinline preload="none">
                   <source src="./assets/about/bts/1.mp4" type="video/mp4">
                 </video>
                 <div class="bts-num">05</div>
@@ -4163,6 +4163,18 @@
           if (idx < 0) idx = 0;
 
           openPhotoZoom(imagesArr, idx);
+        });
+      })();
+    </script>
+
+    <!-- BTS video hover-play -->
+    <script>
+      (function () {
+        document.querySelectorAll('.bts-card').forEach(function (card) {
+          var vid = card.querySelector('video');
+          if (!vid) return;
+          card.addEventListener('mouseenter', function () { vid.play(); });
+          card.addEventListener('mouseleave', function () { vid.pause(); vid.currentTime = 0; });
         });
       })();
     </script>
