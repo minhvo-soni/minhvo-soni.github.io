@@ -5541,5 +5541,136 @@
         });
       })();
     </script>
+
+    <!-- BTS card draggable scatter -->
+    <script>
+      (function () {
+        var cards = document.querySelectorAll(".bts-card");
+        var container = document.querySelector(".bts-scatter");
+        if (!cards.length || !container) return;
+
+        var activeCard = null;
+        var startX = 0, startY = 0;
+        var startLeft = 0, startTop = 0;
+        var highestZ = 10;
+
+        cards.forEach(function (card) {
+          // Add visual cursor cue on desktop
+          card.style.cursor = "grab";
+          // Prevent browser default dragging
+          var img = card.querySelector("img");
+          if (img) img.style.pointerEvents = "none";
+          var video = card.querySelector("video");
+          if (video) video.style.pointerEvents = "none";
+
+          // Parse rotation
+          var transformStyle = card.style.transform || "";
+          var match = transformStyle.match(/rotate\(([^)]+)\)/);
+          var rotation = match ? match[1] : "0deg";
+          card.dataset.rotation = rotation;
+          card.dataset.originalZIndex = card.style.zIndex || "1";
+
+          // Preserve rotation on hover
+          card.addEventListener("mouseenter", function () {
+            if (activeCard === card) return;
+            card.style.transform = "scale(1.15) rotate(" + rotation + ")";
+          });
+
+          card.addEventListener("mouseleave", function () {
+            if (activeCard === card) return;
+            card.style.transform = "scale(1) rotate(" + rotation + ")";
+          });
+
+          // Mouse Drag Events
+          card.addEventListener("mousedown", dragStart);
+
+          // Touch Drag Events
+          card.addEventListener("touchstart", dragStart, { passive: false });
+
+          function dragStart(e) {
+            if (e.type === "mousedown" && e.button !== 0) return;
+
+            activeCard = card;
+            card.style.cursor = "grabbing";
+            card.style.transition = "none"; // Disable animation during drag
+
+            // Bring to front
+            highestZ++;
+            card.style.zIndex = highestZ;
+            card.style.transform = "scale(1.15) rotate(" + rotation + ")";
+
+            // Play video on touch start/drag start
+            var vid = card.querySelector("video");
+            if (vid) {
+              vid.play().catch(function() {});
+            }
+
+            var rect = card.getBoundingClientRect();
+            var containerRect = container.getBoundingClientRect();
+
+            startLeft = rect.left - containerRect.left;
+            startTop = rect.top - containerRect.top;
+
+            card.style.left = startLeft + "px";
+            card.style.top = startTop + "px";
+
+            var clientX = e.type === "touchstart" ? e.touches[0].clientX : e.clientX;
+            var clientY = e.type === "touchstart" ? e.touches[0].clientY : e.clientY;
+            startX = clientX;
+            startY = clientY;
+
+            document.addEventListener("mousemove", dragMove, { passive: false });
+            document.addEventListener("mouseup", dragEnd);
+            document.addEventListener("touchmove", dragMove, { passive: false });
+            document.addEventListener("touchend", dragEnd);
+
+            e.preventDefault();
+          }
+
+          function dragMove(e) {
+            if (!activeCard) return;
+
+            var clientX = e.type === "touchmove" ? e.touches[0].clientX : e.clientX;
+            var clientY = e.type === "touchmove" ? e.touches[0].clientY : e.clientY;
+
+            var dx = clientX - startX;
+            var dy = clientY - startY;
+
+            var rect = activeCard.getBoundingClientRect();
+            var containerRect = container.getBoundingClientRect();
+
+            var x = startLeft + dx;
+            var y = startTop + dy;
+
+            // Clamp inside container with at least 50% visibility
+            var minX = -rect.width / 2;
+            var maxX = containerRect.width - rect.width / 2;
+            var minY = -rect.height / 2;
+            var maxY = containerRect.height - rect.height / 2;
+
+            x = Math.max(minX, Math.min(maxX, x));
+            y = Math.max(minY, Math.min(maxY, y));
+
+            activeCard.style.left = x + "px";
+            activeCard.style.top = y + "px";
+
+            e.preventDefault();
+          }
+
+          function dragEnd() {
+            if (activeCard) {
+              activeCard.style.cursor = "grab";
+              activeCard.style.transition = ""; // Restore transition
+              activeCard.style.transform = "scale(1) rotate(" + rotation + ")";
+              activeCard = null;
+            }
+            document.removeEventListener("mousemove", dragMove);
+            document.removeEventListener("mouseup", dragEnd);
+            document.removeEventListener("touchmove", dragMove);
+            document.removeEventListener("touchend", dragEnd);
+          }
+        });
+      })();
+    </script>
   </body>
 </html>

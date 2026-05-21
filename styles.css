@@ -590,7 +590,6 @@ video {
     0 2px 8px rgba(0, 0, 0, 0.4);
 }
 .bts-card:hover {
-  transform: scale(1.2) !important;
   z-index: 20;
 }
 .bts-card img,
