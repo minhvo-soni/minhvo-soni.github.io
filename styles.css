@@ -1427,15 +1427,18 @@ video {
   transform: translateX(5px);
 }
 
-/* Mobile: 3:2 với khoảng hở hai bên + gradient mượt hơn */
+/* Mobile: Tối ưu dạng lưới dọc, bo góc, căn lề sang trọng */
 @media (max-width: 767px) {
   .gal-card.wp-cover {
-    width: 100vw !important;
-    height: 100vh !important;
-    aspect-ratio: unset;
+    width: 100% !important;
+    height: auto !important;
+    aspect-ratio: 4 / 5 !important;
     margin: 0 !important;
-    padding: 1rem 1.1rem;
+    padding: 1.25rem !important;
     flex-shrink: 0;
+    border-radius: 12px !important;
+    border: 0.5px solid rgba(255, 255, 255, 0.08) !important;
+    background: rgba(255, 255, 255, 0.02) !important;
   }
 
   .gal-card.wp-cover .gal-img-wrap::after {
@@ -1449,17 +1452,21 @@ video {
   }
 
   .gal-card.wp-cover .gal-bottom {
-    bottom: 0.85rem;
-    left: 1.1rem;
+    bottom: 1.25rem !important;
+    left: 1.25rem !important;
+    right: 1.25rem !important;
+    max-width: none !important;
   }
 
   .gal-card.wp-cover .gal-phase-name {
-    font-size: 1.5rem;
+    font-size: 1.25rem !important;
   }
 
   .gal-card.wp-cover .gal-arrow {
-    bottom: 0.85rem;
-    right: 1.1rem;
+    bottom: 1.25rem !important;
+    right: 1.25rem !important;
+    width: 36px !important;
+    height: 36px !important;
   }
 }
 
@@ -2616,12 +2623,87 @@ footer {
     line-height: 2 !important;
   }
 
+  /* ── Galleries Mobile Overrides ── */
+  #galleries-sticky {
+    position: relative !important;
+    height: auto !important;
+    overflow: visible !important;
+    padding: 5rem 1.5rem 2rem !important;
+  }
+
+  #galleries-track {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 1.5rem !important;
+    height: auto !important;
+    transform: none !important;
+    padding: 0 !important;
+  }
+
+  /* Ẩn các nút điều hướng và thanh tiến trình/HUD di động */
+  .gal-progress-bar,
+  .gal-dots-container,
+  .gal-header-bar,
+  #galPrev,
+  #galNext {
+    display: none !important;
+  }
+
+  /* ── Contact Section Mobile Overrides ── */
+  #contact {
+    height: auto !important;
+    min-height: 100svh !important;
+    overflow: visible !important;
+  }
+
+  .contact-content-container {
+    position: relative !important;
+    inset: auto !important;
+    padding: 5rem 1.5rem !important;
+    overflow-y: visible !important;
+    height: auto !important;
+  }
+
+  .contact-links-grid {
+    grid-template-columns: 1fr !important;
+  }
+
   /* ── Hero heading reduce letter-spacing on very small screens ── */
   @media (max-width: 400px) {
     #hero h1 {
       letter-spacing: -0.04em !important;
     }
   }
+}
+
+/* ── Contact Section Base Styles ── */
+#contact {
+  height: 100vh;
+  height: 100svh;
+  position: relative;
+  overflow: hidden;
+}
+
+.contact-content-container {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 5rem max(1.75rem, env(safe-area-inset-right, 1.75rem))
+    max(3.5rem, env(safe-area-inset-bottom, 3.5rem))
+    max(1.75rem, env(safe-area-inset-left, 1.75rem));
+  gap: 1.75rem;
+  overflow-y: auto;
+}
+
+.contact-links-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+  width: 100%;
+  max-width: 580px;
 }
 
 /* ── Contact Glass Cards (redesign) ── */
