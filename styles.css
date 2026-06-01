@@ -1603,6 +1603,34 @@ video {
   }
 }
 
+/* ── Override riêng cho #cuisine-grid: giữ tỉ lệ ảnh gốc ── */
+#cuisine-grid .cuisine-item {
+  break-inside: avoid;
+  display: block;          /* không dùng flex — tránh cao bị ép */
+  margin-bottom: 0.75rem;
+}
+
+#cuisine-grid .cuisine-img-wrap {
+  aspect-ratio: unset !important;
+  height: auto !important;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 3px;
+  background: #111;
+  border: 0.5px solid rgba(255, 255, 255, 0.05);
+  cursor: zoom-in;
+  display: block;
+}
+
+#cuisine-grid .cuisine-img-wrap img {
+  width: 100%;
+  height: auto !important;
+  object-fit: unset !important;
+  display: block;
+  transform-origin: center center;
+  transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
 .cuisine-item {
   break-inside: avoid;
   margin-bottom: 0.75rem;
