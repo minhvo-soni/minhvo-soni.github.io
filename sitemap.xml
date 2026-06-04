@@ -4,29 +4,56 @@
 
   <url>
     <loc>https://minhvo-soni.github.io/</loc>
-    <lastmod>2026-05-05</lastmod>
+    <lastmod>2026-06-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
 
     <!-- Hero / About -->
     <image:image>
       <image:loc>https://minhvo-soni.github.io/figma-preview.png</image:loc>
-      <image:title>SONI — Nhiếp Ảnh &amp; Media Portfolio</image:title>
+      <image:title>SONI · Võ Quang Minh — Nhiếp Ảnh Sự Kiện & Thương Hiệu tại Đà Lạt</image:title>
+      <image:caption>Portfolio nhiếp ảnh chuyên nghiệp của Võ Quang Minh (SONI) tại Đà Lạt, Việt Nam</image:caption>
     </image:image>
 
-    <!-- Gallery projects -->
+    <!-- Golden Sun Hotel — Silhouette & Silence -->
     <image:image>
-      <image:loc>https://minhvo-soni.github.io/assets/gallery/white-palace/Poster.jpg</image:loc>
-      <image:title>White Palace — Fine Dining Cuisine Photography</image:title>
+      <image:loc>https://minhvo-soni.github.io/assets/gallery/white-palace/DSC09459.jpg</image:loc>
+      <image:title>Silhouette &amp; Silence — Fashion Model Portrait tại Golden Sun Hotel</image:title>
+      <image:caption>Bộ ảnh chân dung thời trang sang trọng tại Golden Sun Hotel, Đà Lạt</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://minhvo-soni.github.io/assets/gallery/golden-sun/1/Poster.jpg</image:loc>
-      <image:title>Golden Sun Hotel — Event &amp; Wedding Photography</image:title>
+      <image:loc>https://minhvo-soni.github.io/assets/gallery/white-palace/DSC09492.jpg</image:loc>
+      <image:title>Nét Tinh Khôi — Chân dung thời trang Golden Sun Hotel</image:title>
     </image:image>
+
+    <!-- Golden Sun Hotel — Event & Wedding -->
+    <image:image>
+      <image:loc>https://minhvo-soni.github.io/assets/gallery/golden-sun/1/DSC06388.jpg</image:loc>
+      <image:title>Golden Sun Hotel Đà Lạt — Nhiếp ảnh sự kiện & tiệc cưới</image:title>
+      <image:caption>Chụp ảnh sự kiện, hội nghị và tiệc cưới tại Golden Sun Hotel Đà Lạt</image:caption>
+    </image:image>
+
+    <!-- Gem Center -->
     <image:image>
       <image:loc>https://minhvo-soni.github.io/assets/gallery/gem-center/gem-1.jpg</image:loc>
-      <image:title>Gem Center — Wedding Concept Photography</image:title>
+      <image:title>Gem Center — Nhiếp ảnh tiệc cưới & sự kiện TP.HCM</image:title>
+      <image:caption>Chụp ảnh tiệc cưới và sự kiện tại Gem Center, TP. Hồ Chí Minh</image:caption>
     </image:image>
+
+    <!-- Golden Sun Lounge -->
+    <image:image>
+      <image:loc>https://minhvo-soni.github.io/assets/gallery/lougne/lougne-1.jpg</image:loc>
+      <image:title>Golden Sun Lounge — Nhiếp ảnh không gian & ẩm thực</image:title>
+      <image:caption>Chụp ảnh không gian lounge và ẩm thực cao cấp tại Golden Sun</image:caption>
+    </image:image>
+
+    <!-- Golden Sun Mang Den -->
+    <image:image>
+      <image:loc>https://minhvo-soni.github.io/assets/gallery/golden-sun-mangden/mangden-1.jpg</image:loc>
+      <image:title>Golden Sun Mang Den — Nhiếp ảnh resort & thiên nhiên</image:title>
+      <image:caption>Chụp ảnh resort cao cấp tại Mang Den, Kon Tum</image:caption>
+    </image:image>
+
   </url>
 
 </urlset>
