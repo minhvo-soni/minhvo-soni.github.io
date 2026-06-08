@@ -1429,12 +1429,13 @@ video {
 /* Mobile: Tối ưu dạng lưới dọc, bo góc, căn lề sang trọng */
 @media (max-width: 767px) {
   .gal-card.wp-cover {
-    width: 100% !important;
+    width: 82vw !important;
     height: auto !important;
     aspect-ratio: 4 / 5 !important;
     margin: 0 !important;
     padding: 1.25rem !important;
-    flex-shrink: 0;
+    flex-shrink: 0 !important;
+    scroll-snap-align: start !important;
     border-radius: 12px !important;
     border: 0.5px solid rgba(255, 255, 255, 0.08) !important;
     background: rgba(255, 255, 255, 0.02) !important;
@@ -2654,12 +2655,21 @@ footer {
   }
 
   #galleries-track {
-    display: grid !important;
-    grid-template-columns: 1fr !important;
-    gap: 1.5rem !important;
+    display: flex !important;
+    flex-direction: row !important;
+    gap: 1.25rem !important;
     height: auto !important;
     transform: none !important;
-    padding: 0 !important;
+    overflow-x: auto !important;
+    scroll-snap-type: x mandatory !important;
+    scroll-padding: 0 1.5rem !important;
+    -webkit-overflow-scrolling: touch !important;
+    padding: 0 1.5rem 1rem !important;
+    margin: 0 -1.5rem !important;
+    scrollbar-width: none !important; /* Firefox */
+  }
+  #galleries-track::-webkit-scrollbar {
+    display: none !important; /* Safari/Chrome */
   }
 
   /* Ẩn các nút điều hướng và thanh tiến trình/HUD di động */
