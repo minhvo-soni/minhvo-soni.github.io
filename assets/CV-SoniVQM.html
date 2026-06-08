@@ -6,353 +6,373 @@
   <title>CV — Võ Quang Minh · SONI</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400&display=swap" rel="stylesheet" />
   <style>
-    /* ── RESET ── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    /* ── VARIABLES ── */
     :root {
       --black:   #050505;
       --dark:    #0d0d0d;
-      --card:    #111111;
+      --card:    #131313;
       --gold:    #D4AF37;
+      --gold-10: rgba(212,175,55,0.10);
       --gold-20: rgba(212,175,55,0.20);
       --gold-40: rgba(212,175,55,0.40);
-      --gold-70: rgba(212,175,55,0.70);
+      --gold-65: rgba(212,175,55,0.65);
       --white:   #ffffff;
-      --cream:   #F5F0E8;
-      --faded:   rgba(255,255,255,0.45);
+      --cream:   #F0EBE0;
+      --faded:   rgba(255,255,255,0.50);
       --muted:   rgba(255,255,255,0.22);
-      --body:    'Be Vietnam Pro', system-ui, sans-serif;
-      --display: 'Cormorant Garamond', Georgia, serif;
+      --f:       'Be Vietnam Pro', system-ui, sans-serif;
     }
 
-    /* ── PAGE ── */
     html { font-size: 16px; }
+
     body {
-      font-family: var(--body);
-      background: var(--black);
-      color: var(--white);
-      min-height: 100vh;
+      font-family: var(--f);
+      background: #1a1a1a;
       -webkit-print-color-adjust: exact;
       print-color-adjust: exact;
     }
 
-    /* ── PRINT ── */
-    @page {
-      size: A4;
-      margin: 0;
-    }
+    @page { size: A4; margin: 0; }
+
     @media print {
       body { background: var(--black) !important; }
       .no-print { display: none !important; }
-      .page { box-shadow: none !important; page-break-after: avoid; }
     }
 
-    /* ── LAYOUT ── */
+    /* ─── PAGE ─── */
     .page {
       width: 210mm;
       min-height: 297mm;
       margin: 0 auto;
       background: var(--black);
       display: grid;
-      grid-template-columns: 72mm 1fr;
-      position: relative;
-      box-shadow: 0 0 80px rgba(0,0,0,0.8);
+      grid-template-columns: 68mm 1fr;
+      grid-template-rows: auto 1fr auto;
     }
 
-    /* ── SIDEBAR ── */
-    .sidebar {
-      background: var(--dark);
-      padding: 10mm 7mm 8mm 8mm;
-      border-right: 0.5px solid var(--gold-20);
-      display: flex;
-      flex-direction: column;
-      gap: 7mm;
-      position: relative;
-    }
-    .sidebar::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 1px;
-      background: var(--gold);
+    /* ─── TOP GOLD BAR ─── */
+    .gold-bar {
+      grid-column: 1 / -1;
+      height: 3px;
+      background: linear-gradient(90deg, var(--gold) 0%, rgba(212,175,55,0.3) 60%, transparent 100%);
     }
 
-    /* ── MAIN ── */
-    .main {
-      padding: 10mm 8mm 8mm 9mm;
-      display: flex;
-      flex-direction: column;
-      gap: 6mm;
-    }
-
-    /* ── HEADER (full width) ── */
+    /* ─── HEADER ─── */
     .header {
       grid-column: 1 / -1;
-      background: var(--black);
-      padding: 9mm 8mm 7mm 8mm;
+      background: var(--dark);
       border-bottom: 0.5px solid var(--gold-20);
       display: flex;
-      align-items: flex-end;
-      justify-content: space-between;
+      align-items: center;
+      gap: 7mm;
+      padding: 7mm 8mm;
       position: relative;
       overflow: hidden;
     }
-    .header::before {
-      content: '';
+    .header-ghost {
       position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 2px;
-      background: linear-gradient(90deg, var(--gold), transparent 70%);
-    }
-    .header-bg-text {
-      position: absolute;
-      right: -5mm;
-      bottom: -4mm;
-      font-family: var(--display);
-      font-size: 38mm;
-      font-weight: 300;
-      color: rgba(212,175,55,0.04);
+      right: 6mm;
+      bottom: -6mm;
+      font-size: 36mm;
+      font-weight: 800;
+      color: rgba(212,175,55,0.035);
+      letter-spacing: -3px;
       line-height: 1;
-      letter-spacing: -2px;
       user-select: none;
       pointer-events: none;
     }
-    .header-left { position: relative; z-index: 1; }
-    .header-eyebrow {
-      font-size: 7.5px;
-      letter-spacing: 0.32em;
-      text-transform: uppercase;
-      color: var(--gold-70);
-      margin-bottom: 2.5mm;
-    }
-    .header-name {
-      font-family: var(--body);
-      font-size: 22px;
-      font-weight: 700;
-      color: var(--white);
-      letter-spacing: -0.01em;
-      line-height: 1.1;
-    }
-    .header-name span {
-      font-family: var(--display);
-      font-style: italic;
-      font-weight: 300;
-      font-size: 15px;
-      color: var(--gold-70);
-      margin-left: 6px;
-      letter-spacing: 0.04em;
-    }
-    .header-title {
-      font-size: 8px;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--faded);
-      margin-top: 2mm;
-    }
-    .header-right {
+
+    /* Avatar */
+    .avatar-wrap {
+      flex-shrink: 0;
+      width: 22mm;
+      height: 22mm;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 1.5px solid var(--gold-40);
       position: relative;
       z-index: 1;
-      text-align: right;
+    }
+    .avatar-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      filter: grayscale(15%);
+    }
+
+    /* Name block */
+    .header-text { position: relative; z-index: 1; flex: 1; }
+    .header-eyebrow {
+      font-size: 6.5px;
+      font-weight: 500;
+      letter-spacing: 0.36em;
+      text-transform: uppercase;
+      color: var(--gold-65);
+      margin-bottom: 2mm;
+    }
+    .header-name {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: -0.02em;
+      line-height: 1;
+      margin-bottom: 1.5mm;
+    }
+    .header-name .alias {
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--gold-65);
+      letter-spacing: 0.15em;
+      margin-left: 5px;
+    }
+    .header-title {
+      font-size: 7.5px;
+      font-weight: 400;
+      letter-spacing: 0.20em;
+      text-transform: uppercase;
+      color: var(--faded);
+    }
+
+    /* Contacts */
+    .header-contacts {
+      position: relative;
+      z-index: 1;
       display: flex;
       flex-direction: column;
-      gap: 1.5mm;
+      gap: 1.8mm;
       align-items: flex-end;
     }
-    .contact-item {
-      font-size: 7.5px;
-      letter-spacing: 0.12em;
-      color: var(--faded);
+    .c-row {
       display: flex;
       align-items: center;
       gap: 2mm;
     }
-    .contact-item .dot {
+    .c-dot {
       width: 3px; height: 3px;
       border-radius: 50%;
       background: var(--gold);
       flex-shrink: 0;
     }
-    .contact-item a {
+    .c-text {
+      font-size: 7px;
+      font-weight: 300;
+      letter-spacing: 0.08em;
       color: var(--faded);
-      text-decoration: none;
+    }
+    .c-text a { color: var(--faded); text-decoration: none; }
+
+    /* ─── SIDEBAR ─── */
+    .sidebar {
+      background: var(--dark);
+      padding: 7mm 6mm 7mm 7mm;
+      border-right: 0.5px solid var(--gold-20);
+      display: flex;
+      flex-direction: column;
+      gap: 5.5mm;
     }
 
-    /* ── SECTION LABEL ── */
-    .section-label {
-      font-size: 6.5px;
-      letter-spacing: 0.35em;
+    /* ─── MAIN ─── */
+    .main {
+      padding: 7mm 7mm 7mm 8mm;
+      display: flex;
+      flex-direction: column;
+      gap: 5.5mm;
+    }
+
+    /* ─── SECTION LABEL ─── */
+    .sec {
+      font-size: 6px;
+      font-weight: 600;
+      letter-spacing: 0.38em;
       text-transform: uppercase;
-      color: var(--gold-70);
+      color: var(--gold-65);
       margin-bottom: 3mm;
       display: flex;
       align-items: center;
-      gap: 2.5mm;
+      gap: 2mm;
     }
-    .section-label::after {
+    .sec::after {
       content: '';
       flex: 1;
       height: 0.5px;
       background: var(--gold-20);
     }
 
-    /* ── BIO ── */
-    .bio-text {
-      font-size: 8.5px;
-      line-height: 1.85;
-      color: var(--faded);
+    /* ─── DIVIDER ─── */
+    .div { height: 0.5px; background: var(--gold-10); }
+
+    /* ─── BIO ─── */
+    .bio {
+      font-size: 7.5px;
       font-weight: 300;
+      line-height: 1.90;
+      color: var(--faded);
     }
-    .bio-text em {
-      color: var(--gold-70);
-      font-style: normal;
+    .bio strong {
+      font-weight: 600;
+      color: var(--gold-65);
     }
 
-    /* ── SKILLS ── */
-    .skill-list { display: flex; flex-direction: column; gap: 2mm; }
-    .skill-item {
+    /* ─── SKILL BARS ─── */
+    .skill-list { display: flex; flex-direction: column; gap: 2.2mm; }
+    .sk { display: flex; flex-direction: column; gap: 1mm; }
+    .sk-header {
       display: flex;
-      flex-direction: column;
-      gap: 1mm;
+      justify-content: space-between;
+      align-items: baseline;
     }
-    .skill-name {
+    .sk-name {
       font-size: 7px;
-      letter-spacing: 0.16em;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      color: var(--cream);
+    }
+    .sk-sub {
+      font-size: 6px;
+      font-weight: 300;
+      color: var(--gold-65);
+      letter-spacing: 0.10em;
+    }
+    .sk-bar {
+      height: 1.5px;
+      background: rgba(255,255,255,0.08);
+      border-radius: 1px;
+      overflow: hidden;
+    }
+    .sk-fill {
+      height: 100%;
+      border-radius: 1px;
+      background: linear-gradient(90deg, var(--gold), rgba(212,175,55,0.35));
+    }
+
+    /* ─── TOOLS / TAGS ─── */
+    .tag-wrap { display: flex; flex-wrap: wrap; gap: 1.5mm; }
+    .tag {
+      font-size: 6px;
+      font-weight: 400;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
+      color: var(--muted);
+      padding: 1mm 2.5mm;
+      border: 0.5px solid rgba(255,255,255,0.10);
+    }
+    .tag.g {
+      color: var(--gold-65);
+      border-color: var(--gold-20);
+    }
+
+    /* ─── LANG ─── */
+    .lang-list { display: flex; flex-direction: column; gap: 2mm; }
+    .lang-item { display: flex; flex-direction: column; gap: 0.8mm; }
+    .lang-name {
+      font-size: 7px;
+      font-weight: 500;
       color: var(--cream);
       display: flex;
       justify-content: space-between;
     }
-    .skill-name .level {
-      color: var(--gold-70);
+    .lang-level {
       font-size: 6px;
+      font-weight: 300;
+      color: var(--gold-65);
     }
-    .skill-bar {
-      height: 1.5px;
-      background: var(--gold-20);
-      border-radius: 2px;
-      overflow: hidden;
-    }
-    .skill-bar-fill {
-      height: 100%;
-      background: linear-gradient(90deg, var(--gold), rgba(212,175,55,0.5));
-      border-radius: 2px;
-    }
+    .lang-bar { height: 1.5px; background: rgba(255,255,255,0.08); border-radius: 1px; overflow: hidden; }
+    .lang-fill { height: 100%; border-radius: 1px; background: linear-gradient(90deg, var(--gold), rgba(212,175,55,0.35)); }
 
-    /* ── TAGS ── */
-    .tag-group { display: flex; flex-wrap: wrap; gap: 1.5mm; }
-    .tag {
-      font-size: 6px;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--muted);
-      padding: 1mm 2.5mm;
-      border: 0.5px solid rgba(255,255,255,0.12);
-    }
-    .tag.gold {
-      color: var(--gold-70);
-      border-color: var(--gold-20);
-    }
+    /* ─── EXPERIENCE ─── */
+    .exp-list { display: flex; flex-direction: column; gap: 4.5mm; }
 
-    /* ── EQUIPMENT ── */
-    .equip-list { display: flex; flex-direction: column; gap: 1.5mm; }
-    .equip-item {
-      font-size: 7px;
-      color: var(--faded);
-      padding-left: 3mm;
+    /* Company block */
+    .company-block {
+      border-left: 1px solid var(--gold-20);
+      padding-left: 4mm;
       position: relative;
-      line-height: 1.5;
     }
-    .equip-item::before {
-      content: '—';
-      position: absolute;
-      left: 0;
-      color: var(--gold-40);
-      font-size: 6px;
-    }
-
-    /* ── EXPERIENCE ── */
-    .exp-list { display: flex; flex-direction: column; gap: 5mm; }
-    .exp-item { position: relative; padding-left: 4mm; }
-    .exp-item::before {
+    .company-block::before {
       content: '';
       position: absolute;
-      left: 0; top: 2mm;
-      width: 1px;
-      height: calc(100% - 2mm);
-      background: var(--gold-20);
-    }
-    .exp-item::after {
-      content: '';
-      position: absolute;
-      left: -1.5px; top: 2mm;
-      width: 4px; height: 4px;
+      left: -2.5px;
+      top: 1.5mm;
+      width: 5px; height: 5px;
       border-radius: 50%;
       background: var(--gold);
+      border: 1px solid var(--black);
     }
-    .exp-header {
+    .company-header {
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
-      margin-bottom: 1.5mm;
+      margin-bottom: 1mm;
     }
-    .exp-company {
-      font-size: 9px;
-      font-weight: 600;
+    .company-name {
+      font-size: 9.5px;
+      font-weight: 700;
       color: var(--white);
       letter-spacing: -0.01em;
+      line-height: 1.2;
     }
-    .exp-date {
+    .company-period {
       font-size: 6.5px;
-      letter-spacing: 0.12em;
-      color: var(--gold-70);
+      font-weight: 400;
+      color: var(--gold-65);
+      letter-spacing: 0.10em;
       white-space: nowrap;
+      padding-top: 1px;
     }
-    .exp-role {
-      font-size: 7px;
-      letter-spacing: 0.14em;
+    .company-role {
+      font-size: 6.5px;
+      font-weight: 500;
+      letter-spacing: 0.16em;
       text-transform: uppercase;
-      color: var(--gold-70);
-      margin-bottom: 1.5mm;
-    }
-    .exp-desc {
-      font-size: 7.5px;
-      line-height: 1.75;
-      color: var(--faded);
-      font-weight: 300;
+      color: var(--gold-65);
       margin-bottom: 2mm;
     }
-
-    /* ── DIVIDER ── */
-    .divider {
-      height: 0.5px;
-      background: var(--gold-20);
+    .company-desc {
+      font-size: 7.5px;
+      font-weight: 300;
+      line-height: 1.78;
+      color: var(--faded);
+      margin-bottom: 2mm;
+    }
+    .company-desc .en {
+      color: rgba(255,255,255,0.30);
+      font-weight: 300;
     }
 
-    /* ── PRINT BUTTON ── */
-    .print-btn {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background: var(--gold);
-      color: var(--black);
-      border: none;
-      padding: 10px 20px;
-      font-family: var(--body);
-      font-size: 11px;
+    /* Sub-projects inside a company */
+    .sub-list { display: flex; flex-direction: column; gap: 2mm; margin-bottom: 2mm; }
+    .sub-item {
+      display: flex;
+      gap: 2mm;
+      align-items: flex-start;
+    }
+    .sub-dot {
+      width: 3px; height: 3px;
+      border-radius: 50%;
+      background: var(--gold-40);
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .sub-content {}
+    .sub-name {
+      font-size: 7.5px;
       font-weight: 600;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      cursor: pointer;
-      z-index: 999;
-      transition: opacity 0.2s;
+      color: var(--cream);
+      margin-bottom: 0.5mm;
     }
-    .print-btn:hover { opacity: 0.85; }
+    .sub-desc {
+      font-size: 7px;
+      font-weight: 300;
+      color: var(--faded);
+      line-height: 1.65;
+    }
 
-    /* ── FOOTER STRIP ── */
-    .footer-strip {
+    /* ─── FOOTER ─── */
+    .footer {
       grid-column: 1 / -1;
       border-top: 0.5px solid var(--gold-20);
       padding: 3mm 8mm;
@@ -360,245 +380,345 @@
       justify-content: space-between;
       align-items: center;
     }
-    .footer-strip span {
-      font-size: 6.5px;
-      letter-spacing: 0.2em;
+    .footer span {
+      font-size: 6px;
+      font-weight: 300;
+      letter-spacing: 0.18em;
       text-transform: uppercase;
       color: var(--muted);
     }
-    .footer-strip .url {
-      color: var(--gold-40);
+    .footer .f-url { color: var(--gold-40); }
+
+    /* ─── PRINT BUTTON ─── */
+    .print-btn {
+      position: fixed;
+      bottom: 20px; right: 20px;
+      background: var(--gold);
+      color: var(--black);
+      border: none;
+      padding: 10px 22px;
+      font-family: var(--f);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      cursor: pointer;
+      z-index: 999;
+      transition: opacity 0.2s;
     }
+    .print-btn:hover { opacity: 0.85; }
+
   </style>
 </head>
 <body>
 
-<button class="print-btn no-print" onclick="window.print()">⬇ Tải PDF</button>
+<button class="print-btn no-print" onclick="window.print()">⬇ Xuất PDF</button>
 
 <div class="page">
 
-  <!-- ═══════════ HEADER ═══════════ -->
+  <!-- TOP GOLD LINE -->
+  <div class="gold-bar"></div>
+
+  <!-- ══════════ HEADER ══════════ -->
   <header class="header">
-    <div class="header-left">
+
+    <!-- Avatar -->
+    <div class="avatar-wrap">
+      <img src="../about/bts/8.jpg" alt="Võ Quang Minh - SONI" />
+    </div>
+
+    <!-- Name -->
+    <div class="header-text">
       <p class="header-eyebrow">Curriculum Vitae · 2026</p>
       <h1 class="header-name">
         Võ Quang Minh
-        <span>SONI</span>
+        <span class="alias">· SONI</span>
       </h1>
-      <p class="header-title">Photographer &nbsp;·&nbsp; Digital Media Strategist &nbsp;·&nbsp; Cinematographer</p>
+      <p class="header-title">Creative Director &nbsp;·&nbsp; Photographer &nbsp;·&nbsp; Digital Media Strategist</p>
     </div>
-    <div class="header-right">
-      <div class="contact-item"><span class="dot"></span> voquangminh771@gmail.com</div>
-      <div class="contact-item"><span class="dot"></span> 0384 316 771</div>
-      <div class="contact-item"><span class="dot"></span> Đà Lạt, Lâm Đồng, Việt Nam</div>
-      <div class="contact-item"><span class="dot"></span> <a href="https://minhvo-soni.github.io">minhvo-soni.github.io</a></div>
+
+    <!-- Contacts -->
+    <div class="header-contacts">
+      <div class="c-row">
+        <div class="c-dot"></div>
+        <span class="c-text">voquangminh771@gmail.com</span>
+      </div>
+      <div class="c-row">
+        <div class="c-dot"></div>
+        <span class="c-text">0384 316 771</span>
+      </div>
+      <div class="c-row">
+        <div class="c-dot"></div>
+        <span class="c-text">Đà Lạt, Lâm Đồng, Việt Nam</span>
+      </div>
+      <div class="c-row">
+        <div class="c-dot"></div>
+        <span class="c-text"><a href="https://minhvo-soni.github.io">minhvo-soni.github.io</a></span>
+      </div>
     </div>
-    <div class="header-bg-text">SONI</div>
+
+    <div class="header-ghost">SONI</div>
   </header>
 
-  <!-- ═══════════ SIDEBAR ═══════════ -->
+  <!-- ══════════ SIDEBAR ══════════ -->
   <aside class="sidebar">
 
     <!-- PROFILE -->
     <div>
-      <div class="section-label">Về Tôi · Profile</div>
-      <p class="bio-text">
-        Nhiếp ảnh gia & Nhà chiến lược truyền thông số với hơn <em>3 năm kinh nghiệm</em> xây dựng visual identity cho các thương hiệu cao cấp tại Việt Nam.<br/><br/>
-        Photographer & Digital Media Strategist specializing in <em>luxury brand storytelling</em> — from fine dining spaces to high-end events across Vietnam.
+      <div class="sec">Về Tôi · Profile</div>
+      <p class="bio">
+        <strong>Nhiếp ảnh gia & Nhà sáng tạo nội dung số</strong> với nhiều năm kinh nghiệm xây dựng visual identity cho các thương hiệu luxury tại Việt Nam.<br/><br/>
+        Chuyên kể câu chuyện thương hiệu qua hình ảnh — từ không gian F&amp;B, sự kiện cao cấp đến fashion portrait và sản xuất video.
       </p>
     </div>
 
-    <div class="divider"></div>
+    <div class="div"></div>
 
-    <!-- SKILLS -->
+    <!-- CREATIVE SKILLS -->
     <div>
-      <div class="section-label">Kỹ Năng · Skills</div>
+      <div class="sec">Kỹ Năng · Skills</div>
       <div class="skill-list">
-        <div class="skill-item">
-          <div class="skill-name">Photography <span class="level">Expert</span></div>
-          <div class="skill-bar"><div class="skill-bar-fill" style="width:95%"></div></div>
+        <div class="sk">
+          <div class="sk-header">
+            <span class="sk-name">Photography</span>
+            <span class="sk-sub">Expert</span>
+          </div>
+          <div class="sk-bar"><div class="sk-fill" style="width:96%"></div></div>
         </div>
-        <div class="skill-item">
-          <div class="skill-name">Cinematography <span class="level">Advanced</span></div>
-          <div class="skill-bar"><div class="skill-bar-fill" style="width:88%"></div></div>
+        <div class="sk">
+          <div class="sk-header">
+            <span class="sk-name">Creative Direction</span>
+            <span class="sk-sub">Expert</span>
+          </div>
+          <div class="sk-bar"><div class="sk-fill" style="width:90%"></div></div>
         </div>
-        <div class="skill-item">
-          <div class="skill-name">Color Grading <span class="level">Advanced</span></div>
-          <div class="skill-bar"><div class="skill-bar-fill" style="width:85%"></div></div>
+        <div class="sk">
+          <div class="sk-header">
+            <span class="sk-name">Adobe Lightroom</span>
+            <span class="sk-sub">Expert</span>
+          </div>
+          <div class="sk-bar"><div class="sk-fill" style="width:94%"></div></div>
         </div>
-        <div class="skill-item">
-          <div class="skill-name">Digital Strategy <span class="level">Advanced</span></div>
-          <div class="skill-bar"><div class="skill-bar-fill" style="width:82%"></div></div>
+        <div class="sk">
+          <div class="sk-header">
+            <span class="sk-name">Adobe Photoshop</span>
+            <span class="sk-sub">Advanced</span>
+          </div>
+          <div class="sk-bar"><div class="sk-fill" style="width:85%"></div></div>
         </div>
-        <div class="skill-item">
-          <div class="skill-name">S-Log3 Workflow <span class="level">Expert</span></div>
-          <div class="skill-bar"><div class="skill-bar-fill" style="width:90%"></div></div>
+        <div class="sk">
+          <div class="sk-header">
+            <span class="sk-name">Adobe Premiere Pro</span>
+            <span class="sk-sub">Advanced</span>
+          </div>
+          <div class="sk-bar"><div class="sk-fill" style="width:82%"></div></div>
         </div>
-        <div class="skill-item">
-          <div class="skill-name">Brand Storytelling <span class="level">Expert</span></div>
-          <div class="skill-bar"><div class="skill-bar-fill" style="width:92%"></div></div>
+        <div class="sk">
+          <div class="sk-header">
+            <span class="sk-name">Color Grading</span>
+            <span class="sk-sub">Expert</span>
+          </div>
+          <div class="sk-bar"><div class="sk-fill" style="width:92%"></div></div>
+        </div>
+        <div class="sk">
+          <div class="sk-header">
+            <span class="sk-name">Cinematography</span>
+            <span class="sk-sub">Advanced</span>
+          </div>
+          <div class="sk-bar"><div class="sk-fill" style="width:84%"></div></div>
+        </div>
+        <div class="sk">
+          <div class="sk-header">
+            <span class="sk-name">Brand Storytelling</span>
+            <span class="sk-sub">Expert</span>
+          </div>
+          <div class="sk-bar"><div class="sk-fill" style="width:93%"></div></div>
+        </div>
+        <div class="sk">
+          <div class="sk-header">
+            <span class="sk-name">Digital Strategy</span>
+            <span class="sk-sub">Advanced</span>
+          </div>
+          <div class="sk-bar"><div class="sk-fill" style="width:80%"></div></div>
         </div>
       </div>
     </div>
 
-    <div class="divider"></div>
+    <div class="div"></div>
 
-    <!-- EQUIPMENT -->
+    <!-- TOOLS -->
     <div>
-      <div class="section-label">Thiết Bị · Equipment</div>
-      <div class="equip-list">
-        <div class="equip-item">Sony α7 IV (Primary Camera)</div>
-        <div class="equip-item">S-Log3 / S-Cinetone Workflow</div>
-        <div class="equip-item">FL / IN Creative Look Profile</div>
-        <div class="equip-item">Sony G Master Lenses</div>
-        <div class="equip-item">Adobe Lightroom & Premiere Pro</div>
-        <div class="equip-item">DaVinci Resolve</div>
+      <div class="sec">Công Cụ · Tools</div>
+      <div class="tag-wrap">
+        <span class="tag g">Sony α7 IV</span>
+        <span class="tag g">S-Log3</span>
+        <span class="tag g">S-Cinetone</span>
+        <span class="tag">Lightroom</span>
+        <span class="tag">Photoshop</span>
+        <span class="tag">Premiere Pro</span>
+        <span class="tag">DaVinci Resolve</span>
+        <span class="tag">Capture One</span>
+        <span class="tag">Canva Pro</span>
       </div>
     </div>
 
-    <div class="divider"></div>
+    <div class="div"></div>
 
     <!-- SPECIALTIES -->
     <div>
-      <div class="section-label">Chuyên Môn · Specialties</div>
-      <div class="tag-group">
-        <span class="tag gold">Event Photography</span>
-        <span class="tag gold">Wedding</span>
-        <span class="tag gold">F&B / Food</span>
-        <span class="tag gold">Fashion Portrait</span>
-        <span class="tag gold">Architecture</span>
-        <span class="tag gold">Brand Visual</span>
+      <div class="sec">Chuyên Môn</div>
+      <div class="tag-wrap">
+        <span class="tag g">Event Photo</span>
+        <span class="tag g">Wedding</span>
+        <span class="tag g">F&amp;B Visual</span>
+        <span class="tag g">Fashion Portrait</span>
+        <span class="tag g">Architecture</span>
         <span class="tag">MV Production</span>
         <span class="tag">Content Strategy</span>
         <span class="tag">Social Media</span>
       </div>
     </div>
 
-    <div class="divider"></div>
+    <div class="div"></div>
 
     <!-- LANGUAGES -->
     <div>
-      <div class="section-label">Ngôn Ngữ · Languages</div>
-      <div class="skill-list">
-        <div class="skill-item">
-          <div class="skill-name">Tiếng Việt <span class="level">Native</span></div>
-          <div class="skill-bar"><div class="skill-bar-fill" style="width:100%"></div></div>
+      <div class="sec">Ngôn Ngữ</div>
+      <div class="lang-list">
+        <div class="lang-item">
+          <div class="lang-name">Tiếng Việt <span class="lang-level">Bản ngữ · Native</span></div>
+          <div class="lang-bar"><div class="lang-fill" style="width:100%"></div></div>
         </div>
-        <div class="skill-item">
-          <div class="skill-name">English <span class="level">Intermediate</span></div>
-          <div class="skill-bar"><div class="skill-bar-fill" style="width:65%"></div></div>
+        <div class="lang-item">
+          <div class="lang-name">English <span class="lang-level">Intermediate</span></div>
+          <div class="lang-bar"><div class="lang-fill" style="width:62%"></div></div>
         </div>
       </div>
     </div>
 
   </aside>
 
-  <!-- ═══════════ MAIN ═══════════ -->
+  <!-- ══════════ MAIN ══════════ -->
   <main class="main">
 
-    <!-- EXPERIENCE -->
     <div>
-      <div class="section-label">Kinh Nghiệm · Experience</div>
+      <div class="sec">Kinh Nghiệm · Experience</div>
       <div class="exp-list">
 
-        <div class="exp-item">
-          <div class="exp-header">
-            <div class="exp-company">Golden Sun Hotel — Đà Lạt</div>
-            <div class="exp-date">2023 — Hiện tại</div>
+        <!-- GOLDEN SUN GROUP -->
+        <div class="company-block">
+          <div class="company-header">
+            <div class="company-name">Golden Sun Group</div>
+            <div class="company-period">2023 — Hiện tại</div>
           </div>
-          <div class="exp-role">Photographer & Video Content Creator</div>
-          <p class="exp-desc">
-            Phụ trách toàn bộ nội dung hình ảnh và video cho 3 venues: khách sạn chính, Golden Sun Lounge và La Maritza Music Sky Lounge. Xây dựng visual identity theo phong cách European Luxury với tông warm sang trọng.<br/>
-            <em style="color:rgba(212,175,55,0.6);font-style:normal;">Full visual &amp; video content for 3 venues. European Luxury aesthetic with warm tones using Sony α7 IV &amp; S-Log3 workflow.</em>
+          <div class="company-role">Photographer &amp; Visual Content Creator</div>
+          <p class="company-desc">
+            Phụ trách toàn bộ nội dung hình ảnh và video cho hệ thống thương hiệu Golden Sun — bao gồm các venue tại Đà Lạt và Mang Den (Kon Tum). Xây dựng visual identity đồng bộ theo phong cách European Luxury.
+            <br/><span class="en">Full visual &amp; video content across Golden Sun brand ecosystem — Đà Lạt &amp; Mang Den venues.</span>
           </p>
-          <div class="tag-group">
+          <div class="sub-list">
+            <div class="sub-item">
+              <div class="sub-dot"></div>
+              <div class="sub-content">
+                <div class="sub-name">Golden Sun Hotel Đà Lạt</div>
+                <div class="sub-desc">Nhiếp ảnh kiến trúc, không gian nội thất &amp; hình ảnh thương hiệu tổng thể. Architecture &amp; brand photography.</div>
+              </div>
+            </div>
+            <div class="sub-item">
+              <div class="sub-dot"></div>
+              <div class="sub-content">
+                <div class="sub-name">Golden Sun Lounge</div>
+                <div class="sub-desc">Chụp ảnh không gian lounge &amp; ẩm thực cao cấp. F&amp;B &amp; atmosphere photography.</div>
+              </div>
+            </div>
+            <div class="sub-item">
+              <div class="sub-dot"></div>
+              <div class="sub-content">
+                <div class="sub-name">La Maritza Music Sky Lounge</div>
+                <div class="sub-desc">Nhiếp ảnh sự kiện âm nhạc &amp; không gian entertainment trên cao. Event &amp; lifestyle photography.</div>
+              </div>
+            </div>
+            <div class="sub-item">
+              <div class="sub-dot"></div>
+              <div class="sub-content">
+                <div class="sub-name">Golden Sun Mang Den · Kon Tum</div>
+                <div class="sub-desc">Chụp ảnh resort thiên nhiên cao nguyên — không gian nghỉ dưỡng &amp; trải nghiệm khách hàng. Highland resort &amp; nature photography.</div>
+              </div>
+            </div>
+          </div>
+          <div class="tag-wrap">
             <span class="tag">Sony α7 IV</span>
             <span class="tag">S-Log3</span>
             <span class="tag">FL / IN Profile</span>
             <span class="tag">Architecture</span>
-            <span class="tag">F&B</span>
+            <span class="tag">F&amp;B</span>
+            <span class="tag">Event</span>
           </div>
         </div>
 
-        <div class="exp-item">
-          <div class="exp-header">
-            <div class="exp-company">Golden Sun Hotel — Mang Den, Kon Tum</div>
-            <div class="exp-date">2024</div>
+        <!-- IN HOLDING VIETNAM -->
+        <div class="company-block">
+          <div class="company-header">
+            <div class="company-name">In Holding Vietnam</div>
+            <div class="company-period">2023 — 2024</div>
           </div>
-          <div class="exp-role">Resort Photographer</div>
-          <p class="exp-desc">
-            Chụp ảnh resort cao cấp tại Mang Den — thiên nhiên, không gian nghỉ dưỡng và trải nghiệm khách hàng.<br/>
-            <em style="color:rgba(212,175,55,0.6);font-style:normal;">Resort &amp; nature photography at Mang Den highland retreat, Kon Tum.</em>
+          <div class="company-role">Event &amp; Brand Photographer</div>
+          <p class="company-desc">
+            Phụ trách hình ảnh cho hệ thống venue cao cấp thuộc In Holding Vietnam tại TP.HCM — tiệc cưới, sự kiện doanh nghiệp và F&amp;B. Phối hợp chặt chẽ với team marketing xây dựng visual identity sang trọng.
+            <br/><span class="en">Wedding, corporate events &amp; F&amp;B photography for luxury venues in Ho Chi Minh City.</span>
           </p>
-          <div class="tag-group">
-            <span class="tag">Resort</span>
-            <span class="tag">Nature</span>
-            <span class="tag">Lifestyle</span>
+          <div class="sub-list">
+            <div class="sub-item">
+              <div class="sub-dot"></div>
+              <div class="sub-content">
+                <div class="sub-name">White Palace · TP.HCM</div>
+                <div class="sub-desc">Không gian tiệc sự kiện cao cấp — chụp ảnh tiệc cưới, hội nghị doanh nghiệp &amp; F&amp;B. Premium event space photography.</div>
+              </div>
+            </div>
+            <div class="sub-item">
+              <div class="sub-dot"></div>
+              <div class="sub-content">
+                <div class="sub-name">Gem Center · TP.HCM</div>
+                <div class="sub-desc">Chụp ảnh concept tiệc cưới tại một trong những venue sự kiện lớn nhất TP.HCM. Wedding concept photography.</div>
+              </div>
+            </div>
           </div>
-        </div>
-
-        <div class="exp-item">
-          <div class="exp-header">
-            <div class="exp-company">Golden Sun Hotel — Silhouette &amp; Silence</div>
-            <div class="exp-date">2025 — 2026</div>
-          </div>
-          <div class="exp-role">Fashion & Portrait Photographer</div>
-          <p class="exp-desc">
-            Bộ ảnh chân dung thời trang cao cấp — 12 khoảnh khắc chân dung sang trọng trong không gian khách sạn. Khai thác ánh sáng tự nhiên và bóng đổ để tạo cảm giác câu chuyện thị giác.<br/>
-            <em style="color:rgba(212,175,55,0.6);font-style:normal;">12-image luxury fashion portrait series — natural light &amp; shadow storytelling in hotel interiors.</em>
-          </p>
-          <div class="tag-group">
-            <span class="tag">Fashion Portrait</span>
-            <span class="tag">Natural Light</span>
-            <span class="tag">Editorial</span>
-          </div>
-        </div>
-
-        <div class="exp-item">
-          <div class="exp-header">
-            <div class="exp-company">White Palace — In Holding Vietnam, TP.HCM</div>
-            <div class="exp-date">2023 — 2024</div>
-          </div>
-          <div class="exp-role">Event & F&B Photographer</div>
-          <p class="exp-desc">
-            Phụ trách hình ảnh tiệc cưới, sự kiện doanh nghiệp và F&B cho không gian sự kiện cao cấp tại TP.HCM. Phối hợp với team marketing xây dựng bộ visual identity sang trọng.<br/>
-            <em style="color:rgba(212,175,55,0.6);font-style:normal;">Wedding, corporate events &amp; F&amp;B photography at a premium event venue in Ho Chi Minh City.</em>
-          </p>
-          <div class="tag-group">
+          <div class="tag-wrap">
             <span class="tag">Wedding</span>
             <span class="tag">Corporate Events</span>
-            <span class="tag">F&B</span>
+            <span class="tag">F&amp;B</span>
+            <span class="tag">Brand Visual</span>
           </div>
         </div>
 
-        <div class="exp-item">
-          <div class="exp-header">
-            <div class="exp-company">Gem Center — TP.HCM</div>
-            <div class="exp-date">2023</div>
+        <!-- INDEPENDENT -->
+        <div class="company-block">
+          <div class="company-header">
+            <div class="company-name">Dự Án Độc Lập · Freelance Projects</div>
+            <div class="company-period">2023 — 2026</div>
           </div>
-          <div class="exp-role">Wedding Concept Photographer</div>
-          <p class="exp-desc">
-            Chụp ảnh concept tiệc cưới tại Gem Center — một trong những venue sự kiện lớn nhất TP.HCM.
-          </p>
-          <div class="tag-group">
-            <span class="tag">Wedding Concept</span>
-            <span class="tag">Large Venue</span>
+          <div class="company-role">Creative Director &amp; Cinematographer</div>
+          <div class="sub-list">
+            <div class="sub-item">
+              <div class="sub-dot"></div>
+              <div class="sub-content">
+                <div class="sub-name">Silhouette &amp; Silence — Fashion Portrait Series</div>
+                <div class="sub-desc">Bộ ảnh chân dung thời trang cao cấp gồm 12 khoảnh khắc — khai thác ánh sáng tự nhiên &amp; bóng đổ để xây dựng câu chuyện thị giác tại Golden Sun Hotel.</div>
+              </div>
+            </div>
+            <div class="sub-item">
+              <div class="sub-dot"></div>
+              <div class="sub-content">
+                <div class="sub-name">Chăm Hoa — Music Video Production</div>
+                <div class="sub-desc">Đảm nhận vai trò DoP (Director of Photography) — lên kế hoạch cảnh quay, ánh sáng và chỉ đạo hình ảnh toàn bộ MV âm nhạc.</div>
+              </div>
+            </div>
           </div>
-        </div>
-
-        <div class="exp-item">
-          <div class="exp-header">
-            <div class="exp-company">Chăm Hoa — Music Video Production</div>
-            <div class="exp-date">2023</div>
-          </div>
-          <div class="exp-role">Cinematographer / Director of Photography</div>
-          <p class="exp-desc">
-            Đảm nhận vai trò quay phim chính trong dự án sản xuất MV âm nhạc — lên kế hoạch cảnh quay, ánh sáng và chỉ đạo hình ảnh.
-          </p>
-          <div class="tag-group">
-            <span class="tag">Music Video</span>
+          <div class="tag-wrap">
+            <span class="tag">Fashion Portrait</span>
             <span class="tag">DoP</span>
-            <span class="tag">Cinematography</span>
+            <span class="tag">Music Video</span>
+            <span class="tag">Editorial</span>
           </div>
         </div>
 
@@ -607,14 +727,13 @@
 
   </main>
 
-  <!-- ═══════════ FOOTER ═══════════ -->
-  <footer class="footer-strip">
-    <span>Võ Quang Minh — SONI · Curriculum Vitae 2026</span>
-    <span class="url">minhvo-soni.github.io</span>
-    <span>voquangminh771@gmail.com · 0384 316 771</span>
+  <!-- ══════════ FOOTER ══════════ -->
+  <footer class="footer">
+    <span>Võ Quang Minh — SONI · CV 2026</span>
+    <span class="f-url">minhvo-soni.github.io</span>
+    <span>voquangminh771@gmail.com &nbsp;·&nbsp; 0384 316 771</span>
   </footer>
 
 </div>
-
 </body>
 </html>
