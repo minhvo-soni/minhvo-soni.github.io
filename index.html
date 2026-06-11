@@ -774,7 +774,7 @@
               ><span id="gal-cur">01</span
               ><span style="margin: 0 0.45em; color: rgba(255, 255, 255, 0.1)"
                 >/</span
-              >07</span
+              >08</span
             >
           </div>
         </div>
@@ -933,6 +933,27 @@
           >
           <div
             id="gal-dot-6"
+            style="
+              width: 6px;
+              height: 6px;
+              border-radius: 50%;
+              background: rgba(255, 255, 255, 0.12);
+              transition: all 0.4s;
+            "
+          ></div>
+          <span
+            class="gal-dot-label"
+            style="
+              font-family: &quot;Be Vietnam Pro&quot;, system-ui, sans-serif;
+              font-size: 9px;
+              letter-spacing: 0.2em;
+              text-transform: uppercase;
+              color: rgba(255, 255, 255, 0.18);
+            "
+            >08</span
+          >
+          <div
+            id="gal-dot-7"
             style="
               width: 6px;
               height: 6px;
@@ -1159,11 +1180,49 @@
             </div>
           </div>
 
-          <!-- ───────────────────── VENUE 04 · Golden Sun Lounge ─────────────────────── -->
+          <!-- ───────────────────── VENUE 09 · Gem Center ─────────────────────── -->
 
           <div
             class="gal-card wp-cover"
             data-venue="5"
+            data-phase="0"
+            onclick="openGemNewLightbox()"
+          >
+            <div class="gal-meta">
+              <span class="gal-venue-tag">09 · Gem Center</span>
+              <span class="gal-phase-num">Phase 01</span>
+            </div>
+            <div class="gal-img-wrap">
+              <img
+                src="./assets/gallery/Gem/76.jpg"
+                alt="Gem Center"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+            <div class="gal-bottom">
+              <h3 class="gal-phase-name">Symphony of Lights</h3>
+              <p class="wp-cover-cta">Click to explore</p>
+            </div>
+            <div class="gal-arrow">
+              <svg
+                width="12"
+                height="12"
+                fill="none"
+                stroke="rgba(255,255,255,.38)"
+                stroke-width="1.5"
+                viewBox="0 0 24 24"
+              >
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </div>
+          </div>
+
+          <!-- ───────────────────── VENUE 04 · Golden Sun Lounge ─────────────────────── -->
+
+          <div
+            class="gal-card wp-cover"
+            data-venue="6"
             data-phase="0"
             onclick="openLoungeLightbox()"
           >
@@ -1201,7 +1260,7 @@
 
           <div
             class="gal-card wp-cover"
-            data-venue="6"
+            data-venue="7"
             data-phase="0"
             onclick="openMangdenLightbox()"
           >
@@ -1239,7 +1298,7 @@
 
           <div
             class="gal-card wp-cover"
-            data-venue="7"
+            data-venue="8"
             data-phase="0"
             onclick="openGemLightbox()"
           >
@@ -1400,6 +1459,23 @@
           >
             <div
               id="gal-fill-6"
+              style="
+                position: absolute;
+                inset: 0;
+                background: #d4af37;
+                width: 0%;
+              "
+            ></div>
+          </div>
+          <div
+            style="
+              flex: 1;
+              background: rgba(255, 255, 255, 0.04);
+              position: relative;
+            "
+          >
+            <div
+              id="gal-fill-7"
               style="
                 position: absolute;
                 inset: 0;
@@ -3135,6 +3211,7 @@
           closeGoldenSunHotelLightbox();
           closeChamHoaLightbox();
           closeGemLightbox();
+          closeGemNewLightbox();
           closeLoungeLightbox();
           closeMangdenLightbox();
         }
@@ -3203,6 +3280,22 @@
       }
       function closeGemLightbox() {
         var lb = document.getElementById("gem-lb");
+        if (!lb) return;
+        lb.classList.remove("is-open");
+        document.body.style.overflow = "";
+      }
+      function openGemNewLightbox() {
+        var lb = document.getElementById("gem-new-lb");
+        if (!lb) return;
+        if (typeof gtag !== "undefined") {
+          gtag("event", "open_gallery", { gallery_name: "Symphony of Lights" });
+        }
+        lb.classList.add("is-open");
+        document.body.style.overflow = "hidden";
+        lb.querySelector("#gem-new-lb-scroll").scrollTop = 0;
+      }
+      function closeGemNewLightbox() {
+        var lb = document.getElementById("gem-new-lb");
         if (!lb) return;
         lb.classList.remove("is-open");
         document.body.style.overflow = "";
@@ -3386,6 +3479,7 @@
           "gal-fill-4",
           "gal-fill-5",
           "gal-fill-6",
+          "gal-fill-7",
         ].map(function (id) {
           return document.getElementById(id);
         });
@@ -3397,6 +3491,7 @@
           ["gal-dot-4"],
           ["gal-dot-5"],
           ["gal-dot-6"],
+          ["gal-dot-7"],
         ].map(function (g) {
           return g.map(function (id) {
             return document.getElementById(id);
@@ -3408,6 +3503,7 @@
           "Golden Sun Hotel",
           "GS Hotel · Atmosphere",
           "Drinkery",
+          "Symphony of Lights",
           "Golden Sun Lounge",
           "Golden Sun Mang Den",
           "Gem Center",
@@ -5265,6 +5361,205 @@
       </div>
     </div>
     <!-- /drinkery-lb -->
+
+    <!-- ══════════════════════════════════════════
+     GEM CENTER NEW LIGHTBOX
+══════════════════════════════════════════ -->
+    <div
+      id="gem-new-lb"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Gem Center — Symphony of Lights"
+    >
+      <button
+        id="gem-new-lb-close"
+        aria-label="Đóng gallery"
+        onclick="closeGemNewLightbox()"
+      >
+        <svg
+          width="18"
+          height="18"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.6"
+          viewBox="0 0 24 24"
+        >
+          <path d="M18 6L6 18M6 6l12 12" />
+        </svg>
+      </button>
+      <div
+        id="gem-new-lb-scroll"
+        data-lenis-prevent
+        onclick="if (event.target === this) closeGemNewLightbox();"
+      >
+        <div id="gem-new-lb-header">
+          <p class="cuisine-eyebrow">
+            09 · Gem Center · Symphony of Lights
+          </p>
+          <h2
+            style="
+              font-family: &quot;Be Vietnam Pro&quot;, system-ui, sans-serif;
+              font-size: clamp(26px, 3.5vw, 52px);
+              font-weight: 600;
+              letter-spacing: 0.08em;
+              color: #fff;
+              margin: 0.4rem 0 0.6rem;
+            "
+          >
+            Symphony of Lights
+          </h2>
+          <p
+            style="
+              font-family: &quot;Be Vietnam Pro&quot;, system-ui, sans-serif;
+              font-size: clamp(13px, 1.1vw, 15px);
+              color: rgba(255, 255, 255, 0.48);
+              max-width: 520px;
+              margin: 0 auto;
+              line-height: 1.75;
+              letter-spacing: 0;
+            "
+          >
+            Bản giao hưởng ánh sáng tại đại sảnh Gem Center — nơi kiến trúc đương đại kết hợp cùng nghệ thuật trình diễn ánh sáng, tạo nên những lát cắt không gian tráng lệ, lộng lẫy và tràn đầy cảm xúc.
+          </p>
+        </div>
+
+        <div id="gem-new-grid">
+          <div class="cuisine-item">
+            <div class="cuisine-img-wrap">
+              <img
+                src="./assets/gallery/Gem/76.jpg"
+                alt="Symphony of Lights — Concept 01"
+                decoding="async"
+              />
+            </div>
+            <p class="cuisine-cap-name">Symphony of Lights 01</p>
+            <p class="cuisine-cap-desc">Ánh sáng sảnh tiệc</p>
+          </div>
+          <div class="cuisine-item">
+            <div class="cuisine-img-wrap">
+              <img
+                src="./assets/gallery/Gem/14.jpg"
+                alt="Symphony of Lights — Concept 02"
+                decoding="async"
+              />
+            </div>
+            <p class="cuisine-cap-name">Symphony of Lights 02</p>
+            <p class="cuisine-cap-desc">Chi tiết không gian</p>
+          </div>
+          <div class="cuisine-item">
+            <div class="cuisine-img-wrap">
+              <img
+                src="./assets/gallery/Gem/19.jpg"
+                alt="Symphony of Lights — Concept 03"
+                decoding="async"
+              />
+            </div>
+            <p class="cuisine-cap-name">Symphony of Lights 03</p>
+            <p class="cuisine-cap-desc">Chi tiết không gian</p>
+          </div>
+          <div class="cuisine-item">
+            <div class="cuisine-img-wrap">
+              <img
+                src="./assets/gallery/Gem/31.jpg"
+                alt="Symphony of Lights — Concept 04"
+                decoding="async"
+              />
+            </div>
+            <p class="cuisine-cap-name">Symphony of Lights 04</p>
+            <p class="cuisine-cap-desc">Chi tiết không gian</p>
+          </div>
+          <div class="cuisine-item">
+            <div class="cuisine-img-wrap">
+              <img
+                src="./assets/gallery/Gem/32.jpg"
+                alt="Symphony of Lights — Concept 05"
+                decoding="async"
+              />
+            </div>
+            <p class="cuisine-cap-name">Symphony of Lights 05</p>
+            <p class="cuisine-cap-desc">Chi tiết không gian</p>
+          </div>
+          <div class="cuisine-item">
+            <div class="cuisine-img-wrap">
+              <img
+                src="./assets/gallery/Gem/39.jpg"
+                alt="Symphony of Lights — Concept 06"
+                decoding="async"
+              />
+            </div>
+            <p class="cuisine-cap-name">Symphony of Lights 06</p>
+            <p class="cuisine-cap-desc">Chi tiết không gian</p>
+          </div>
+          <div class="cuisine-item">
+            <div class="cuisine-img-wrap">
+              <img
+                src="./assets/gallery/Gem/45.jpg"
+                alt="Symphony of Lights — Concept 07"
+                decoding="async"
+              />
+            </div>
+            <p class="cuisine-cap-name">Symphony of Lights 07</p>
+            <p class="cuisine-cap-desc">Chi tiết không gian</p>
+          </div>
+          <div class="cuisine-item">
+            <div class="cuisine-img-wrap">
+              <img
+                src="./assets/gallery/Gem/54.jpg"
+                alt="Symphony of Lights — Concept 08"
+                decoding="async"
+              />
+            </div>
+            <p class="cuisine-cap-name">Symphony of Lights 08</p>
+            <p class="cuisine-cap-desc">Chi tiết không gian</p>
+          </div>
+          <div class="cuisine-item">
+            <div class="cuisine-img-wrap">
+              <img
+                src="./assets/gallery/Gem/59.jpg"
+                alt="Symphony of Lights — Concept 09"
+                decoding="async"
+              />
+            </div>
+            <p class="cuisine-cap-name">Symphony of Lights 09</p>
+            <p class="cuisine-cap-desc">Chi tiết không gian</p>
+          </div>
+          <div class="cuisine-item">
+            <div class="cuisine-img-wrap">
+              <img
+                src="./assets/gallery/Gem/68.jpg"
+                alt="Symphony of Lights — Concept 10"
+                decoding="async"
+              />
+            </div>
+            <p class="cuisine-cap-name">Symphony of Lights 10</p>
+            <p class="cuisine-cap-desc">Chi tiết không gian</p>
+          </div>
+          <div class="cuisine-item">
+            <div class="cuisine-img-wrap">
+              <img
+                src="./assets/gallery/Gem/70.jpg"
+                alt="Symphony of Lights — Concept 11"
+                decoding="async"
+              />
+            </div>
+            <p class="cuisine-cap-name">Symphony of Lights 11</p>
+            <p class="cuisine-cap-desc">Chi tiết không gian</p>
+          </div>
+          <div class="cuisine-item">
+            <div class="cuisine-img-wrap">
+              <img
+                src="./assets/gallery/Gem/85.jpg"
+                alt="Symphony of Lights — Concept 12"
+                decoding="async"
+              />
+            </div>
+            <p class="cuisine-cap-name">Symphony of Lights 12</p>
+            <p class="cuisine-cap-desc">Chi tiết không gian</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /gem-new-lb -->
 
     <!-- ══════════════════════════════════════════
      GOLDEN SUN LOUNGE LIGHTBOX
