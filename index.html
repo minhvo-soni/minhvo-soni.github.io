@@ -3143,6 +3143,9 @@
       function openCuisineGallery() {
         var lb = document.getElementById("cuisine-lb");
         if (!lb) return;
+        if (typeof gtag !== "undefined") {
+          gtag("event", "open_gallery", { gallery_name: "Silhouette & Silence" });
+        }
         lb.classList.add("is-open");
         document.body.style.overflow = "hidden";
         lb.querySelector("#cuisine-lb-scroll").scrollTop = 0;
@@ -3157,6 +3160,9 @@
       function openChamHoaLightbox() {
         var lb = document.getElementById("cham-hoa-lb");
         if (!lb) return;
+        if (typeof gtag !== "undefined") {
+          gtag("event", "open_gallery", { gallery_name: "Chăm Hoa MV" });
+        }
         lb.classList.add("is-open");
         document.body.style.overflow = "hidden";
         lb.querySelector("#cham-hoa-lb-scroll").scrollTop = 0;
@@ -3171,6 +3177,9 @@
       function openGoldenSunHotelLightbox() {
         var lb = document.getElementById("gs-hotel-lb");
         if (!lb) return;
+        if (typeof gtag !== "undefined") {
+          gtag("event", "open_gallery", { gallery_name: "Golden Sun Hotel" });
+        }
         lb.classList.add("is-open");
         document.body.style.overflow = "hidden";
         lb.querySelector("#gs-hotel-lb-scroll").scrollTop = 0;
@@ -3185,6 +3194,9 @@
       function openGemLightbox() {
         var lb = document.getElementById("gem-lb");
         if (!lb) return;
+        if (typeof gtag !== "undefined") {
+          gtag("event", "open_gallery", { gallery_name: "Gem Center" });
+        }
         lb.classList.add("is-open");
         document.body.style.overflow = "hidden";
         lb.querySelector("#gem-lb-scroll").scrollTop = 0;
@@ -3198,6 +3210,9 @@
       function openDrinkeryLightbox() {
         var lb = document.getElementById("drinkery-lb");
         if (!lb) return;
+        if (typeof gtag !== "undefined") {
+          gtag("event", "open_gallery", { gallery_name: "Drinkery" });
+        }
         lb.classList.add("is-open");
         document.body.style.overflow = "hidden";
         lb.querySelector("#drinkery-lb-scroll").scrollTop = 0;
@@ -3211,6 +3226,9 @@
       function openLoungeLightbox() {
         var lb = document.getElementById("lounge-lb");
         if (!lb) return;
+        if (typeof gtag !== "undefined") {
+          gtag("event", "open_gallery", { gallery_name: "Velvet Hour" });
+        }
         lb.classList.add("is-open");
         document.body.style.overflow = "hidden";
         lb.querySelector("#lounge-lb-scroll").scrollTop = 0;
@@ -3224,6 +3242,9 @@
       function openMangdenLightbox() {
         var lb = document.getElementById("mangden-lb");
         if (!lb) return;
+        if (typeof gtag !== "undefined") {
+          gtag("event", "open_gallery", { gallery_name: "Concept Menu" });
+        }
         lb.classList.add("is-open");
         document.body.style.overflow = "hidden";
         lb.querySelector("#mangden-lb-scroll").scrollTop = 0;
@@ -6302,6 +6323,11 @@
         
         downloadBtn.addEventListener("click", function(e) {
           e.preventDefault();
+          if (typeof gtag !== "undefined") {
+            gtag("event", "click_view_cv_button", {
+              event_category: "button_click"
+            });
+          }
           modal.classList.add("active");
           input.value = "";
           errorMsg.classList.remove("active");
@@ -6327,6 +6353,12 @@
           if (val === CORRECT_PASSWORD || val === "soni2026" || val === "soni@2026") {
             // Mật khẩu đúng -> Mở CV sang tab mới để xem/tải
             window.open("./assets/CV-SoniVQM.pdf", "_blank");
+            if (typeof gtag !== "undefined") {
+              gtag("event", "view_cv_success", {
+                event_category: "document",
+                event_label: "CV-SoniVQM"
+              });
+            }
             closeModal();
           } else {
             // Mật khẩu sai -> Hiệu ứng rung thẻ và báo đỏ
