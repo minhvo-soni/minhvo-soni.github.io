@@ -1654,7 +1654,8 @@ video {
   cursor: zoom-in;
 }
 
-.cuisine-img-wrap img {
+.cuisine-img-wrap img,
+.cuisine-img-wrap video {
   width: 100%;
   height: auto;
   object-fit: unset;
@@ -1693,13 +1694,21 @@ video {
     z-index: 20;
   }
   #cuisine-grid .cuisine-item:hover .cuisine-img-wrap img,
+  #cuisine-grid .cuisine-item:hover .cuisine-img-wrap video,
   #gem-grid .cuisine-item:hover .cuisine-img-wrap img,
+  #gem-grid .cuisine-item:hover .cuisine-img-wrap video,
   #gem-new-grid .cuisine-item:hover .cuisine-img-wrap img,
+  #gem-new-grid .cuisine-item:hover .cuisine-img-wrap video,
   #lounge-grid .cuisine-item:hover .cuisine-img-wrap img,
+  #lounge-grid .cuisine-item:hover .cuisine-img-wrap video,
   #mangden-grid .cuisine-item:hover .cuisine-img-wrap img,
+  #mangden-grid .cuisine-item:hover .cuisine-img-wrap video,
   #gs-hotel-grid .cuisine-item:hover .cuisine-img-wrap img,
+  #gs-hotel-grid .cuisine-item:hover .cuisine-img-wrap video,
   #drinkery-grid .cuisine-item:hover .cuisine-img-wrap img,
-  #cham-hoa-grid .cuisine-item:hover .cuisine-img-wrap img {
+  #drinkery-grid .cuisine-item:hover .cuisine-img-wrap video,
+  #cham-hoa-grid .cuisine-item:hover .cuisine-img-wrap img,
+  #cham-hoa-grid .cuisine-item:hover .cuisine-img-wrap video {
     transform: scale(1.08);
   }
 }

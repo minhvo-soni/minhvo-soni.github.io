@@ -1233,7 +1233,7 @@
             </div>
             <div class="gal-img-wrap">
               <img
-                src="./assets/gallery/lougne/lougne-4.webp"
+                src="./assets/gallery/lougne/lougne-5.webp"
                 alt="Golden Sun Lounge"
                 loading="lazy"
                 decoding="async"
@@ -4084,6 +4084,7 @@
           if (e.key === "Escape" && lb.classList.contains("is-open"))
             closeLightbox();
         });
+        window.openVideoLightbox = openLightbox;
       })();
     </script>
 
@@ -5663,6 +5664,31 @@
             <p class="cuisine-cap-name">Chảy trôi</p>
             <p class="cuisine-cap-desc">Khoảnh khắc lắng đọng giữa nhịp sống</p>
           </div>
+          <div class="cuisine-item">
+            <div class="cuisine-img-wrap">
+              <video
+                src="./assets/gallery/lougne/lougne-4.mp4"
+                muted
+                loop
+                playsinline
+                autoplay
+                preload="metadata"
+              ></video>
+            </div>
+            <p class="cuisine-cap-name">Nghệ thuật pha chế</p>
+            <p class="cuisine-cap-desc">Sự kết hợp tinh tế giữa hương vị và ánh sáng</p>
+          </div>
+          <div class="cuisine-item">
+            <div class="cuisine-img-wrap">
+              <img
+                src="./assets/gallery/lougne/lougne-5.webp"
+                alt="Golden Sun Lounge – Velvet Hour"
+                decoding="async"
+              />
+            </div>
+            <p class="cuisine-cap-name">Velvet Hour</p>
+            <p class="cuisine-cap-desc">Chiều không gian đầy chất thơ và sự chiêm nghiệm</p>
+          </div>
         </div>
       </div>
     </div>
@@ -6257,10 +6283,20 @@
           if (e.key === "ArrowRight") goPhotoZoom(1);
         });
 
-        // Delegate: click .cuisine-img-wrap → lấy tập ảnh cùng lightbox
+        // Delegate: click .cuisine-img-wrap
         document.addEventListener("click", function (e) {
           var wrap = e.target.closest(".cuisine-img-wrap");
           if (!wrap) return;
+
+          // Nếu chứa video, mở lightbox video
+          var clickedVid = wrap.querySelector("video");
+          if (clickedVid) {
+            var src = clickedVid.getAttribute("src") || (clickedVid.querySelector("source") && clickedVid.querySelector("source").getAttribute("src"));
+            if (src && window.openVideoLightbox) {
+              window.openVideoLightbox(src);
+              return;
+            }
+          }
 
           // Tìm container lightbox cha gần nhất
           var container =
