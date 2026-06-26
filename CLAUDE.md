@@ -203,7 +203,7 @@ $(npm root -g)/sharp-cli/bin/cli.js
 
 ```bash
 SHARP="$(npm root -g)/sharp-cli/bin/cli.js"
-FOLDER="e:/Claude_Projects/soni-portfolio/assets/gallery/<tên-folder>"
+FOLDER="F:/Portfolio_Studio/assets/gallery/<tên-folder>"
 TEMP="$FOLDER/tmp_out"
 mkdir -p "$TEMP"
 
