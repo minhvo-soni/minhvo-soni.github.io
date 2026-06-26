@@ -330,32 +330,34 @@ video {
   width: 48px;
   height: 48px;
   border-radius: 50%;
-  background: rgba(5, 5, 5, 0.55);
+  background: rgba(5, 5, 5, 0.6);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
-  border: 0.5px solid rgba(255, 255, 255, 0.13);
-  color: rgba(255, 255, 255, 0.65);
+  border: 0.5px solid rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.7);
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  opacity: 0.22;
+  opacity: 0.7;
   transition:
     opacity 0.28s,
     background 0.25s,
     border-color 0.25s,
-    color 0.25s;
+    color 0.25s,
+    transform 0.25s;
   pointer-events: auto;
 }
 
 #galleries-sticky:hover .gal-nav-btn {
-  opacity: 1;
+  opacity: 0.7;
 }
 
 .gal-nav-btn:hover {
-  background: rgba(212, 175, 55, 0.12);
-  border-color: rgba(212, 175, 55, 0.45);
-  color: #d4af37;
+  background: rgba(212, 175, 55, 0.18) !important;
+  border-color: rgba(212, 175, 55, 0.6) !important;
+  color: #d4af37 !important;
+  opacity: 1 !important;
 }
 
 .gal-nav-btn:active {
@@ -1082,31 +1084,52 @@ video {
 /* ── Film Edge Arrows ── */
 .film-edge-btn {
   position: absolute;
-  top: 38%;
+  top: 40%;
   transform: translateY(-50%);
   z-index: 10;
-  width: 32px;
-  height: 32px;
-  background: transparent;
-  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(5, 5, 5, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 0.5px solid rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.7);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: rgba(255, 255, 255, 0.35);
   cursor: pointer;
-  transition: color 0.2s;
+  opacity: 0.7;
+  transition:
+    opacity 0.28s,
+    background 0.25s,
+    border-color 0.25s,
+    color 0.25s,
+    transform 0.25s;
+}
+
+.film-edge-btn svg {
+  width: 14px;
+  height: 14px;
 }
 
 .film-edge-btn:hover {
-  color: rgba(255, 255, 255, 0.9);
+  background: rgba(212, 175, 55, 0.18) !important;
+  border-color: rgba(212, 175, 55, 0.6) !important;
+  color: #d4af37 !important;
+  opacity: 1 !important;
+}
+
+.film-edge-btn:active {
+  transform: translateY(-50%) scale(0.92);
 }
 
 .film-edge-prev {
-  left: 1rem;
+  left: 1.25rem;
 }
 
 .film-edge-next {
-  right: 1rem;
+  right: 1.25rem;
 }
 
 @media (max-width: 767px) {
