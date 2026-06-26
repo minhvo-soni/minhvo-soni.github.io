@@ -9,6 +9,45 @@
       gtag('js', new Date());
       gtag('config', 'G-JGN1T44LS8');
     </script>
+    <script>
+      (function() {
+        var cachedProfile = localStorage.getItem('perfProfile');
+        var profile = 'high';
+        
+        if (cachedProfile) {
+          profile = cachedProfile;
+        } else {
+          var isSlowNet = false;
+          var conn = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+          if (conn) {
+            if (conn.saveData === true || ['slow-2g', '2g', '3g'].includes(conn.effectiveType)) {
+              isSlowNet = true;
+            }
+          }
+          
+          var isLowHardware = false;
+          if ((navigator.deviceMemory && navigator.deviceMemory < 4) || 
+              (navigator.hardwareConcurrency && navigator.hardwareConcurrency < 4)) {
+            isLowHardware = true;
+          }
+          
+          var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+          var isLowEndMobile = (window.innerWidth < 600 && navigator.maxTouchPoints > 0);
+          
+          if (isSlowNet || isLowHardware || prefersReducedMotion || isLowEndMobile) {
+            profile = 'eco';
+          }
+          
+          try {
+            localStorage.setItem('perfProfile', profile);
+          } catch(e) {}
+        }
+        
+        window.perfProfile = profile;
+        document.documentElement.classList.add('perf-' + profile);
+        console.log('[Perf Engine] Profile initialized: ' + profile);
+      })();
+    </script>
     <meta charset="UTF-8" />
     <meta
       name="viewport"
@@ -613,6 +652,22 @@
         background: 
           radial-gradient(circle at center, rgba(5, 5, 5, 0.15) 0%, rgba(5, 5, 5, 0.5) 45%, #050505 85%),
           linear-gradient(to bottom, #050505 0%, transparent 12%, transparent 88%, #050505 100%);
+      }
+
+      /* ── Performance Engine: Eco Mode Optimizations ── */
+      .perf-eco * {
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+        transition-duration: 0.1s !important;
+      }
+      .perf-eco .hero-title {
+        text-shadow: none !important;
+        animation: none !important;
+      }
+      .perf-eco .film-edge-btn, 
+      .perf-eco .gal-nav-btn {
+        backdrop-filter: none !important;
+        background: rgba(5, 5, 5, 0.9) !important;
       }
     </style>
   </head>
@@ -6050,7 +6105,7 @@
 
         var reduced = window.matchMedia(
           "(prefers-reduced-motion: reduce)",
-        ).matches;
+        ).matches || (window.perfProfile === 'eco');
         if (reduced) return;
 
         function fadeUp(targets, trigger, opts) {
@@ -6434,6 +6489,10 @@
               entries.forEach(function (entry) {
                 if (!entry.isIntersecting) return;
                 var vid = entry.target;
+                if (window.perfProfile === 'eco') {
+                  observer.unobserve(vid);
+                  return;
+                }
                 Array.from(vid.children).forEach(function (child) {
                   if (child.tagName === "SOURCE" && child.dataset.src) {
                     child.src = child.dataset.src;
@@ -6453,17 +6512,19 @@
         }
 
         // ── Hover-play ──
-        document.querySelectorAll(".bts-card").forEach(function (card) {
-          var vid = card.querySelector("video");
-          if (!vid) return;
-          card.addEventListener("mouseenter", function () {
-            vid.play();
+        if (window.perfProfile !== 'eco') {
+          document.querySelectorAll(".bts-card").forEach(function (card) {
+            var vid = card.querySelector("video");
+            if (!vid) return;
+            card.addEventListener("mouseenter", function () {
+              vid.play();
+            });
+            card.addEventListener("mouseleave", function () {
+              vid.pause();
+              vid.currentTime = 0;
+            });
           });
-          card.addEventListener("mouseleave", function () {
-            vid.pause();
-            vid.currentTime = 0;
-          });
-        });
+        }
       })();
     </script>
 
@@ -6473,6 +6534,13 @@
         var cards = document.querySelectorAll(".bts-card");
         var container = document.querySelector(".bts-scatter");
         if (!cards.length || !container) return;
+
+        if (window.perfProfile === 'eco') {
+          cards.forEach(function (card) {
+            card.style.cursor = "default";
+          });
+          return;
+        }
 
         var activeCard = null;
         var startX = 0, startY = 0;
