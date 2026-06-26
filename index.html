@@ -775,10 +775,17 @@
       <style>
         .galaxy-responsive-wrap {
           position: absolute;
-          inset: 0;
+          inset: 0 !important;
           z-index: 1;
           pointer-events: none;
           opacity: 0.85;
+          width: 100% !important;
+          height: 100% !important;
+        }
+        .galaxy-responsive-wrap canvas {
+          display: block !important;
+          width: 100% !important;
+          height: 100% !important;
         }
       </style>
       <!-- Galaxy WebGL Background -->
@@ -6996,7 +7003,7 @@
 
     <!-- Galaxy WebGL Initialization -->
     <script type="module">
-      import { Galaxy } from './src/js/modules/galaxy.js';
+      import { Galaxy } from './src/js/modules/galaxy.js?v=2';
 
       document.addEventListener('DOMContentLoaded', () => {
         const heroSection = document.getElementById('hero');

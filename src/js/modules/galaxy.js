@@ -299,8 +299,15 @@ export class Galaxy {
       this.program.uniforms['uResolution'].value.set(w, h, w / h);
     };
 
-    window.addEventListener('resize', resize, false);
-    this.resizeHandler = () => window.removeEventListener('resize', resize);
+    if (typeof ResizeObserver !== 'undefined') {
+      this.resizeObserver = new ResizeObserver(() => {
+        resize();
+      });
+      this.resizeObserver.observe(this.container);
+    } else {
+      window.addEventListener('resize', resize, false);
+      this.resizeHandler = () => window.removeEventListener('resize', resize);
+    }
     resize();
 
     // Mouse events
@@ -376,6 +383,11 @@ export class Galaxy {
 
     this.onPointerMove = null;
     this.onPointerLeave = null;
+
+    if (this.resizeObserver) {
+      this.resizeObserver.disconnect();
+      this.resizeObserver = null;
+    }
 
     if (this.resizeHandler) {
       this.resizeHandler();
