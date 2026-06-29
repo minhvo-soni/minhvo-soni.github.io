@@ -1,4 +1,4 @@
-*,
+﻿*,
 *::before,
 *::after {
   box-sizing: border-box;
@@ -3101,7 +3101,7 @@ footer {
 .ai-btn-white {
   width: 100%;
   background: #fff;
-  color: #000;
+  color: #050505;
   padding: 0.7rem 1rem;
   border-radius: 0.75rem;
   font-size: 10px;

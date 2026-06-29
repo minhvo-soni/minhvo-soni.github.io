@@ -528,9 +528,11 @@
 
       /* ── Hero Layout & Glowing Text Style - Option 2 Centered ── */
       .hero-title {
-        font-family: "Be Vietnam Pro", system-ui, sans-serif;
+        font-family: "Amulya", Georgia, serif;
         font-weight: 900;
-        letter-spacing: -0.01em;
+        font-size: clamp(3.5rem, 12vw, 9rem);
+        line-height: 0.9;
+        letter-spacing: -0.02em;
         text-shadow: 
           0 0 10px rgba(255, 255, 255, 0.95),
           0 0 25px rgba(255, 255, 255, 0.7),
@@ -594,34 +596,30 @@
         fill: currentColor;
       }
       
-      /* Glassmorphic Capsule Button */
+      /* Gold CTA Button — DESIGN.md: button-primary */
       .hero-btn {
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        background: rgba(255, 255, 255, 0.14);
-        backdrop-filter: blur(16px);
-        -webkit-backdrop-filter: blur(16px);
-        border: 0.5px solid rgba(255, 255, 255, 0.16);
-        color: #ffffff;
-        padding: 0.68rem 1.85rem;
+        background: rgba(212, 175, 55, 0.08);
+        border: 0.5px solid rgba(212, 175, 55, 0.45);
+        color: #D4AF37;
+        padding: 0.75rem 2.25rem;
         border-radius: 9999px;
-        font-family: 'Be Vietnam Pro', system-ui, sans-serif;
-        font-size: 11.5px;
+        font-family: "Be Vietnam Pro", system-ui, sans-serif;
+        font-size: 10px;
         font-weight: 500;
-        letter-spacing: 0.15em;
+        letter-spacing: 0.22em;
         text-transform: uppercase;
         cursor: pointer;
         text-decoration: none;
-        transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+        transition: background 0.28s ease, border-color 0.28s ease, color 0.28s ease, transform 0.25s ease;
       }
       .hero-btn:hover {
-        background: rgba(255, 255, 255, 0.26);
-        border-color: rgba(255, 255, 255, 0.32);
-        transform: translateY(-2px);
-        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        background: rgba(212, 175, 55, 0.10);
+        border-color: #D4AF37;
         color: #ffffff;
+        transform: translateY(-2px);
       }
       .hero-btn:active {
         transform: translateY(0);
@@ -798,7 +796,7 @@
         <!-- Name -->
         <h1
           id="hero-name"
-          class="hero-title text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-extrabold uppercase tracking-tight text-white leading-none margin-0"
+          class="hero-title uppercase text-white"
         >
           Soni
         </h1>
