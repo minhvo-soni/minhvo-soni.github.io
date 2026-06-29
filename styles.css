@@ -37,6 +37,52 @@ body {
   overscroll-behavior-y: none; /* Tắt pull-to-refresh không mong muốn */
 }
 
+/* ── DESIGN.md: CSS Custom Properties (Design Tokens) ────────────── */
+:root {
+  /* Colors */
+  --color-bg:           #050505;
+  --color-surface:      #0d0d0d;
+  --color-primary:      #ffffff;
+  --color-secondary:    rgba(255, 255, 255, 0.52);
+  --color-muted:        rgba(255, 255, 255, 0.28);
+  --color-accent:       #D4AF37;
+  --color-accent-hover: rgba(212, 175, 55, 0.10);
+  --color-border:       rgba(255, 255, 255, 0.09);
+  --color-border-accent:rgba(212, 175, 55, 0.45);
+
+  /* Typography */
+  --font-display:  "Amulya", Georgia, serif;
+  --font-body:     "Be Vietnam Pro", system-ui, sans-serif;
+  --font-editorial:"Cormorant Garamond", Georgia, serif;
+
+  /* Rounded */
+  --rounded-sm:   4px;
+  --rounded-md:   8px;
+  --rounded-lg:   1.35rem;
+  --rounded-full: 9999px;
+
+  /* Spacing */
+  --space-xs:  4px;
+  --space-sm:  8px;
+  --space-md:  16px;
+  --space-lg:  24px;
+  --space-xl:  40px;
+  --space-2xl: 64px;
+}
+
+/* ── DESIGN.md: Font utility classes ──────────────────────────────── */
+.font-display   { font-family: var(--font-display);   }
+.font-editorial { font-family: var(--font-editorial); }
+.font-body      { font-family: var(--font-body);      }
+.font-label-caps {
+  font-family: var(--font-body);
+  font-size: 0.625rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+
 ::selection {
   background: #d4af37;
   color: #050505;
@@ -581,7 +627,7 @@ video {
 }
 .bts-card {
   position: absolute;
-  border-radius: 6px;
+  border-radius: 4px;
   overflow: hidden;
   cursor: pointer;
   opacity: 1;
@@ -748,7 +794,7 @@ video {
   position: relative;
   width: 100%;
   aspect-ratio: 9 / 16;
-  border-radius: 6px;
+  border-radius: 4px;
   overflow: hidden;
   background: #0b0b0b;
   border: 0.5px solid rgba(255, 255, 255, 0.05);
@@ -1013,7 +1059,7 @@ video {
 .brand-ph-wrap {
   width: 100%;
   aspect-ratio: 9 / 16;
-  border-radius: 6px;
+  border-radius: 4px;
   background: #111111;
   border: 1px dashed rgba(255, 255, 255, 0.2);
   display: flex;
@@ -1180,7 +1226,7 @@ video {
   color: rgba(255, 255, 255, 0.9);
   background: rgba(0, 0, 0, 0.58);
   padding: 0.17rem 0.4rem;
-  border-radius: 3px;
+  border-radius: 4px;
   opacity: 0;
   transition: opacity 0.3s;
   pointer-events: none;
@@ -1459,7 +1505,7 @@ video {
     padding: 1.25rem !important;
     flex-shrink: 0 !important;
     scroll-snap-align: start !important;
-    border-radius: 12px !important;
+    border-radius: 1.35rem !important;
     border: 0.5px solid rgba(255, 255, 255, 0.08) !important;
     background: rgba(255, 255, 255, 0.02) !important;
   }
@@ -1639,7 +1685,7 @@ video {
   height: auto !important;
   width: 100%;
   overflow: hidden;
-  border-radius: 3px;
+  border-radius: 4px;
   background: #111;
   border: 0.5px solid rgba(255, 255, 255, 0.05);
   cursor: zoom-in;
@@ -1671,7 +1717,7 @@ video {
   aspect-ratio: unset;
   height: auto;
   overflow: hidden;
-  border-radius: 3px;
+  border-radius: 4px;
   background: #111;
   border: 0.5px solid rgba(255, 255, 255, 0.05);
   cursor: zoom-in;
