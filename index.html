@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="vi">
   <head>
     <!-- Google Analytics 4 -->
@@ -6935,7 +6935,7 @@
         const btnConfirm = document.getElementById("cvBtnConfirm");
         
         // Mật khẩu chính thức. Bạn có thể đổi mật khẩu tại đây.
-        const CORRECT_PASSWORD = "soni"; 
+        const CORRECT_PASSWORD = "soni040100";
         
         if (!downloadBtns.length || !modal || !input) return;
         
@@ -6970,7 +6970,7 @@
         
         function verifyPassword() {
           const val = input.value.trim();
-          if (val === CORRECT_PASSWORD || val === "soni2026" || val === "soni@2026") {
+          if (val === CORRECT_PASSWORD) {
             // Mật khẩu đúng -> Mở CV sang tab mới để xem/tải
             window.open("./assets/CV-SoniVQM.pdf", "_blank");
             if (typeof gtag !== "undefined") {
